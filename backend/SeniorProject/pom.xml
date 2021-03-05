@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.secure.taction</groupId>
 	<artifactId>SeniorProject</artifactId>
-	<version>0.0.1-ST-0-SNAPSHOT</version>
+	<version>ST-1-SNAPSHOT</version>
 	<name>SeniorProject</name>
 	<description>App for Cal Poly Senior Project</description>
 	<properties>
