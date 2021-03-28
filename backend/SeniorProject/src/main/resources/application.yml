@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: secureBank
+server:
+    port: 10180
+    contextPath: /api

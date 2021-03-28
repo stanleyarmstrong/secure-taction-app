@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.secure.taction</groupId>
 	<artifactId>SeniorProject</artifactId>
-	<version>ST-1-SNAPSHOT</version>
+	<version>ST-4-SNAPSHOT</version>
 	<name>SeniorProject</name>
 	<description>App for Cal Poly Senior Project</description>
 	<properties>
@@ -40,6 +40,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
 
 		<dependency>
