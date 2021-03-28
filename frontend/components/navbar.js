@@ -3,13 +3,13 @@ import {StyleSheet} from 'react-native';
 import {Appbar} from 'react-native-paper';
 import {View} from 'react-native';
 
-const Navbar = props => {
+const Navbar = (props) => {
   return (
     <View>
       <Appbar.Header style={styles.barColor}>
-        <Appbar.BackAction icon={props.backIcon} />
-        <Appbar.Content title={props.title} />
-        <Appbar.Action icon={props.frontIcon} />
+        <Appbar.Action icon={props.backIcon} size={35} />
+        <Appbar.Content title={props.title} titleStyle={styles.title} />
+        <Appbar.Action icon={props.frontIcon} size={35} />
       </Appbar.Header>
     </View>
   );
@@ -18,7 +18,10 @@ const Navbar = props => {
 const styles = StyleSheet.create({
   barColor: {
     backgroundColor: '#00A7E1',
-  }
+  },
+  title: {
+    fontSize: 18,
+  },
 });
 
 export default Navbar;
