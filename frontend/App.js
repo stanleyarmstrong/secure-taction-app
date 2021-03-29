@@ -13,7 +13,11 @@ import Navbar from './components/navbar';
 const App = () => {
   return (
     <View>
-      <Navbar title="Good Afternoon, First Last" backIcon="account-circle-outline" frontIcon=/>
+      <Navbar
+        title="Good Afternoon, First Last"
+        backIcon="account-circle-outline"
+        frontIcon="bell-outline"
+      />
     </View>
   );
 };
