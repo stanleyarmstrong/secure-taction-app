@@ -5,65 +5,71 @@ import java.util.List;
 
 import com.amazonaws.services.dynamodbv2.model.AttributeDefinition;
 import com.amazonaws.services.dynamodbv2.model.KeySchemaElement;
+import com.amazonaws.services.dynamodbv2.model.KeyType;
 import com.amazonaws.services.dynamodbv2.model.ProvisionedThroughput;
 
 public class UserTableConstants {
     
     public static String USER_TABLE_NAME = "ST_USER";
+    public static String USER_ID = "USER_ID";
+    public static String USER_NAME = "USER_NAME";
+    public static String EMAIL = "EMAIL";
+    public static String PASSWORD = "PASSWORD";
+    public static String PHONE_NUMBER = "PHONE_NUMBER";
+    public static String FIRST_NAME = "FIRST_NAME";
+    public static String LAST_NAME = "LAST_NAME";
+
+    private static List<KeySchemaElement> USER_KEY_SCHEMA = 
+        Arrays.asList(
+            new KeySchemaElement()
+                .withAttributeName(USER_ID)
+                .withKeyType(KeyType.HASH),
+            new KeySchemaElement()
+                .withAttributeName(USER_NAME)
+                .withKeyType(KeyType.RANGE)
+        );
     
-    private static List<AttributeDefinition> USER_ATTRIBUTES = 
+    private static List<AttributeDefinition> USER_ATTRIBUTE_DEFINITIONS =
         Arrays.asList(
             new AttributeDefinition()
-                .withAttributeName("USER_ID")
+                .withAttributeName(USER_ID)
                 .withAttributeType("S"),
             new AttributeDefinition()
-                .withAttributeName("USER_NAME")
+                .withAttributeName(USER_NAME)
+                .withAttributeType("S")
+        );
+    
+    private static List<AttributeDefinition> USER_ALL_ATTRIBUTES = 
+        Arrays.asList(
+            new AttributeDefinition()
+                .withAttributeName(USER_ID)
                 .withAttributeType("S"),
             new AttributeDefinition()
-                .withAttributeName("EMAIL")
+                .withAttributeName(USER_NAME)
                 .withAttributeType("S"),
             new AttributeDefinition()
-                .withAttributeName("PASSWORD")
+                .withAttributeName(EMAIL)
                 .withAttributeType("S"),
             new AttributeDefinition()
-                .withAttributeName("PHONE_NUMBER")
+                .withAttributeName(PASSWORD)
                 .withAttributeType("S"),
             new AttributeDefinition()
-                .withAttributeName("FIRST_NAME")
+                .withAttributeName(PHONE_NUMBER)
                 .withAttributeType("S"),
             new AttributeDefinition()
-                .withAttributeName("LAST_NAME")
+                .withAttributeName(FIRST_NAME)
+                .withAttributeType("S"),
+            new AttributeDefinition()
+                .withAttributeName(LAST_NAME)
                 .withAttributeType("S")
     );
-    private static List<KeySchemaElement> USER_SCHEMA_ELEMENTS = 
-        Arrays.asList(
-            new KeySchemaElement()
-                .withAttributeName("USER_ID")
-                .withKeyType("HASH"),
-            new KeySchemaElement()
-                .withAttributeName("USER_NAME")
-                .withKeyType("S"),
-            new KeySchemaElement()
-                .withAttributeName("EMAIL")
-                .withKeyType("S"),
-            new KeySchemaElement()
-                .withAttributeName("PASSWORD")
-                .withKeyType("S"),
-            new KeySchemaElement()
-                .withAttributeName("PHONE_NUMBER")
-                .withKeyType("S"),
-            new KeySchemaElement()
-                .withAttributeName("FIRST_NAME")
-                .withKeyType("S"),
-            new KeySchemaElement()
-                .withAttributeName("LAST_NAME")
-                .withKeyType("S")
-    );
+
     private static ProvisionedThroughput USER_TABLE_THROUGHPUT = new ProvisionedThroughput()
                     .withReadCapacityUnits(5L)
                     .withWriteCapacityUnits(6L);
 
-    public static List<AttributeDefinition> getUserAttributeDefinitions() {return USER_ATTRIBUTES;}
-    public static List<KeySchemaElement> getUserSchemaElements() {return USER_SCHEMA_ELEMENTS;}
+    public static List<KeySchemaElement> getUserKeySchema() {return USER_KEY_SCHEMA;}
+    public static List<AttributeDefinition> getUserAttributeDefinitions() {return USER_ATTRIBUTE_DEFINITIONS;}
+    public static List<AttributeDefinition> getUserAllAttributeDefinitions() {return USER_ALL_ATTRIBUTES;}
     public static ProvisionedThroughput getUserProvisionedThroughPut() {return USER_TABLE_THROUGHPUT;}
 }
