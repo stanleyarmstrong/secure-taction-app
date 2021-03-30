@@ -53,14 +53,14 @@ public class CreditCardTableService {
     }
 
     public String deleteTable() {
-        Table table = dynamoDB.getTable(UserTableConstants.USER_TABLE_NAME);
+        Table table = dynamoDB.getTable(CreditCardTableConstants.CREDIT_CARD_TABLE_NAME);
         try {
             System.out.println("Issuing DeleteTable request");
             table.delete();
 
-            System.out.println("Waiting for " + UserTableConstants.USER_TABLE_NAME + "...");
+            System.out.println("Waiting for " + CreditCardTableConstants.CREDIT_CARD_TABLE_NAME + "...");
             table.waitForDelete();
-            return "Table: " + UserTableConstants.USER_TABLE_NAME + "successfully deleted";
+            return "Table: " + CreditCardTableConstants.CREDIT_CARD_TABLE_NAME + "successfully deleted";
         } catch (Exception e) {
             System.err.println("DeleteTable request failed");
             return e.getMessage();

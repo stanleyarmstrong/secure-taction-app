@@ -23,8 +23,8 @@ public class UserTableController {
     }
 
     @RequestMapping(value = "list", method = RequestMethod.GET) 
-    public String listTables() {
-        return tableService.listTables();
+    public void listTables() {
+        tableService.listTables();
     }
 
     @RequestMapping(value = "/killer/delete", method = RequestMethod.DELETE)

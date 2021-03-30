@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/table/credit-card")
-public class CreditCardTable {
+public class CreditCardTableController {
     
     private final CreditCardTableService tableService;
     @Autowired
-    public CreditCardTable(CreditCardTableService tableService) {
+    public CreditCardTableController(CreditCardTableService tableService) {
         this.tableService = tableService;
     }
 

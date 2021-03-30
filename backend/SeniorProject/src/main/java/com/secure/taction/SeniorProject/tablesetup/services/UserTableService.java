@@ -51,7 +51,7 @@ public class UserTableService {
         return resultString;
     }
 
-    public String listTables() {
+    public void listTables() {
         TableCollection<ListTablesResult> tables = dynamoDB.listTables();
         Iterator<Table> iterator = tables.iterator();
         String names = "";
@@ -59,9 +59,8 @@ public class UserTableService {
 
         while (iterator.hasNext()) {
             Table table = iterator.next();
-            names += table.getTableName();
+            System.out.println(table.getTableName());
         }
-        return names;
     }
 
     public String deleteTable() {
