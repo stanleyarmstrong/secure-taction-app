@@ -51,4 +51,19 @@ public class CreditCardTableService {
             tableDescription.getProvisionedThroughput().getWriteCapacityUnits());
         return resultString;
     }
+
+    public String deleteTable() {
+        Table table = dynamoDB.getTable(UserTableConstants.USER_TABLE_NAME);
+        try {
+            System.out.println("Issuing DeleteTable request");
+            table.delete();
+
+            System.out.println("Waiting for " + UserTableConstants.USER_TABLE_NAME + "...");
+            table.waitForDelete();
+            return "Table: " + UserTableConstants.USER_TABLE_NAME + "successfully deleted";
+        } catch (Exception e) {
+            System.err.println("DeleteTable request failed");
+            return e.getMessage();
+        }
+    }
 }

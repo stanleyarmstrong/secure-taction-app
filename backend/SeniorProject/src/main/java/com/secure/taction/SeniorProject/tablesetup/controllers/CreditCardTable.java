@@ -24,11 +24,6 @@ public class CreditCardTable {
         return tableService.createTable();
     }
 
-    @RequestMapping(value = "list", method = RequestMethod.GET) 
-    public String listTables() {
-        return tableService.listTables();
-    }
-
     @RequestMapping(value = "/killer/delete", method = RequestMethod.DELETE)
     public String deleteUsersTable() {
         // This method is for testing purposes only DON'T CALL IT
