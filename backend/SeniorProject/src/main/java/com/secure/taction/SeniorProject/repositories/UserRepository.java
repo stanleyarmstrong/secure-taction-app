@@ -15,7 +15,7 @@ import com.amazonaws.services.dynamodbv2.document.Item;
 import com.amazonaws.services.dynamodbv2.document.PutItemOutcome;
 import com.amazonaws.services.dynamodbv2.document.Table;
 import com.amazonaws.services.dynamodbv2.document.spec.GetItemSpec;
-import com.secure.taction.SeniorProject.dtos.User;
+import com.secure.taction.SeniorProject.dtos.user.UserDto;
 
 @Repository
 public class UserRepository {
@@ -25,14 +25,14 @@ public class UserRepository {
 	AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().build();
 	DynamoDB dynamoDb = new DynamoDB(client);
 
-	public User getUser(String key) {
+	public UserDto getUser(String key) {
 		Table table = dynamoDb.getTable("user");
 		GetItemSpec spec = new GetItemSpec().withPrimaryKey("user_id", key);
 		try {
 			System.out.println("Attempting to read item");
 			Item outcome = table.getItem(spec);
 			if (Objects.nonNull(outcome)) {
-				User user = new User();
+				UserDto user = new UserDto();
 				user.setUserId(outcome.get("user_id").toString());
 				user.setFirstName(outcome.get("first_name").toString());
 				user.setLastName(outcome.get("last_name").toString());
@@ -44,7 +44,7 @@ public class UserRepository {
 		return null;
 	}
 
-	public String addUser(User user) {
+	public String addUser(UserDto user) {
 		Table table = dynamoDb.getTable("user");
 		try {
 			// final Map<String, String> addressMap = new HashMap<String, String>();

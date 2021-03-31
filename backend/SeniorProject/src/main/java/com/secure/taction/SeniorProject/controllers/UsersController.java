@@ -1,6 +1,6 @@
 package com.secure.taction.SeniorProject.controllers;
 
-import com.secure.taction.SeniorProject.dtos.User;
+import com.secure.taction.SeniorProject.dtos.user.UserDto;
 import com.secure.taction.SeniorProject.repositories.UserRepository;
 import com.secure.taction.SeniorProject.services.UserService;
 
@@ -30,13 +30,15 @@ public class UsersController {
         return "Greetings from Spring Boot!";
     }
 	
+    /*
 	@RequestMapping(method = RequestMethod.POST)
-	public String addUserDetails(@RequestBody User user) {
-		return userRepository.addUser(user);
+	public UserDto addUserDetails(@RequestBody UserDto user) {
+		return userService.save(user); 
 	}
+    */
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public User getUserDetails(@PathVariable("id") String key) {
+	public UserDto getUserDetails(@PathVariable("id") String key) {
 		return userRepository.getUser(key);
 	}
 }

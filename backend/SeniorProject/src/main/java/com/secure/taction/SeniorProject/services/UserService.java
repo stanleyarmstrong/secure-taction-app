@@ -1,5 +1,6 @@
 package com.secure.taction.SeniorProject.services;
 
+import com.secure.taction.SeniorProject.dtos.user.UserDto;
 import com.secure.taction.SeniorProject.repositories.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ public class UserService {
     }
 
     /*
-        TODO: Call methods from Repository here to use in the controll
+    public UserDto save(UserDto user) {
+
+    }
     */
 }

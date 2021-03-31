@@ -22,6 +22,12 @@ public class UserTableService {
             .withEndpointConfiguration(new AwsClientBuilder
                 .EndpointConfiguration("http://localhost:8000", "us-west-2"))
             .build();
+            /*
+    static AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard()
+        .withRegion(Regions.US_WEST_2)
+        .build();
+        */
+
     static DynamoDB dynamoDB = new DynamoDB(client);
 
     public String createTable() {
