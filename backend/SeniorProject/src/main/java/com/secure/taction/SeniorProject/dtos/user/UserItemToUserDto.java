@@ -6,12 +6,14 @@ import com.secure.taction.SeniorProject.models.User;
 import com.secure.taction.SeniorProject.tablesetup.constants.UserTableConstants;
 
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Component;
 
+@Component
 public class UserItemToUserDto implements Converter<User, UserDto> {
 
     @Override
-    public UserDto convert(User item) {
-        Map<String, Object> argItem = item.getAttributes();
+    public UserDto convert(User user) {
+        Map<String, Object> argItem = user.getAttributes();
         return new UserDto()
             .withUserId((String) argItem.get(UserTableConstants.USER_ID))     
             .withUserName((String) argItem.get(UserTableConstants.USER_NAME))

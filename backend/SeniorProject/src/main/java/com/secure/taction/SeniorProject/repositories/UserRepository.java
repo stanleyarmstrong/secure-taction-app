@@ -16,6 +16,8 @@ import com.amazonaws.services.dynamodbv2.document.PutItemOutcome;
 import com.amazonaws.services.dynamodbv2.document.Table;
 import com.amazonaws.services.dynamodbv2.document.spec.GetItemSpec;
 import com.secure.taction.SeniorProject.dtos.user.UserDto;
+import com.secure.taction.SeniorProject.models.User;
+import com.secure.taction.SeniorProject.tablesetup.constants.UserTableConstants;
 
 @Repository
 public class UserRepository {
@@ -44,20 +46,14 @@ public class UserRepository {
 		return null;
 	}
 
-	public String addUser(UserDto user) {
-		Table table = dynamoDb.getTable("user");
+	public User save(User user) {
+		Table table = dynamoDb.getTable(UserTableConstants.USER_TABLE_NAME);
 		try {
-			// final Map<String, String> addressMap = new HashMap<String, String>();
-			// addressMap.put("city", "Hyderabad");
-			// addressMap.put("pin", "500019");
-			PutItemOutcome outcome = table.putItem(
-					new Item().withPrimaryKey("user_id", user.getUserId()).with("first_name", user.getFirstName())
-							.with("last_name", user.getLastName()));
-							//.withMap("address", addressMap));
+			PutItemOutcome outcome = table.putItem(user.getItem());
 			if (Objects.nonNull(outcome))
-				return "SUCCESS";
+				return user;
 			else
-				return "FAILURE";
+				return null; 
 		} catch (Exception e) {
 			LOGGER.error("Exception occurred while adding record to the db : ", e);
 			return null;
