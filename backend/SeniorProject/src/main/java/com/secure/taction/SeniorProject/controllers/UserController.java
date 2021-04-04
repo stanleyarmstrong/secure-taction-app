@@ -27,10 +27,11 @@ public class UserController {
         this.userService = userService;
     }
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<UserDto> findById(@PathVariable("id") String id) {
-		return userService.findById(id)
-                .map(user -> new ResponseEntity<>(user, httpStatus.OK))
+	@RequestMapping(value = "/{id}/{username}", method = RequestMethod.GET)
+	public ResponseEntity<UserDto> findById(@PathVariable("id") String id,
+                                            @PathVariable("username") String username) {
+		return userService.findByIdAndName(id, username)
+                .map(user -> new ResponseEntity<>(user, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
 	}
 	
@@ -41,4 +42,14 @@ public class UserController {
             HttpStatus.CREATED); 
 	}
 
+    @RequestMapping(value = "/{id}/{username}", method = RequestMethod.DELETE)
+    public ResponseEntity<Object> delete(@PathVariable("id") String id,
+                                         @PathVariable("username") String username) {
+        ResponseEntity<Object> toReturn = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        if (userService.findByIdAndName(id,username).isPresent()) {
+            userService.deleteByIdAndName(id, username);
+            toReturn = new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return toReturn;
+    }
 }

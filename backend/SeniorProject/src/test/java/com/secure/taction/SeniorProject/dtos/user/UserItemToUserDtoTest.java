@@ -2,6 +2,8 @@ package com.secure.taction.SeniorProject.dtos.user;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.UUID;
+
 import com.amazonaws.services.dynamodbv2.document.Item;
 import com.secure.taction.SeniorProject.models.User;
 import com.secure.taction.SeniorProject.tablesetup.constants.UserTableConstants;
@@ -19,7 +21,7 @@ public class UserItemToUserDtoTest {
 
     @Test
     public void convert() {
-        final String USER_ID = "user id";
+        final String USER_ID = UUID.randomUUID().toString().toUpperCase();
         final String USER_NAME = "user name";
         final String EMAIL = "email";
         final String PASSWORD = "password";

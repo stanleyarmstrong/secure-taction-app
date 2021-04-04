@@ -4,7 +4,6 @@ import org.springframework.lang.NonNull;
 
 public class UserDto {
 
-	@NonNull
     private String userId;
 	@NonNull
 	private String userName;

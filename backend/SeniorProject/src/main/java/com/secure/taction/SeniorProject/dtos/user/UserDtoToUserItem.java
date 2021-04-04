@@ -16,7 +16,7 @@ public class UserDtoToUserItem implements Converter<UserDto, User> {
     public User convert(UserDto dto) {
         return new User().withItem(
             new Item()
-                .withPrimaryKey(UserTableConstants.USER_ID, dto.getUserId())
+                .withPrimaryKey(UserTableConstants.USER_ID, UUID.randomUUID().toString().toUpperCase())
                 .with(UserTableConstants.USER_NAME, dto.getUserName())
                 .with(UserTableConstants.EMAIL, dto.getEmail())
                 .with(UserTableConstants.PASSWORD, dto.getPassword())
