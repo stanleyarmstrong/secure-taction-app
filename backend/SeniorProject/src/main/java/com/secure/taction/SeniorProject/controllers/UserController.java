@@ -1,10 +1,13 @@
 package com.secure.taction.SeniorProject.controllers;
 
+import java.util.List;
+
 import com.secure.taction.SeniorProject.dtos.user.UserDto;
 import com.secure.taction.SeniorProject.repositories.UserRepository;
 import com.secure.taction.SeniorProject.services.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +30,12 @@ public class UserController {
         this.userService = userService;
     }
 
+    @RequestMapping(method = RequestMethod.GET)
+    public void search() {
+        // STUB
+        // Return type and functionality TBD
+    }
+
 	@RequestMapping(value = "/{id}/{username}", method = RequestMethod.GET)
 	public ResponseEntity<UserDto> findById(@PathVariable("id") String id,
                                             @PathVariable("username") String username) {
@@ -41,6 +50,13 @@ public class UserController {
             userService.save(user),
             HttpStatus.CREATED); 
 	}
+
+    @RequestMapping(method = RequestMethod.PUT)
+    public ResponseEntity<Object> update(@RequestBody UserDto user) {
+        return userService.findByIdAndName(user.getUserId(), user.getUserName()).isPresent()
+                ? new ResponseEntity<>(userService.update(user), HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
 
     @RequestMapping(value = "/{id}/{username}", method = RequestMethod.DELETE)
     public ResponseEntity<Object> delete(@PathVariable("id") String id,

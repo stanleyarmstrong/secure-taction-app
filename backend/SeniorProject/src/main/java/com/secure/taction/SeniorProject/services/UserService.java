@@ -13,6 +13,7 @@ import com.secure.taction.SeniorProject.repositories.UserRepository;
 import com.secure.taction.SeniorProject.tablesetup.constants.UserTableConstants;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -33,7 +34,7 @@ public class UserService {
 
 
 
-    public Optional<UserDto> findByIdAndName(String id, String username) {
+    public Optional<UserDto> findByIdAndName(@NonNull String id, @NonNull String username) {
         GetItemSpec spec = new GetItemSpec().withPrimaryKey(UserTableConstants.USER_ID, id,
                                                             UserTableConstants.USER_NAME, username);
         Optional<UserDto> toReturn = Optional.empty();
@@ -55,7 +56,15 @@ public class UserService {
                 userRepository.save(user));
     }
 
-    public void deleteByIdAndName(String id, String username) {
+    public UserDto update(UserDto userDto) {
+        return itemToDto.convert(
+                userRepository.update(userDto))
+                .withUserId(userDto.getUserId())
+                .withUserName(userDto.getUserName());
+                
+    }
+
+    public void deleteByIdAndName(@NonNull String id, @NonNull String username) {
         DeleteItemSpec spec = new DeleteItemSpec().withPrimaryKey(UserTableConstants.USER_ID, id,
                                                                 UserTableConstants.USER_NAME, username);
         try {
