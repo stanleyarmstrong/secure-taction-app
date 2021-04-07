@@ -16,9 +16,29 @@ const InnerScreen = (props) => {
         <Card.Content>
           <CardRow
             bank={
-              'https://econlife.com/wp-content/uploads/2018/10/image_JP_Morgan_Chase_logo_-_Google_Search-1.jpg'
+              'https://www.pikpng.com/pngl/m/257-2578954_chase-bank-chase-bank-chase-bank-clipart.png'
             }
-            title={'Chase Ending in ...4415'}
+            name={'Chase Ending in ...4415'}
+            progress={0.5}
+            alert={20.5}
+            cancel={300}
+            balance={3000}
+          />
+          <CardRow
+            bank={
+              'https://www.pikpng.com/pngl/m/257-2578954_chase-bank-chase-bank-chase-bank-clipart.png'
+            }
+            name={'Chase Ending in ...4415'}
+            progress={0.5}
+            alert={20.5}
+            cancel={300}
+            balance={3000}
+          />
+          <CardRow
+            bank={
+              'https://www.pikpng.com/pngl/m/257-2578954_chase-bank-chase-bank-chase-bank-clipart.png'
+            }
+            name={'Chase Ending in ...4415'}
             progress={0.5}
             alert={20.5}
             cancel={300}
