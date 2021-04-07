@@ -5,17 +5,9 @@ import * as Progress from 'react-native-progress';
 
 const CardRow = (props) => {
   const getColor = () => {
-    if (props.progress >= 0.85) {
-      return '#00C0E2';
-    } else if (props.progress < 0.85 && props.progress >= 0.7) {
-      return '#00D6CE';
-    } else if (props.progress < 0.7 && props.progress >= 0.55) {
-      return '#4FE7AC';
-    } else if (props.progress < 0.55 && props.progress >= 0.4) {
+    if (props.progress >= 0.1) {
       return '#A8F388';
-    } else if (props.progress < 0.4 && props.progress >= 0.25) {
-      return '#F9F871';
-    } else if (props.progress < 0.25) {
+    } else if (props.progress < 0.1) {
       return '#FF7A72';
     } else {
       return '#C2C2C2';
