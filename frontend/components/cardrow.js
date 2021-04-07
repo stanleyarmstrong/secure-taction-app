@@ -76,8 +76,6 @@ const styles = StyleSheet.create({
   outer: {
     flexDirection: 'row',
     alignContent: 'space-around',
-    marginTop: 10,
-    marginBottom: 10,
   },
   col1: {
     flex: 5,
@@ -92,7 +90,7 @@ const styles = StyleSheet.create({
     flex: 6.25,
     justifyContent: 'space-evenly',
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: 10,
   },
   image: {
     height: 60,
