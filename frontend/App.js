@@ -13,7 +13,7 @@ import InnerScreen from './components/innerscreen';
 
 const App = () => {
   return (
-    <View styles={styles.shell}>
+    <View style={styles.shell}>
       <Navbar
         title="Good Afternoon, First Last"
         backIcon="account-circle-outline"
@@ -27,9 +27,7 @@ const App = () => {
 const styles = StyleSheet.create({
   shell: {
     backgroundColor: '#E9E9E9',
-  },
-  inner: {
-    marginTop: 50,
+    height: '100%',
   },
 });
 
