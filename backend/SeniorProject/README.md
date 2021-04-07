@@ -24,3 +24,5 @@
 - run the project
 - navigate to target/site/jacoco/index.html
 - Find view the page / find the files you'd like to check code coverge
+- OPTIONAL
+- Run 'mvn clean verify' to check coverage met

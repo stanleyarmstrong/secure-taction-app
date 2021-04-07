@@ -1,29 +1,19 @@
 package com.secure.taction.SeniorProject.tablesetup.services;
 
-import java.util.Iterator;
-
-import com.amazonaws.client.builder.AwsClientBuilder;
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.amazonaws.services.dynamodbv2.document.DynamoDB;
 import com.amazonaws.services.dynamodbv2.document.Table;
-import com.amazonaws.services.dynamodbv2.document.TableCollection;
 import com.amazonaws.services.dynamodbv2.model.CreateTableRequest;
-import com.amazonaws.services.dynamodbv2.model.ListTablesResult;
 import com.amazonaws.services.dynamodbv2.model.TableDescription;
+
 import com.secure.taction.SeniorProject.tablesetup.constants.CreditCardTableConstants;
-import com.secure.taction.SeniorProject.tablesetup.constants.UserTableConstants;
+import com.secure.taction.SeniorProject.utils.DynamoClientUtil;
 
 import org.springframework.stereotype.Service;
 
 @Service
 public class CreditCardTableService {
     
-    static AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard()
-            .withEndpointConfiguration(new AwsClientBuilder
-                .EndpointConfiguration("http://localhost:8000", "us-west-2"))
-            .build();
-    static DynamoDB dynamoDB = new DynamoDB(client);
+    DynamoDB dynamoDB = DynamoClientUtil.getClient();   
 
     public String createTable() {
 

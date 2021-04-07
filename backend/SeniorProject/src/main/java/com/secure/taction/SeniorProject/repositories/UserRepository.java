@@ -14,53 +14,85 @@ import com.amazonaws.services.dynamodbv2.document.DynamoDB;
 import com.amazonaws.services.dynamodbv2.document.Item;
 import com.amazonaws.services.dynamodbv2.document.PutItemOutcome;
 import com.amazonaws.services.dynamodbv2.document.Table;
+import com.amazonaws.services.dynamodbv2.document.UpdateItemOutcome;
+import com.amazonaws.services.dynamodbv2.document.spec.DeleteItemSpec;
 import com.amazonaws.services.dynamodbv2.document.spec.GetItemSpec;
-import com.secure.taction.SeniorProject.dtos.User;
+import com.amazonaws.services.dynamodbv2.document.spec.UpdateItemSpec;
+import com.amazonaws.services.dynamodbv2.document.utils.ValueMap;
+import com.amazonaws.services.dynamodbv2.model.ReturnValue;
+import com.secure.taction.SeniorProject.dtos.user.UserDto;
+import com.secure.taction.SeniorProject.models.User;
+import com.secure.taction.SeniorProject.tablesetup.constants.UserTableConstants;
+import com.secure.taction.SeniorProject.utils.DynamoClientUtil;
 
 @Repository
 public class UserRepository {
 	
     private static Logger LOGGER = LoggerFactory.getLogger(UserRepository.class);
+	private static String password = ":password";
+	private static String phoneNumber = ":phoneNumber";
+	private static String firstName = ":firstName";
+	private static String lastName = ":lastName";
+	private static String email = ":email";
 
-	AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().build();
-	DynamoDB dynamoDb = new DynamoDB(client);
+	private static String updateExpression = 
+		"set\n" +
+		UserTableConstants.PASSWORD + " = " + password + ",\n" +
+		UserTableConstants.PHONE_NUMBER + " = " + phoneNumber + ",\n" +
+		UserTableConstants.FIRST_NAME + " = " + firstName + ",\n" +
+		UserTableConstants.LAST_NAME + " = " + lastName + ",\n" +
+		UserTableConstants.EMAIL + " = " + email;
 
-	public User getUser(String key) {
-		Table table = dynamoDb.getTable("user");
-		GetItemSpec spec = new GetItemSpec().withPrimaryKey("user_id", key);
-		try {
-			System.out.println("Attempting to read item");
-			Item outcome = table.getItem(spec);
-			if (Objects.nonNull(outcome)) {
-				User user = new User();
-				user.setUserId(outcome.get("user_id").toString());
-				user.setFirstName(outcome.get("first_name").toString());
-				user.setLastName(outcome.get("last_name").toString());
-				return user;
-			}
-		} catch (Exception e) {
-			LOGGER.error("Exception occurred during getUser : ", e);
-		}
-		return null;
+    DynamoDB dynamoDB = DynamoClientUtil.getClient();
+	Table table = dynamoDB.getTable(UserTableConstants.USER_TABLE_NAME);
+
+	public User findByIdAndName(GetItemSpec spec) throws Exception {
+		Item outcome = table.getItem(spec);
+		return new User().withItem(outcome);
 	}
 
-	public String addUser(User user) {
-		Table table = dynamoDb.getTable("user");
+	public User save(User user) {
 		try {
-			// final Map<String, String> addressMap = new HashMap<String, String>();
-			// addressMap.put("city", "Hyderabad");
-			// addressMap.put("pin", "500019");
-			PutItemOutcome outcome = table.putItem(
-					new Item().withPrimaryKey("user_id", user.getUserId()).with("first_name", user.getFirstName())
-							.with("last_name", user.getLastName()));
-							//.withMap("address", addressMap));
+			PutItemOutcome outcome = table.putItem(user.getItem());
 			if (Objects.nonNull(outcome))
-				return "SUCCESS";
+				return user;
 			else
-				return "FAILURE";
+				return null; 
 		} catch (Exception e) {
 			LOGGER.error("Exception occurred while adding record to the db : ", e);
 			return null;
 		}
+	}
+
+	public User update(UserDto userDto) {
+		UpdateItemSpec updateItemSpec = 
+			new UpdateItemSpec()
+				.withPrimaryKey(
+					UserTableConstants.USER_ID, userDto.getUserId(),
+					UserTableConstants.USER_NAME, userDto.getUserName())
+				.withUpdateExpression(updateExpression)
+				.withValueMap(new ValueMap()
+					.withString(password, userDto.getPassword())
+					.withString(phoneNumber, userDto.getPhoneNumber())
+					.withString(firstName, userDto.getFirstName())
+					.withString(lastName, userDto.getLastName())
+					.withString(email, userDto.getEmail()))
+				.withReturnValues(ReturnValue.UPDATED_NEW);
+		try {
+			Item outcome = table.updateItem(updateItemSpec).getItem();
+			if (Objects.nonNull(outcome)) {
+				return new User().withItem(outcome);
+			} else {
+				System.err.println("Unable to update");
+				return null;
+			}
+		} catch(Exception ex) {
+			System.err.println(ex.getMessage());
+			return null;
+		}
+	}
+
+	public void deleteByIdAndName(DeleteItemSpec spec) throws Exception {
+		table.deleteItem(spec);
 	}
 }
