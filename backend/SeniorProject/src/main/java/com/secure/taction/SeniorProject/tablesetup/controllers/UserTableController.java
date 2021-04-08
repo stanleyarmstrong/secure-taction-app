@@ -22,7 +22,7 @@ public class UserTableController {
         return tableService.createTable();
     }
 
-    @RequestMapping(value = "list", method = RequestMethod.GET) 
+    @RequestMapping(value = "/list", method = RequestMethod.GET) 
     public void listTables() {
         tableService.listTables();
     }

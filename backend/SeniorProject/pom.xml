@@ -114,6 +114,10 @@
 								<goal>check</goal>
 							</goals>
 						<configuration>
+							<excludes>
+								<exclude>com/secure/taction/SeniorProject/tablesetup/services/*</exclude>
+								<exclude>com/secure/taction/SeniorProject/repositories/*</exclude>
+							</excludes>
 							<rules>
 								<rule>
 									<element>BUNDLE</element>

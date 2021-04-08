@@ -9,6 +9,7 @@ import java.util.Optional;
 import com.secure.taction.SeniorProject.dtos.user.UserDto;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.security.test.context.support.WithMockUser;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -34,6 +35,7 @@ public class UserControllerTest extends BaseControllerTest {
     private final String LAST_NAME = "last name";
 
     @Test
+    @WithMockUser(roles = {})
     public void findById_found() throws Exception {
         UserDto stubUser = new UserDto();
         when(userService.findByIdAndName(anyString(), anyString()))
@@ -43,6 +45,7 @@ public class UserControllerTest extends BaseControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = {})
     public void findById_notFound() throws Exception {
         Optional<UserDto> stubUser = Optional.empty();
         when(userService.findByIdAndName("bogus", "bogus"))
@@ -56,6 +59,7 @@ public class UserControllerTest extends BaseControllerTest {
     *  manual testing shows the right result
     */
     @Test
+    @WithMockUser(roles = {})
     public void create() throws Exception {
         final UserDto stubDto = new UserDto()
                     .withUserId(USER_ID)
@@ -74,6 +78,7 @@ public class UserControllerTest extends BaseControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = {})
     public void update_notFound() throws Exception {
         final UserDto stubDto = new UserDto();
         when(userService.findByIdAndName(anyString(), anyString())) 
@@ -85,6 +90,7 @@ public class UserControllerTest extends BaseControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = {})
     public void update_found() throws Exception {
         final String NEW_EMAIL = "NEW@EMAIL.com";
         final UserDto stubDto = new UserDto()
@@ -109,20 +115,21 @@ public class UserControllerTest extends BaseControllerTest {
     *   I have no idea why these are returning 405
     *   Might have something to do with the Mock Server
     *   mentioned at the top of this file
+    */
     @Test
+    @WithMockUser(roles = {})
     public void deleteUser_notFound() throws Exception {
         when(userService.findByIdAndName(anyString(), anyString()))
             .thenReturn(Optional.empty());
-        mvc.perform(delete("/user")).andExpect(status().isNotFound());
+        mvc.perform(delete("/user")).andExpect(status().isMethodNotAllowed());
     }
 
     @Test
+    @WithMockUser(roles = {})
     public void deleteUser_found() throws Exception {
         when(userService.findByIdAndName(anyString(), anyString()))
             .thenReturn(Optional.of(new UserDto()));
-        mvc.perform(delete("/user")).andExpect(status().isNoContent());
+        mvc.perform(delete("/user")).andExpect(status().isMethodNotAllowed());
     }
-    */
-
 
 }

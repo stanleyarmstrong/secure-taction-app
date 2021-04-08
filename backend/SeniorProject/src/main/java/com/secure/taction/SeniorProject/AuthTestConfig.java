@@ -1,31 +1,33 @@
 package com.secure.taction.SeniorProject;
 
+import com.secure.taction.SeniorProject.auth.InMemoryAuthenticationProvider;
 import com.secure.taction.SeniorProject.auth.SecureTactionAuthenticationProvider;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 
 @Configuration
-public class AuthConfigTest extends WebSecurityConfigurerAdapter {
+@EnableWebSecurity
+@Profile("test")
+public class AuthTestConfig extends WebSecurityConfigurerAdapter {
 
-    private final SecureTactionAuthenticationProvider authenticationProvider;
-
-    @Autowired
-    public AuthConfigTest(SecureTactionAuthenticationProvider authenticationProvider) {
-        this.authenticationProvider = authenticationProvider;
+    @Bean
+    public AuthenticationProvider authenticationProvider() {
+        return new InMemoryAuthenticationProvider();
     }
-    
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-            .withUser("blah")
-            .password("blah")
-            .roles("USER");
+        auth.authenticationProvider(authenticationProvider());
     }
 
     @Override

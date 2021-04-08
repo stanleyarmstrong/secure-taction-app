@@ -1,7 +1,7 @@
 package com.secure.taction.SeniorProject.controllers.user;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.secure.taction.SeniorProject.AuthConfigTest;
+import com.secure.taction.SeniorProject.AuthTestConfig;
 import com.secure.taction.SeniorProject.auth.SecureTactionAuthenticationProvider;
 import com.secure.taction.SeniorProject.controllers.UserController;
 import com.secure.taction.SeniorProject.repositories.UserRepository;
@@ -27,12 +27,6 @@ public class BaseControllerTest {
 
     @Autowired
     protected ObjectMapper objectMapper;
-
-    @MockBean
-    protected AuthConfigTest authConfig;
-
-    @MockBean
-    protected SecureTactionAuthenticationProvider authenticationProvider;
 
     @MockBean
     protected UserController userController;
