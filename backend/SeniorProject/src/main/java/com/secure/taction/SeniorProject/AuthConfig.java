@@ -37,8 +37,6 @@ public class AuthConfig extends WebSecurityConfigurerAdapter {
         http.sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.csrf().disable();
-//        http.httpBasic().disable();
-//        http.formLogin().disable();
     }
 
     @Override

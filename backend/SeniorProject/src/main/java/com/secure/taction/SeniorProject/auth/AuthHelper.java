@@ -13,8 +13,9 @@ import com.secure.taction.SeniorProject.utils.DynamoClientUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class AuthHelper {
 
     private DynamoDB dynamoDB = DynamoClientUtil.getClient();
