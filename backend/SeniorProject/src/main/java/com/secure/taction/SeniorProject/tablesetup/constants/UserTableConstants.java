@@ -18,6 +18,7 @@ public class UserTableConstants {
     public static String PHONE_NUMBER = "PHONE_NUMBER";
     public static String FIRST_NAME = "FIRST_NAME";
     public static String LAST_NAME = "LAST_NAME";
+    public static String CARDS = "CARDS";
 
     private static List<KeySchemaElement> USER_KEY_SCHEMA = 
         Arrays.asList(
@@ -61,6 +62,9 @@ public class UserTableConstants {
                 .withAttributeType("S"),
             new AttributeDefinition()
                 .withAttributeName(LAST_NAME)
+                .withAttributeType("S"),
+            new AttributeDefinition()
+                .withAttributeName(CARDS)
                 .withAttributeType("S")
     );
 

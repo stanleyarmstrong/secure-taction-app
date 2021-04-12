@@ -2,6 +2,8 @@ package com.secure.taction.SeniorProject.dtos.user;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
 
 import com.amazonaws.services.dynamodbv2.document.Item;
@@ -28,6 +30,7 @@ public class UserItemToUserDtoTest {
         final String PHONE = "phone";
         final String FIRST_NAME = "first name";
         final String LAST_NAME = "last name";
+        final List<String> CARDS = Collections.singletonList("credit_card_id");
         User stubUser = new User().withItem(
             new Item()
                 .withPrimaryKey(UserTableConstants.USER_ID, USER_ID)
@@ -37,6 +40,7 @@ public class UserItemToUserDtoTest {
                 .with(UserTableConstants.PHONE_NUMBER, PHONE)
                 .with(UserTableConstants.FIRST_NAME, FIRST_NAME)
                 .with(UserTableConstants.LAST_NAME, LAST_NAME)
+                .with(UserTableConstants.CARDS, CARDS)
         );
 
         UserDto result = converter.convert(stubUser);
@@ -48,6 +52,7 @@ public class UserItemToUserDtoTest {
         assertEquals(result.getPhoneNumber(), PHONE);
         assertEquals(result.getFirstName(), FIRST_NAME);
         assertEquals(result.getLastName(), LAST_NAME);
+        assertEquals(result.getCreditCards(), CARDS);
     }
 
 }

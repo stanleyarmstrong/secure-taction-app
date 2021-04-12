@@ -3,6 +3,8 @@ package com.secure.taction.SeniorProject.dtos.user;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 import com.secure.taction.SeniorProject.models.User;
@@ -29,6 +31,7 @@ public class UserDtoToUserItemTest {
         final String PHONE_NUMBER = "555-555-5555";
         final String FIRST_NAME = "first name";
         final String LAST_NAME = "last name";
+        final List<String> CREDIT_CARDS = Collections.singletonList("credit_card_id");
 
         final UserDto argDto = new UserDto()
                                 .withUserId(ID)
@@ -37,15 +40,14 @@ public class UserDtoToUserItemTest {
                                 .withPassword(PASSWORD)
                                 .withPhoneNumber(PHONE_NUMBER)
                                 .withFirstName(FIRST_NAME)
-                                .withLastName(LAST_NAME);
+                                .withLastName(LAST_NAME)
+                                .withCreditCards(CREDIT_CARDS);
 
         User result = converter.convert(argDto);
 
         assertTrue(result != null);
         Map<String, Object> resMap = result.getAttributes();
         assertTrue(MapUtils.isNotEmpty(resMap));
-        // Stub method call for testing purposes
-        // assertEquals(ID, resMap.get(UserTableConstants.USER_ID));
         assertEquals(USERNAME, resMap.get(UserTableConstants.USER_NAME));
         assertEquals(EMAIL, resMap.get(UserTableConstants.EMAIL));
         assertEquals(PASSWORD, resMap.get(UserTableConstants.PASSWORD));
