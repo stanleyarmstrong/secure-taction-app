@@ -12,7 +12,9 @@ public class User {
     public User() {}
 
     public Item getItem() { return userItem;}
+
     public void setItem(Item userItem) { this.userItem = userItem;}
+
     public User withItem(Item userItem) { 
         setItem(userItem);
         return this;

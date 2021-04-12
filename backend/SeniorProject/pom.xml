@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.secure.taction</groupId>
 	<artifactId>SeniorProject</artifactId>
-	<version>ST-5-SNAPSHOT</version>
+	<version>ST-12-SNAPSHOT</version>
 	<name>SeniorProject</name>
 	<description>App for Cal Poly Senior Project</description>
 	<properties>
@@ -60,12 +60,17 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-	<!--
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
-	-->
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
+		</dependency>
 
 		<dependency>
 			<groupId>com.amazonaws</groupId>
@@ -109,6 +114,10 @@
 								<goal>check</goal>
 							</goals>
 						<configuration>
+							<excludes>
+								<exclude>com/secure/taction/SeniorProject/tablesetup/services/*</exclude>
+								<exclude>com/secure/taction/SeniorProject/repositories/*</exclude>
+							</excludes>
 							<rules>
 								<rule>
 									<element>BUNDLE</element>
