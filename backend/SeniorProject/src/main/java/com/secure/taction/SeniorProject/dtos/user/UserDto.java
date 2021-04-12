@@ -1,5 +1,8 @@
 package com.secure.taction.SeniorProject.dtos.user;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import org.springframework.lang.NonNull;
 
 public class UserDto {
@@ -14,6 +17,7 @@ public class UserDto {
 	private String phoneNumber;
 	private String firstName;
 	private String lastName;
+	private List<String> creditCards = new LinkedList<>();
 
 	public UserDto() {}
 
@@ -112,4 +116,18 @@ public class UserDto {
 		setPhoneNumber(phoneNumber);
 		return this;
 	}
+
+	public List<String> getCreditCards() {
+		return creditCards;
+	}
+
+	public void setCreditCards(List<String> creditCards) {
+		this.creditCards = creditCards; 
+	}
+
+	public UserDto withCreditCards(List<String> creditCards) {
+		setCreditCards(creditCards);
+		return this;
+	}
+
 }

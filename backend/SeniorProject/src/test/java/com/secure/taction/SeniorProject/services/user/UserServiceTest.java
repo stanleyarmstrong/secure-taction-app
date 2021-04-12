@@ -6,6 +6,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -25,7 +27,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.yaml.snakeyaml.events.Event.ID;
 
 @ExtendWith(MockitoExtension.class)
 public class UserServiceTest {
@@ -61,6 +62,7 @@ public class UserServiceTest {
         final String PHONE_NUMBER = "1234";
         final String FIRST_NAME = "first name";
         final String LAST_NAME = "last name";
+        final List<String> CARDS = Collections.singletonList("STRING");
 
         final UserDto stubDto = new UserDto()
                     .withUserId(USER_ID)
@@ -69,7 +71,8 @@ public class UserServiceTest {
                     .withPassword(PASSWORD)
                     .withPhoneNumber(PHONE_NUMBER)
                     .withLastName(LAST_NAME)
-                    .withFirstName(FIRST_NAME);
+                    .withFirstName(FIRST_NAME)
+                    .withCreditCards(CARDS);
         
         final User stubUser = new User()
             .withItem(new Item()
@@ -80,6 +83,7 @@ public class UserServiceTest {
                 .with(UserTableConstants.PHONE_NUMBER, PHONE_NUMBER)
                 .with(UserTableConstants.FIRST_NAME, FIRST_NAME)
                 .with(UserTableConstants.LAST_NAME, LAST_NAME)
+                .with(UserTableConstants.CARDS, CARDS)
             );
         when(userRepository.findByIdAndName(any(GetItemSpec.class)))
             .thenReturn(stubUser);
@@ -95,6 +99,7 @@ public class UserServiceTest {
         assertEquals(EMAIL, result.get().getEmail());
         assertEquals(FIRST_NAME, result.get().getFirstName());
         assertEquals(LAST_NAME, result.get().getLastName());
+        assertEquals(CARDS, result.get().getCreditCards());
     }
 
     @Test
@@ -106,6 +111,7 @@ public class UserServiceTest {
         final String PHONE_NUMBER = "1234";
         final String FIRST_NAME = "first name";
         final String LAST_NAME = "last name";
+        final List<String> CARDS = Collections.singletonList("STRING");
 
         final UserDto stubDto = new UserDto()
                     .withUserId(USER_ID)
@@ -114,7 +120,8 @@ public class UserServiceTest {
                     .withPassword(PASSWORD)
                     .withPhoneNumber(PHONE_NUMBER)
                     .withLastName(LAST_NAME)
-                    .withFirstName(FIRST_NAME);
+                    .withFirstName(FIRST_NAME)
+                    .withCreditCards(CARDS);
 
         final User stubUser = new User()
             .withItem(new Item()
@@ -125,6 +132,7 @@ public class UserServiceTest {
                 .with(UserTableConstants.PHONE_NUMBER, PHONE_NUMBER)
                 .with(UserTableConstants.FIRST_NAME, FIRST_NAME)
                 .with(UserTableConstants.LAST_NAME, LAST_NAME)
+                .with(UserTableConstants.CARDS, CARDS)
             );
 
         when(dtoToItem.convert(any(UserDto.class)))
@@ -142,6 +150,7 @@ public class UserServiceTest {
         assertEquals(EMAIL, result.getEmail());
         assertEquals(FIRST_NAME, result.getFirstName());
         assertEquals(LAST_NAME, result.getLastName());
+        assertEquals(CARDS, result.getCreditCards());
     }
 
     @Test
@@ -153,6 +162,7 @@ public class UserServiceTest {
         final String PHONE_NUMBER = "1234";
         final String FIRST_NAME = "first name";
         final String LAST_NAME = "last name";
+        final List<String> CARDS = Collections.singletonList("String");
 
         final UserDto stubDto = new UserDto()
                     .withUserId(USER_ID)
@@ -161,7 +171,8 @@ public class UserServiceTest {
                     .withPassword(PASSWORD)
                     .withPhoneNumber(PHONE_NUMBER)
                     .withLastName(LAST_NAME)
-                    .withFirstName(FIRST_NAME);
+                    .withFirstName(FIRST_NAME)
+                    .withCreditCards(CARDS);
 
         final User stubUser = new User()
             .withItem(new Item()
@@ -172,6 +183,7 @@ public class UserServiceTest {
                 .with(UserTableConstants.PHONE_NUMBER, PHONE_NUMBER)
                 .with(UserTableConstants.FIRST_NAME, FIRST_NAME)
                 .with(UserTableConstants.LAST_NAME, LAST_NAME)
+                .with(UserTableConstants.CARDS, CARDS)
             );
 
         when(userRepository.update(stubDto))
