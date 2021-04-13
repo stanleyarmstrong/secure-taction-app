@@ -7,8 +7,10 @@ import com.secure.taction.SeniorProject.auth.SecureTactionAuthenticationProvider
 import com.secure.taction.SeniorProject.controllers.UserController;
 import com.secure.taction.SeniorProject.repositories.UserRepository;
 import com.secure.taction.SeniorProject.services.UserService;
+import com.secure.taction.SeniorProject.tablesetup.controllers.BudgetTableController;
 import com.secure.taction.SeniorProject.tablesetup.controllers.CreditCardTableController;
 import com.secure.taction.SeniorProject.tablesetup.controllers.UserTableController;
+import com.secure.taction.SeniorProject.tablesetup.services.BudgetTableService;
 import com.secure.taction.SeniorProject.tablesetup.services.CreditCardTableService;
 import com.secure.taction.SeniorProject.tablesetup.services.UserTableService;
 
@@ -46,6 +48,12 @@ public class BaseControllerTest {
 
     @MockBean
     protected UserTableService userTableService;
+
+    @MockBean   
+    protected BudgetTableController budgetTableController;
+
+    @MockBean
+    protected BudgetTableService budgetTableService;
 
     @MockBean
     protected CreditCardTableController creditCardTableController;

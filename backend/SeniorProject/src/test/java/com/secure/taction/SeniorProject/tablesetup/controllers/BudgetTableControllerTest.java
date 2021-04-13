@@ -10,13 +10,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.secure.taction.SeniorProject.controllers.user.BaseControllerTest;
 
-public class CreditCardTableControllerTest extends BaseControllerTest{
-    private String URL = "/table/credit-card"; 
+public class BudgetTableControllerTest extends BaseControllerTest {
 
+    private String URL = "/table/budget";
+    
     @Test
     @WithMockUser(roles = {})
     public void createUsersTable() throws Exception {
-        when(creditCardTableService.createTable()).thenReturn("Success");
+        when(budgetTableService.createTable()).thenReturn("Success");
         mvc.perform(get(URL))
             .andExpect(status().isOk());
     }
@@ -25,11 +26,9 @@ public class CreditCardTableControllerTest extends BaseControllerTest{
     @Test
     @WithMockUser(roles = {})
     public void deleteTable() throws Exception {
-        when(creditCardTableService.deleteTable())
+        when(budgetTableService.deleteTable())
             .thenReturn("Success");
         mvc.perform(delete(URL+"/killer/delete"))
             .andExpect(status().isOk());
     }
-
-
 }
