@@ -18,6 +18,7 @@ public class UserDto {
 	private String firstName;
 	private String lastName;
 	private List<String> creditCards = new LinkedList<>();
+	private List<String> budgets = new LinkedList<>();
 
 	public UserDto() {}
 
@@ -127,6 +128,19 @@ public class UserDto {
 
 	public UserDto withCreditCards(List<String> creditCards) {
 		setCreditCards(creditCards);
+		return this;
+	}
+
+	public List<String> getBudgets() {
+		return budgets;
+	}
+
+	public void setBudgets(List<String> budgets) {
+		this.budgets = budgets;
+	}
+
+	public UserDto withBudgets(List<String> budgets) {
+		setBudgets(budgets);
 		return this;
 	}
 

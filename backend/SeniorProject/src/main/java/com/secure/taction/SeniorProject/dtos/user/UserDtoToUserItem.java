@@ -24,6 +24,7 @@ public class UserDtoToUserItem implements Converter<UserDto, User> {
                 .with(UserTableConstants.FIRST_NAME, dto.getFirstName())
                 .with(UserTableConstants.LAST_NAME, dto.getLastName())
                 .with(UserTableConstants.CARDS, dto.getCreditCards())
+                .with(UserTableConstants.BUDGETS, dto.getBudgets())
         );
     }
     
