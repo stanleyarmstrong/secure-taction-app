@@ -31,6 +31,7 @@ public class UserItemToUserDtoTest {
         final String FIRST_NAME = "first name";
         final String LAST_NAME = "last name";
         final List<String> CARDS = Collections.singletonList("credit_card_id");
+        final List<String> BUDGETS = Collections.singletonList("budget_id");
         User stubUser = new User().withItem(
             new Item()
                 .withPrimaryKey(UserTableConstants.USER_ID, USER_ID)
@@ -41,6 +42,7 @@ public class UserItemToUserDtoTest {
                 .with(UserTableConstants.FIRST_NAME, FIRST_NAME)
                 .with(UserTableConstants.LAST_NAME, LAST_NAME)
                 .with(UserTableConstants.CARDS, CARDS)
+                .with(UserTableConstants.BUDGETS, BUDGETS)
         );
 
         UserDto result = converter.convert(stubUser);
@@ -53,6 +55,7 @@ public class UserItemToUserDtoTest {
         assertEquals(result.getFirstName(), FIRST_NAME);
         assertEquals(result.getLastName(), LAST_NAME);
         assertEquals(result.getCreditCards(), CARDS);
+        assertEquals(result.getBudgets(), BUDGETS);
     }
 
 }

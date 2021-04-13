@@ -63,6 +63,7 @@ public class UserServiceTest {
         final String FIRST_NAME = "first name";
         final String LAST_NAME = "last name";
         final List<String> CARDS = Collections.singletonList("STRING");
+        final List<String> BUDGETS = Collections.singletonList("STRING");
 
         final UserDto stubDto = new UserDto()
                     .withUserId(USER_ID)
@@ -72,7 +73,8 @@ public class UserServiceTest {
                     .withPhoneNumber(PHONE_NUMBER)
                     .withLastName(LAST_NAME)
                     .withFirstName(FIRST_NAME)
-                    .withCreditCards(CARDS);
+                    .withCreditCards(CARDS)
+                    .withBudgets(BUDGETS);
         
         final User stubUser = new User()
             .withItem(new Item()
@@ -84,6 +86,7 @@ public class UserServiceTest {
                 .with(UserTableConstants.FIRST_NAME, FIRST_NAME)
                 .with(UserTableConstants.LAST_NAME, LAST_NAME)
                 .with(UserTableConstants.CARDS, CARDS)
+                .with(UserTableConstants.BUDGETS, BUDGETS)
             );
         when(userRepository.findByIdAndName(any(GetItemSpec.class)))
             .thenReturn(stubUser);
@@ -100,6 +103,7 @@ public class UserServiceTest {
         assertEquals(FIRST_NAME, result.get().getFirstName());
         assertEquals(LAST_NAME, result.get().getLastName());
         assertEquals(CARDS, result.get().getCreditCards());
+        assertEquals(BUDGETS, result.get().getBudgets());
     }
 
     @Test
@@ -112,6 +116,7 @@ public class UserServiceTest {
         final String FIRST_NAME = "first name";
         final String LAST_NAME = "last name";
         final List<String> CARDS = Collections.singletonList("STRING");
+        final List<String> BUDGETS = Collections.singletonList("STRING");
 
         final UserDto stubDto = new UserDto()
                     .withUserId(USER_ID)
@@ -121,7 +126,8 @@ public class UserServiceTest {
                     .withPhoneNumber(PHONE_NUMBER)
                     .withLastName(LAST_NAME)
                     .withFirstName(FIRST_NAME)
-                    .withCreditCards(CARDS);
+                    .withCreditCards(CARDS)
+                    .withBudgets(BUDGETS);
 
         final User stubUser = new User()
             .withItem(new Item()
@@ -133,6 +139,7 @@ public class UserServiceTest {
                 .with(UserTableConstants.FIRST_NAME, FIRST_NAME)
                 .with(UserTableConstants.LAST_NAME, LAST_NAME)
                 .with(UserTableConstants.CARDS, CARDS)
+                .with(UserTableConstants.BUDGETS, BUDGETS)
             );
 
         when(dtoToItem.convert(any(UserDto.class)))
@@ -151,6 +158,7 @@ public class UserServiceTest {
         assertEquals(FIRST_NAME, result.getFirstName());
         assertEquals(LAST_NAME, result.getLastName());
         assertEquals(CARDS, result.getCreditCards());
+        assertEquals(BUDGETS, result.getBudgets());
     }
 
     @Test
@@ -163,6 +171,7 @@ public class UserServiceTest {
         final String FIRST_NAME = "first name";
         final String LAST_NAME = "last name";
         final List<String> CARDS = Collections.singletonList("String");
+        final List<String> BUDGETS = Collections.singletonList("String");
 
         final UserDto stubDto = new UserDto()
                     .withUserId(USER_ID)
@@ -172,7 +181,8 @@ public class UserServiceTest {
                     .withPhoneNumber(PHONE_NUMBER)
                     .withLastName(LAST_NAME)
                     .withFirstName(FIRST_NAME)
-                    .withCreditCards(CARDS);
+                    .withCreditCards(CARDS)
+                    .withBudgets(BUDGETS);
 
         final User stubUser = new User()
             .withItem(new Item()
@@ -184,6 +194,7 @@ public class UserServiceTest {
                 .with(UserTableConstants.FIRST_NAME, FIRST_NAME)
                 .with(UserTableConstants.LAST_NAME, LAST_NAME)
                 .with(UserTableConstants.CARDS, CARDS)
+                .with(UserTableConstants.BUDGETS, BUDGETS)
             );
 
         when(userRepository.update(stubDto))
@@ -199,6 +210,7 @@ public class UserServiceTest {
         assertEquals(EMAIL, result.getEmail());
         assertEquals(FIRST_NAME, result.getFirstName());
         assertEquals(LAST_NAME, result.getLastName());
+        assertEquals(BUDGETS, result.getBudgets());
     }
 
     @Test
