@@ -1,10 +1,12 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
-import {Card, Text, Divider} from 'react-native-paper';
+import {Card, Button, Divider} from 'react-native-paper';
+import {useNavigation} from '@react-navigation/native';
 import {View} from 'react-native';
 import CardRow from './cardrow';
 
 const InnerScreen = (props) => {
+  const navigation = useNavigation();
   return (
     <View style={styles.card}>
       <Card style={styles.inner}>
@@ -45,7 +47,13 @@ const InnerScreen = (props) => {
             balance={3000}
           />
           <Divider />
-          <Text style={styles.newCard}> Add New Card </Text>
+          <Button
+            style={styles.newCard}
+            onPress={() => {
+              navigation.push('addcard');
+            }}>
+            Add New Card
+          </Button>
         </Card.Content>
       </Card>
     </View>

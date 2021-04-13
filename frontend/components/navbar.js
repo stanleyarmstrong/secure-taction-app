@@ -3,13 +3,26 @@ import {StyleSheet} from 'react-native';
 import {Appbar} from 'react-native-paper';
 import {View} from 'react-native';
 
-const Navbar = (props) => {
+const Navbar = ({navigation, previous, scene}) => {
+  const {options} = scene.descriptor;
+  const leftIcon = previous ? 'chevron-left' : 'account-circle-outline';
+  const title = options.title ? options.title : 'Secure Taction';
   return (
     <View>
       <Appbar.Header style={styles.barColor}>
-        <Appbar.Action icon={props.backIcon} size={35} />
-        <Appbar.Content title={props.title} titleStyle={styles.title} />
-        <Appbar.Action icon={props.frontIcon} size={35} />
+        <Appbar.Action
+          icon={leftIcon}
+          size={35}
+          onPress={() => {
+            if (leftIcon === 'chevron-left') {
+              navigation.pop();
+            } else {
+              navigation.push('settings');
+            }
+          }}
+        />
+        <Appbar.Content title={title} titleStyle={styles.title} />
+        <Appbar.Action icon="bell" size={35} />
       </Appbar.Header>
     </View>
   );
