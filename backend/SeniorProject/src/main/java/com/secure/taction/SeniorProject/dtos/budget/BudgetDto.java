@@ -76,7 +76,7 @@ public class BudgetDto {
         this.currentBudgetBalance = currentBudgetBalance;
     }
 
-    public BudgetDto withCurrentBudgetbalance(BigDecimal currentBudgetBalance) {
+    public BudgetDto withCurrentBudgetBalance(BigDecimal currentBudgetBalance) {
         setCurrentBudgetBalance(currentBudgetBalance);
         return this;
     }
@@ -115,7 +115,7 @@ public class BudgetDto {
         this.budgetName = budgetName;
     }
 
-    public BudgetDto withBudgetName(String budgeName) {
+    public BudgetDto withBudgetName(String budgetName) {
         setBudgetName(budgetName);
         return this;
     }
