@@ -7,7 +7,9 @@ import com.secure.taction.SeniorProject.models.Budget;
 import com.secure.taction.SeniorProject.tablesetup.constants.BudgetTableConstants;
 
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Component;
 
+@Component
 public class BudgetItemToDto implements Converter<Budget, BudgetDto> {
 
     @Override

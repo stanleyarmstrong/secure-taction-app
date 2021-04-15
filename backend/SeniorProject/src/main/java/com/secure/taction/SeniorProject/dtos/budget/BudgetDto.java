@@ -2,14 +2,23 @@ package com.secure.taction.SeniorProject.dtos.budget;
 
 import java.math.BigDecimal;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
 public class BudgetDto {
 
     private String budgetId;
     private String userId;
     private String cardId;
+    @NotNull
     private BigDecimal maxBudgetBalance;
+    @NotNull
     private BigDecimal currentBudgetBalance;
+    @NotNull
+    @Min(value = 0)
     private BigDecimal minimumAlert;
+    @NotNull
+    @Min(value = 0)
     private BigDecimal autoCancel;
     private String budgetName;
 

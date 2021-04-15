@@ -4,8 +4,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.secure.taction.SeniorProject.AuthTestConfig;
 import com.secure.taction.SeniorProject.auth.AuthHelper;
 import com.secure.taction.SeniorProject.auth.SecureTactionAuthenticationProviderTest;
+import com.secure.taction.SeniorProject.controllers.BudgetController;
 import com.secure.taction.SeniorProject.controllers.UserController;
+import com.secure.taction.SeniorProject.repositories.BudgetRepository;
 import com.secure.taction.SeniorProject.repositories.UserRepository;
+import com.secure.taction.SeniorProject.services.BudgetService;
 import com.secure.taction.SeniorProject.services.UserService;
 import com.secure.taction.SeniorProject.tablesetup.controllers.BudgetTableController;
 import com.secure.taction.SeniorProject.tablesetup.controllers.CreditCardTableController;
@@ -54,6 +57,15 @@ public class BaseControllerTest {
 
     @MockBean
     protected BudgetTableService budgetTableService;
+
+    @MockBean
+    protected BudgetRepository budgetRepository;
+
+    @MockBean
+    protected BudgetController budgetController;
+
+    @MockBean
+    protected BudgetService budgetService;
 
     @MockBean
     protected CreditCardTableController creditCardTableController;
