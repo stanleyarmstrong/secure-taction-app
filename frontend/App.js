@@ -5,30 +5,43 @@
  * @format
  * @flow strict-local
  */
-
+import 'react-native-gesture-handler';
 import React from 'react';
-import {View, StyleSheet, useColorScheme} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
 import Navbar from './components/navbar';
-import InnerScreen from './components/innerscreen';
+import HomeScreen from './screens/Homescreen';
+import NewCard from './screens/NewCard';
+import Settings from './screens/Settings';
+
+const Stack = createStackNavigator();
 
 const App = () => {
   return (
-    <View style={styles.shell}>
-      <Navbar
-        title="Good Afternoon, First Last"
-        backIcon="account-circle-outline"
-        frontIcon="bell-outline"
-      />
-      <InnerScreen title="Your Cards" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator
+        initialRouteName="home"
+        screenOptions={{
+          header: (props) => <Navbar {...props} />,
+        }}>
+        <Stack.Screen
+          name="home"
+          component={HomeScreen}
+          options={{title: 'Good Morning, First Last'}}
+        />
+        <Stack.Screen
+          name="addcard"
+          component={NewCard}
+          options={{title: 'Add a Card'}}
+        />
+        <Stack.Screen
+          name="settings"
+          component={Settings}
+          options={{title: 'Settings'}}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  shell: {
-    backgroundColor: '#E9E9E9',
-    height: '100%',
-  },
-});
 
 export default App;
