@@ -56,7 +56,8 @@ public class BudgetControllerTest extends BaseControllerTest {
                     .withMaxBudgetBalance(maxBudgetBalance)
                     .withCurrentBudgetBalance(currentBudgetBalance)
                     .withMinimumAlert(minimumAlert)
-                    .withAutoCancel(autoCancel);
+                    .withAutoCancel(autoCancel)
+                    .withBudgetName(budgetName);
         when(budgetService.save(any(BudgetDto.class)))
             .thenReturn(dto);
             mvc.perform(post("/budget")
