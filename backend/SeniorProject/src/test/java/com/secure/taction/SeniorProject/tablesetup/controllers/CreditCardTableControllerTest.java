@@ -8,7 +8,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.secure.taction.SeniorProject.controllers.user.BaseControllerTest;
+import com.secure.taction.SeniorProject.controllers.BaseControllerTest;
 
 public class CreditCardTableControllerTest extends BaseControllerTest{
     private String URL = "/table/credit-card"; 
