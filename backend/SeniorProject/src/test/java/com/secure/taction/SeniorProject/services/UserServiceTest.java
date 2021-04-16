@@ -1,4 +1,4 @@
-package com.secure.taction.SeniorProject.services.user;
+package com.secure.taction.SeniorProject.services;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
