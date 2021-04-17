@@ -5,23 +5,23 @@ import com.amazonaws.services.dynamodbv2.document.Table;
 import com.amazonaws.services.dynamodbv2.model.CreateTableRequest;
 import com.amazonaws.services.dynamodbv2.model.TableDescription;
 
-import com.secure.taction.SeniorProject.tablesetup.constants.CreditCardTableConstants;
+import com.secure.taction.SeniorProject.tablesetup.constants.AccountTableConstants;
 import com.secure.taction.SeniorProject.utils.DynamoClientUtil;
 
 import org.springframework.stereotype.Service;
 
 @Service
-public class CreditCardTableService {
+public class AccountTableService {
     
     DynamoDB dynamoDB = DynamoClientUtil.getClient();   
 
     public String createTable() {
 
         CreateTableRequest request = new CreateTableRequest()
-                .withTableName(CreditCardTableConstants.CREDIT_CARD_TABLE_NAME)
-                .withKeySchema(CreditCardTableConstants.getCardSchemaElements())
-                .withAttributeDefinitions(CreditCardTableConstants.getCardAttributeDefinitions())
-                .withProvisionedThroughput(CreditCardTableConstants.getCardProvisionedThroughput());
+                .withTableName(AccountTableConstants.ACCOUNT_TABLE_NAME)
+                .withKeySchema(AccountTableConstants.getCardSchemaElements())
+                .withAttributeDefinitions(AccountTableConstants.getCardAttributeDefinitions())
+                .withProvisionedThroughput(AccountTableConstants.getCardProvisionedThroughput());
 
         Table table = dynamoDB.createTable(request);
 
@@ -32,7 +32,7 @@ public class CreditCardTableService {
         }
 
         TableDescription tableDescription = dynamoDB
-                                                .getTable(CreditCardTableConstants.CREDIT_CARD_TABLE_NAME)
+                                                .getTable(AccountTableConstants.ACCOUNT_TABLE_NAME)
                                                 .describe();
         String resultString = String.format("%s: %s \t ReadCapacityUnits: %d \t WriteCapacityUnits: %d",
             tableDescription.getTableStatus(),
@@ -43,14 +43,14 @@ public class CreditCardTableService {
     }
 
     public String deleteTable() {
-        Table table = dynamoDB.getTable(CreditCardTableConstants.CREDIT_CARD_TABLE_NAME);
+        Table table = dynamoDB.getTable(AccountTableConstants.ACCOUNT_TABLE_NAME);
         try {
             System.out.println("Issuing DeleteTable request");
             table.delete();
 
-            System.out.println("Waiting for " + CreditCardTableConstants.CREDIT_CARD_TABLE_NAME + "...");
+            System.out.println("Waiting for " + AccountTableConstants.ACCOUNT_TABLE_NAME + "...");
             table.waitForDelete();
-            return "Table: " + CreditCardTableConstants.CREDIT_CARD_TABLE_NAME + "successfully deleted";
+            return "Table: " + AccountTableConstants.ACCOUNT_TABLE_NAME + "successfully deleted";
         } catch (Exception e) {
             System.err.println("DeleteTable request failed");
             return e.getMessage();
