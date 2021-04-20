@@ -8,15 +8,6 @@ import com.amazonaws.services.dynamodbv2.model.KeySchemaElement;
 import com.amazonaws.services.dynamodbv2.model.KeyType;
 import com.amazonaws.services.dynamodbv2.model.ProvisionedThroughput;
 
-/*
-*
-*
-*   STUB-CLASS: Need to discuss the specifications
-*   of the cards again. "Handled by plaid" is a bad description
-*
-*/
-
-
 public class AccountTableConstants {
     
     public static String ACCOUNT_TABLE_NAME = "ST_ACCOUNTS";

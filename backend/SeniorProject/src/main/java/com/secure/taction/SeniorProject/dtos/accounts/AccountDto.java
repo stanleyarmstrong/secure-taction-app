@@ -13,7 +13,7 @@ public class AccountDto {
 
   public AccountDto() {}
 
-  public String accountId() {
+  public String getAccountId() {
     return accountId;
   }
 
