@@ -8,10 +8,10 @@ import com.secure.taction.SeniorProject.controllers.UserController;
 import com.secure.taction.SeniorProject.repositories.UserRepository;
 import com.secure.taction.SeniorProject.services.UserService;
 import com.secure.taction.SeniorProject.tablesetup.controllers.BudgetTableController;
-import com.secure.taction.SeniorProject.tablesetup.controllers.CreditCardTableController;
+import com.secure.taction.SeniorProject.tablesetup.controllers.AccountTableController;
 import com.secure.taction.SeniorProject.tablesetup.controllers.UserTableController;
 import com.secure.taction.SeniorProject.tablesetup.services.BudgetTableService;
-import com.secure.taction.SeniorProject.tablesetup.services.CreditCardTableService;
+import com.secure.taction.SeniorProject.tablesetup.services.AccountTableService;
 import com.secure.taction.SeniorProject.tablesetup.services.UserTableService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,9 +56,9 @@ public class BaseControllerTest {
     protected BudgetTableService budgetTableService;
 
     @MockBean
-    protected CreditCardTableController creditCardTableController;
+    protected AccountTableController accountTableController;
 
     @MockBean
-    protected CreditCardTableService creditCardTableService;
+    protected AccountTableService accountTableService;
 
 }
