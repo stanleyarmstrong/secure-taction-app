@@ -48,7 +48,7 @@ public class AccountDto {
   }
 
   public AccountDto withAccountType(String accountType) {
-    setUserId(accountType);
+    setAccountType(accountType);
     return this;
   }
 
@@ -74,7 +74,7 @@ public class AccountDto {
   }
 
   public AccountDto withAccountName(String accountName) {
-    setUserId(accountName);
+    setAccountName(accountName);
     return this;
   }
 

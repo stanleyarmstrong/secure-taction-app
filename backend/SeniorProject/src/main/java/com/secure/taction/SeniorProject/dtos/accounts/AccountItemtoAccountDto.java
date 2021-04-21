@@ -10,7 +10,6 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 @Component
-@SuppressWarnings("unchecked")
 public class AccountItemToAccountDto implements Converter<Account, AccountDto>{
 
   @Override
