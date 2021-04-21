@@ -2,6 +2,8 @@ package com.secure.taction.SeniorProject.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import com.secure.taction.SeniorProject.dtos.user.UserDto;
 import com.secure.taction.SeniorProject.repositories.UserRepository;
 import com.secure.taction.SeniorProject.services.UserService;
@@ -42,14 +44,14 @@ public class UserController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Object> create(@RequestBody UserDto user) {
+	public ResponseEntity<Object> create(@Valid @RequestBody UserDto user) {
 		return new ResponseEntity<>(
             userService.save(user),
             HttpStatus.CREATED); 
 	}
 
     @RequestMapping(method = RequestMethod.PUT)
-    public ResponseEntity<Object> update(@RequestBody UserDto user) {
+    public ResponseEntity<Object> update(@Valid @RequestBody UserDto user) {
         return userService.findByIdAndName(user.getUserId(), user.getUserName()).isPresent()
                 ? new ResponseEntity<>(userService.update(user), HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
