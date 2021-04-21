@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @SuppressWarnings("unchecked")
-public class AccountItemtoAccountDto implements Converter<Account, AccountDto>{
+public class AccountItemToAccountDto implements Converter<Account, AccountDto>{
 
   @Override
   public AccountDto convert(Account account) {
