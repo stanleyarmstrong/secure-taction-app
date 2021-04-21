@@ -6,6 +6,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -22,6 +23,7 @@ import com.secure.taction.SeniorProject.repositories.UserRepository;
 import com.secure.taction.SeniorProject.services.UserService;
 import com.secure.taction.SeniorProject.tablesetup.constants.UserTableConstants;
 
+import org.assertj.core.util.Arrays;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -174,6 +176,8 @@ public class UserServiceTest {
         final List<String> BUDGETS = Collections.singletonList("String");
 
         final String NEW_EMAIL = "newemail@email.com";
+        final List<String> NEW_BUDGETS = new ArrayList<>();
+        NEW_BUDGETS.add("budget1");
 
         final UserDto stubDto = new UserDto()
                     .withUserId(USER_ID)
@@ -184,7 +188,7 @@ public class UserServiceTest {
                     .withLastName(LAST_NAME)
                     .withFirstName(FIRST_NAME)
                     .withCreditCards(CARDS)
-                    .withBudgets(BUDGETS);
+                    .withBudgets(NEW_BUDGETS);
 
         final User stubUser = new User()
             .withItem(new Item()
@@ -212,7 +216,7 @@ public class UserServiceTest {
         assertEquals(NEW_EMAIL, result.getEmail());
         assertEquals(FIRST_NAME, result.getFirstName());
         assertEquals(LAST_NAME, result.getLastName());
-        assertEquals(BUDGETS, result.getBudgets());
+        assertEquals(NEW_BUDGETS, result.getBudgets());
     }
 
     @Test

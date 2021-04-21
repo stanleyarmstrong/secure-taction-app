@@ -29,6 +29,8 @@ public class UserRepository {
 	private static String firstName = ":firstName";
 	private static String lastName = ":lastName";
 	private static String email = ":email";
+	private static String cards = ":cards";
+	private static String budgets = ":budgets";
 
 	private static String updateExpression = 
 		"set\n" +
@@ -36,7 +38,9 @@ public class UserRepository {
 		UserTableConstants.PHONE_NUMBER + " = " + phoneNumber + ",\n" +
 		UserTableConstants.FIRST_NAME + " = " + firstName + ",\n" +
 		UserTableConstants.LAST_NAME + " = " + lastName + ",\n" +
-		UserTableConstants.EMAIL + " = " + email;
+		UserTableConstants.EMAIL + " = " + email + ",\n" +
+		UserTableConstants.CARDS + " = " + cards + ",\n" +
+		UserTableConstants.BUDGETS + " = " + budgets;
 
     DynamoDB dynamoDB = DynamoClientUtil.getClient();
 	Table table = dynamoDB.getTable(UserTableConstants.USER_TABLE_NAME);
@@ -71,7 +75,9 @@ public class UserRepository {
 					.withString(phoneNumber, userDto.getPhoneNumber())
 					.withString(firstName, userDto.getFirstName())
 					.withString(lastName, userDto.getLastName())
-					.withString(email, userDto.getEmail()))
+					.withString(email, userDto.getEmail())
+					.withList(cards, userDto.getCreditCards())
+					.withList(budgets, userDto.getBudgets()))
 				.withReturnValues(ReturnValue.UPDATED_NEW);
 		try {
 			Item outcome = table.updateItem(updateItemSpec).getItem();
