@@ -1,4 +1,4 @@
-package com.secure.taction.SeniorProject.services.user;
+package com.secure.taction.SeniorProject.services;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -173,10 +173,12 @@ public class UserServiceTest {
         final List<String> CARDS = Collections.singletonList("String");
         final List<String> BUDGETS = Collections.singletonList("String");
 
+        final String NEW_EMAIL = "newemail@email.com";
+
         final UserDto stubDto = new UserDto()
                     .withUserId(USER_ID)
                     .withUserName(USER_NAME)
-                    .withEmail(EMAIL)
+                    .withEmail(NEW_EMAIL)
                     .withPassword(PASSWORD)
                     .withPhoneNumber(PHONE_NUMBER)
                     .withLastName(LAST_NAME)
@@ -207,7 +209,7 @@ public class UserServiceTest {
         assertEquals(USER_NAME, result.getUserName());
         assertEquals(PASSWORD, result.getPassword());
         assertEquals(PHONE_NUMBER, result.getPhoneNumber());
-        assertEquals(EMAIL, result.getEmail());
+        assertEquals(NEW_EMAIL, result.getEmail());
         assertEquals(FIRST_NAME, result.getFirstName());
         assertEquals(LAST_NAME, result.getLastName());
         assertEquals(BUDGETS, result.getBudgets());

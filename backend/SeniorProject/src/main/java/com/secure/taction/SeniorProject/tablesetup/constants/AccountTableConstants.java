@@ -26,6 +26,15 @@ public class AccountTableConstants {
                 .withAttributeName(USER_ID)
                 .withKeyType(KeyType.RANGE)
         );
+    private static List<AttributeDefinition> ACCOUNT_KEY_ATTRIBUTES = 
+        Arrays.asList(
+            new AttributeDefinition()
+                .withAttributeName(ACCOUNT_ID)
+                .withAttributeType("S"),
+            new AttributeDefinition()
+                .withAttributeName(USER_ID)
+                .withAttributeType("S")
+        );
     
     private static List<AttributeDefinition> ACCOUNT_ATTRIBUTE_DEFINITIONS = 
         Arrays.asList(
@@ -50,7 +59,8 @@ public class AccountTableConstants {
                     .withReadCapacityUnits(5L)
                     .withWriteCapacityUnits(6L);
 
-    public static List<KeySchemaElement> getCardSchemaElements() {return ACCOUNT_KEY_SCHEMA;}
-    public static List<AttributeDefinition> getCardAttributeDefinitions() {return ACCOUNT_ATTRIBUTE_DEFINITIONS;}
-    public static ProvisionedThroughput getCardProvisionedThroughput() {return ACCOUNT_TABLE_THROUGHPUT;}
+    public static List<KeySchemaElement> getAccountSchemaElements() {return ACCOUNT_KEY_SCHEMA;}
+    public static List<AttributeDefinition> getAccountKeyAttributes() {return ACCOUNT_KEY_ATTRIBUTES;}
+    public static List<AttributeDefinition> getAccountAttributeDefinitions() {return ACCOUNT_ATTRIBUTE_DEFINITIONS;}
+    public static ProvisionedThroughput getAccountProvisionedThroughput() {return ACCOUNT_TABLE_THROUGHPUT;}
 }

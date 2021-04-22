@@ -15,7 +15,8 @@ public class BudgetTableConstants {
     public static String BUDGET_ID = "BUDGET_ID";
     public static String USER_ID = "USER_ID";
     public static String CARD_ID = "CARD_ID";
-    public static String BALANCE = "BALANCE";
+    public static String MAX_BALANCE = "MAX_BALANCE";
+    public static String CUR_BALANCE = "CUR_BALANCE";
     public static String MIN_ALERT = "MIN_ALERT";
     public static String AUTO_CANCEL = "AUTO_CANCEL";
     public static String BUDGET_NAME = "BUDGET_NAME";
@@ -52,7 +53,10 @@ public class BudgetTableConstants {
                 .withAttributeName(CARD_ID)
                 .withAttributeType("S"),
             new AttributeDefinition()
-                .withAttributeName(BALANCE)
+                .withAttributeName(MAX_BALANCE)
+                .withAttributeType("N"),
+            new AttributeDefinition()
+                .withAttributeName(CUR_BALANCE)
                 .withAttributeType("N"),
             new AttributeDefinition()
                 .withAttributeName(MIN_ALERT)

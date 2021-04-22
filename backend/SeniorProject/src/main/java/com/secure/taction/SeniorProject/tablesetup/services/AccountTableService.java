@@ -19,9 +19,9 @@ public class AccountTableService {
 
         CreateTableRequest request = new CreateTableRequest()
                 .withTableName(AccountTableConstants.ACCOUNT_TABLE_NAME)
-                .withKeySchema(AccountTableConstants.getCardSchemaElements())
-                .withAttributeDefinitions(AccountTableConstants.getCardAttributeDefinitions())
-                .withProvisionedThroughput(AccountTableConstants.getCardProvisionedThroughput());
+                .withKeySchema(AccountTableConstants.getAccountSchemaElements())
+                .withAttributeDefinitions(AccountTableConstants.getAccountKeyAttributes())
+                .withProvisionedThroughput(AccountTableConstants.getAccountProvisionedThroughput());
 
         Table table = dynamoDB.createTable(request);
 

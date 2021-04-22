@@ -2,7 +2,7 @@ package com.secure.taction.SeniorProject.tablesetup.controllers;
 
 import static org.mockito.Mockito.when;
 
-import com.secure.taction.SeniorProject.controllers.user.BaseControllerTest;
+import com.secure.taction.SeniorProject.controllers.BaseControllerTest;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.security.test.context.support.WithMockUser;

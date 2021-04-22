@@ -1,4 +1,4 @@
-package com.secure.taction.SeniorProject.controllers.user;
+package com.secure.taction.SeniorProject.controllers;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
