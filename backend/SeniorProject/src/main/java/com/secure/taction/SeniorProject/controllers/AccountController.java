@@ -34,7 +34,7 @@ public class AccountController {
     }
 
 	@RequestMapping(value = "/{id}/{userId}", method = RequestMethod.GET)
-	public ResponseEntity<AccountDto> findById(@PathVariable("accountId") String id,
+	public ResponseEntity<AccountDto> findById(@PathVariable("id") String id,
                                             @PathVariable("userId") String userId) {
 		return accountService.findByIdAndName(id, userId)
                 .map(account -> new ResponseEntity<>(account, HttpStatus.OK))

@@ -29,7 +29,7 @@ public class AccountRepository {
 
   private static String updateExpression =
     "set\n" + 
-    AccountTableConstants.ACCOUNT_TYPE + " = " + accountType +
+    AccountTableConstants.ACCOUNT_TYPE + " = " + accountType + ",\n" +
 		AccountTableConstants.BALANCE + " = " + balance + ",\n" +
 		AccountTableConstants.ACCOUNT_NAME + " = " + accountName; 
 
