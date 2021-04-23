@@ -41,7 +41,6 @@ public class AccountDtoToItemTest {
     assertNotNull(result);
     Map<String, Object> map = result.getAttributes();
     assertTrue(MapUtils.isNotEmpty(map));
-    assertEquals(accountId, (String) map.get(AccountTableConstants.ACCOUNT_ID));
     assertEquals(userId, (String) map.get(AccountTableConstants.USER_ID));
     assertEquals(accountType, (String) map.get(AccountTableConstants.ACCOUNT_TYPE));
     assertEquals(balance, new BigDecimal(((Number) map.get(AccountTableConstants.BALANCE)).toString()));
