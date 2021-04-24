@@ -66,7 +66,7 @@ public class BaseControllerTest {
     protected BudgetRepository budgetRepository;
 
     @MockBean
-    protected BudgetController budgetController;
+    protected BudgetControllerTest budgetController;
 
     @MockBean
     protected BudgetService budgetService;
@@ -75,7 +75,7 @@ public class BaseControllerTest {
     protected AccountTableService accountTableService;
 
     @MockBean
-    protected AccountController accountController;
+    protected AccountControllerTest accountController;
 
     @MockBean
     protected AccountService accountService;

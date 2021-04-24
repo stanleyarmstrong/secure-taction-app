@@ -8,7 +8,6 @@ import com.secure.taction.SeniorProject.dtos.accounts.AccountDto;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.web.servlet.MvcResult;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -39,9 +38,7 @@ public class AccountControllerTest extends BaseControllerTest {
         Optional<AccountDto> stubAccount = Optional.empty(); 
         when(accountService.findByIdAndName(anyString(), anyString()))
             .thenReturn(stubAccount);
-        MvcResult result = mvc.perform(get("/account/" + accountId + "/" + userId ))
-                                .andReturn();
-        mvc.perform(asyncDispatch(result))
+        mvc.perform(get("/account/" + accountId + "/" + userId))
             .andExpect(status().isNotFound());
     }
 
@@ -56,12 +53,10 @@ public class AccountControllerTest extends BaseControllerTest {
                     .withAccountName(accountName);
         when(accountService.save(any(AccountDto.class)))
             .thenReturn(dto);
-        MvcResult result = mvc.perform(post("/account")
+        mvc.perform(post("/account")
                 .contentType("application/json")
                 .content(objectMapper.writeValueAsString(dto)))
-                .andReturn();
-        
-        mvc.perform(asyncDispatch(result)).andExpect(status().isCreated());
+                .andExpect(status().isCreated());
     }
 
     @Test
