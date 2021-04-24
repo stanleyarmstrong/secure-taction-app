@@ -54,7 +54,7 @@ public class UserItemToUserDtoTest {
         assertEquals(result.getPhoneNumber(), PHONE);
         assertEquals(result.getFirstName(), FIRST_NAME);
         assertEquals(result.getLastName(), LAST_NAME);
-        assertEquals(result.getCreditCards(), CARDS);
+        assertEquals(result.getAccounts(), CARDS);
         assertEquals(result.getBudgets(), BUDGETS);
     }
 

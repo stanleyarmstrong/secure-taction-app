@@ -118,16 +118,16 @@ public class UserDto {
 		return this;
 	}
 
-	public List<String> getCreditCards() {
+	public List<String> getAccounts() {
 		return creditCards;
 	}
 
-	public void setCreditCards(List<String> creditCards) {
+	public void setAccounts(List<String> creditCards) {
 		this.creditCards = creditCards; 
 	}
 
-	public UserDto withCreditCards(List<String> creditCards) {
-		setCreditCards(creditCards);
+	public UserDto withAccounts(List<String> creditCards) {
+		setAccounts(creditCards);
 		return this;
 	}
 
