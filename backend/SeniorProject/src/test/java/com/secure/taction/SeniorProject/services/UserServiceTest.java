@@ -87,7 +87,7 @@ public class UserServiceTest {
                 .with(UserTableConstants.PHONE_NUMBER, PHONE_NUMBER)
                 .with(UserTableConstants.FIRST_NAME, FIRST_NAME)
                 .with(UserTableConstants.LAST_NAME, LAST_NAME)
-                .with(UserTableConstants.CARDS, CARDS)
+                .with(UserTableConstants.ACCOUNTS, CARDS)
                 .with(UserTableConstants.BUDGETS, BUDGETS)
             );
         when(userRepository.findByIdAndName(any(GetItemSpec.class)))
@@ -140,7 +140,7 @@ public class UserServiceTest {
                 .with(UserTableConstants.PHONE_NUMBER, PHONE_NUMBER)
                 .with(UserTableConstants.FIRST_NAME, FIRST_NAME)
                 .with(UserTableConstants.LAST_NAME, LAST_NAME)
-                .with(UserTableConstants.CARDS, CARDS)
+                .with(UserTableConstants.ACCOUNTS, CARDS)
                 .with(UserTableConstants.BUDGETS, BUDGETS)
             );
 
@@ -199,7 +199,7 @@ public class UserServiceTest {
                 .with(UserTableConstants.PHONE_NUMBER, PHONE_NUMBER)
                 .with(UserTableConstants.FIRST_NAME, FIRST_NAME)
                 .with(UserTableConstants.LAST_NAME, LAST_NAME)
-                .with(UserTableConstants.CARDS, CARDS)
+                .with(UserTableConstants.ACCOUNTS, CARDS)
                 .with(UserTableConstants.BUDGETS, BUDGETS)
             );
 

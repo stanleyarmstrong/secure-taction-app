@@ -24,7 +24,7 @@ public class UserItemToUserDto implements Converter<User, UserDto> {
             .withPhoneNumber((String) argItem.get(UserTableConstants.PHONE_NUMBER))
             .withFirstName((String) argItem.get(UserTableConstants.FIRST_NAME))
             .withLastName((String) argItem.get(UserTableConstants.LAST_NAME))
-            .withCreditCards((List<String>) argItem.get(UserTableConstants.CARDS))
+            .withCreditCards((List<String>) argItem.get(UserTableConstants.ACCOUNTS))
             .withBudgets((List<String>) argItem.get(UserTableConstants.BUDGETS))
         ;
     }

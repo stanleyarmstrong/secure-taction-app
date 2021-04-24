@@ -39,7 +39,7 @@ public class UserRepository {
 		UserTableConstants.FIRST_NAME + " = " + firstName + ",\n" +
 		UserTableConstants.LAST_NAME + " = " + lastName + ",\n" +
 		UserTableConstants.EMAIL + " = " + email + ",\n" +
-		UserTableConstants.CARDS + " = " + cards + ",\n" +
+		UserTableConstants.ACCOUNTS + " = " + cards + ",\n" +
 		UserTableConstants.BUDGETS + " = " + budgets;
 
     DynamoDB dynamoDB = DynamoClientUtil.getClient();

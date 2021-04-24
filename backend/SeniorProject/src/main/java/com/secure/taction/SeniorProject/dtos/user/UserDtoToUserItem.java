@@ -23,7 +23,7 @@ public class UserDtoToUserItem implements Converter<UserDto, User> {
                 .with(UserTableConstants.PHONE_NUMBER, dto.getPhoneNumber())
                 .with(UserTableConstants.FIRST_NAME, dto.getFirstName())
                 .with(UserTableConstants.LAST_NAME, dto.getLastName())
-                .with(UserTableConstants.CARDS, dto.getCreditCards())
+                .with(UserTableConstants.ACCOUNTS, dto.getCreditCards())
                 .with(UserTableConstants.BUDGETS, dto.getBudgets())
         );
     }

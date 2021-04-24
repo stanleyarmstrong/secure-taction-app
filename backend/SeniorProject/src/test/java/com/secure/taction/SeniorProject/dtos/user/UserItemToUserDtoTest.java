@@ -41,7 +41,7 @@ public class UserItemToUserDtoTest {
                 .with(UserTableConstants.PHONE_NUMBER, PHONE)
                 .with(UserTableConstants.FIRST_NAME, FIRST_NAME)
                 .with(UserTableConstants.LAST_NAME, LAST_NAME)
-                .with(UserTableConstants.CARDS, CARDS)
+                .with(UserTableConstants.ACCOUNTS, CARDS)
                 .with(UserTableConstants.BUDGETS, BUDGETS)
         );
 

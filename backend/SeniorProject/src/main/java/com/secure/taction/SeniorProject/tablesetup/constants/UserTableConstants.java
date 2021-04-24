@@ -18,7 +18,7 @@ public class UserTableConstants {
     public static String PHONE_NUMBER = "PHONE_NUMBER";
     public static String FIRST_NAME = "FIRST_NAME";
     public static String LAST_NAME = "LAST_NAME";
-    public static String CARDS = "CARDS";
+    public static String ACCOUNTS = "ACCOUNTS";
     public static String BUDGETS = "BUDGETS";
 
     private static List<KeySchemaElement> USER_KEY_SCHEMA = 
@@ -65,7 +65,7 @@ public class UserTableConstants {
                 .withAttributeName(LAST_NAME)
                 .withAttributeType("S"),
             new AttributeDefinition()
-                .withAttributeName(CARDS)
+                .withAttributeName(ACCOUNTS)
                 .withAttributeType("L"),
             new AttributeDefinition()
                 .withAttributeName(BUDGETS)
