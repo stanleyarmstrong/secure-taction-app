@@ -114,7 +114,9 @@ public class AccountServiceTest {
                     .with(AccountTableConstants.ACCOUNT_NAME, accountName)
             );
 
-        when(accountRepository.findByIdAndName(any(GetItemSpec.class)))
+        when(accountRepository.save(any(Account.class)))
+            .thenReturn(account);
+        when(dtoToItem.convert(any(AccountDto.class)))
             .thenReturn(account);
         when(itemToDto.convert(any(Account.class)))
             .thenReturn(dto);
@@ -153,7 +155,7 @@ public class AccountServiceTest {
                     .with(AccountTableConstants.ACCOUNT_NAME, accountName)
             );
 
-        when(accountRepository.findByIdAndName(any(GetItemSpec.class)))
+        when(accountRepository.update(any(AccountDto.class)))
             .thenReturn(account);
         when(itemToDto.convert(any(Account.class)))
             .thenReturn(dto);
