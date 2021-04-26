@@ -41,7 +41,7 @@ public class UserItemToUserDtoTest {
                 .with(UserTableConstants.PHONE_NUMBER, PHONE)
                 .with(UserTableConstants.FIRST_NAME, FIRST_NAME)
                 .with(UserTableConstants.LAST_NAME, LAST_NAME)
-                .with(UserTableConstants.CARDS, CARDS)
+                .with(UserTableConstants.ACCOUNTS, CARDS)
                 .with(UserTableConstants.BUDGETS, BUDGETS)
         );
 
@@ -54,7 +54,7 @@ public class UserItemToUserDtoTest {
         assertEquals(result.getPhoneNumber(), PHONE);
         assertEquals(result.getFirstName(), FIRST_NAME);
         assertEquals(result.getLastName(), LAST_NAME);
-        assertEquals(result.getCreditCards(), CARDS);
+        assertEquals(result.getAccounts(), CARDS);
         assertEquals(result.getBudgets(), BUDGETS);
     }
 

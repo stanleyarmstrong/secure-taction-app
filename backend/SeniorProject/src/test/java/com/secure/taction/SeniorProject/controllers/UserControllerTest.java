@@ -51,7 +51,7 @@ public class UserControllerTest extends BaseControllerTest {
         when(userService.findByIdAndName("bogus", "bogus"))
             .thenReturn(stubUser);
         mvc.perform(get("/user/"+"bogus"+"/"+"bogus"))
-            .andExpect(status().isOk());
+            .andExpect(status().isNotFound());
     }
 
     /* Incorrect return, but I can't figure out why it's 
@@ -74,7 +74,7 @@ public class UserControllerTest extends BaseControllerTest {
         mvc.perform(post("/user")
             .contentType("application/json")
             .content(objectMapper.writeValueAsString(stubDto))
-        ).andExpect(status().isOk());
+        ).andExpect(status().isCreated());
     }
 
     @Test
@@ -86,7 +86,7 @@ public class UserControllerTest extends BaseControllerTest {
         mvc.perform(put("/user")
             .contentType("application/json")
             .content(objectMapper.writeValueAsString(stubDto))
-        ).andExpect(status().isOk());
+        ).andExpect(status().isNotFound());
     }
 
     @Test

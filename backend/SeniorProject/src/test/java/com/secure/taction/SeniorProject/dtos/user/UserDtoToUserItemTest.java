@@ -42,7 +42,7 @@ public class UserDtoToUserItemTest {
                                 .withPhoneNumber(PHONE_NUMBER)
                                 .withFirstName(FIRST_NAME)
                                 .withLastName(LAST_NAME)
-                                .withCreditCards(CREDIT_CARDS)
+                                .withAccounts(CREDIT_CARDS)
                                 .withBudgets(BUDGETS);
 
         User result = converter.convert(argDto);

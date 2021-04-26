@@ -39,7 +39,7 @@ public class BaseControllerTest {
     protected AuthHelper authHelper;
 
     @MockBean
-    protected UserController userController;
+    protected UserControllerTest userController;
 
     @MockBean
     protected UserService userService;
