@@ -2,7 +2,7 @@ package com.secure.taction.SeniorProject.tablesetup.controllers;
 
 import org.springframework.web.bind.annotation.RestController;
 
-import com.secure.taction.SeniorProject.tablesetup.services.CreditCardTableService;
+import com.secure.taction.SeniorProject.tablesetup.services.AccountTableService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/table/credit-card")
-public class CreditCardTableController {
+@RequestMapping("/table/account")
+public class AccountTableController {
     
-    private final CreditCardTableService tableService;
+    private final AccountTableService tableService;
     @Autowired
-    public CreditCardTableController(CreditCardTableService tableService) {
+    public AccountTableController(AccountTableService tableService) {
         this.tableService = tableService;
     }
 
