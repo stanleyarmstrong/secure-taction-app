@@ -88,6 +88,12 @@
 			<version>${hibernate-validator.version}</version>
 		</dependency> 
 
+		<dependency>
+			<groupId>com.plaid</groupId>
+			<artifactId>plaid-java</artifactId>
+			<version>8.1.0</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
