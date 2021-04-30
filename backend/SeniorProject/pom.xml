@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.secure.taction</groupId>
 	<artifactId>SeniorProject</artifactId>
-	<version>ST-35-SNAPSHOT</version>
+	<version>ST-43-SNAPSHOT</version>
 	<name>SeniorProject</name>
 	<description>App for Cal Poly Senior Project</description>
 	<properties>
@@ -87,6 +87,12 @@
 			<artifactId>hibernate-validator</artifactId>    
 			<version>${hibernate-validator.version}</version>
 		</dependency> 
+
+		<dependency>
+			<groupId>com.plaid</groupId>
+			<artifactId>plaid-java</artifactId>
+			<version>8.1.0</version>
+		</dependency>
 
 	</dependencies>
 

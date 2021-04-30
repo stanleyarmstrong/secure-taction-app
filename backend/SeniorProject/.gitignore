@@ -35,3 +35,4 @@ build/
 ### Helper Request File ###
 *.https
 *.http
+*.env
