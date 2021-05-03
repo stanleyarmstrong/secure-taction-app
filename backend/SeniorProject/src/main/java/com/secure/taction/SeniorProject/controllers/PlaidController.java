@@ -3,6 +3,8 @@ package com.secure.taction.SeniorProject.controllers;
 import java.net.*;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Optional;
+import java.util.UUID;
 import java.io.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +28,9 @@ import com.plaid.client.request.LinkTokenCreateRequest;
 import com.plaid.client.response.ItemPublicTokenExchangeResponse;
 import com.plaid.client.response.LinkTokenCreateResponse;
 import com.plaid.client.response.LinkTokenGetResponse;
+import com.secure.taction.SeniorProject.dtos.accounts.AccountDto;
 import com.secure.taction.SeniorProject.dtos.user.UserDto;
-
+import com.secure.taction.SeniorProject.services.AccountService;
 import com.secure.taction.SeniorProject.services.UserService;
 import com.secure.taction.SeniorProject.utils.PlaidClientUtil;
 
@@ -36,10 +39,13 @@ import com.secure.taction.SeniorProject.utils.PlaidClientUtil;
 public class PlaidController {
 
   private final UserService userService;
+  private final AccountService accountService;
   private PlaidClient plaidClient;
   @Autowired
-  public PlaidController(UserService userService) {
+  public PlaidController(UserService userService,
+                         AccountService accountService) {
     this.userService = userService;
+    this.accountService = accountService;
     plaidClient = PlaidClientUtil.getPlaidClient();
   }
 
@@ -77,15 +83,24 @@ public class PlaidController {
   @RequestMapping(value="/get_access_token", 
                   method=RequestMethod.POST, 
                   consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE) 
-  public @ResponseBody ResponseEntity<Object> getAccessToken(@RequestParam("public_token") String publicToken) throws Exception {
-    Response<ItemPublicTokenExchangeResponse> itemResponse = plaidClient.service()
-            .itemPublicTokenExchange(new ItemPublicTokenExchangeRequest(publicToken))
-            .execute();
-    
-    if (itemResponse.isSuccessful()) {
-      return new ResponseEntity<>(HttpStatus.OK);
+  public @ResponseBody ResponseEntity<Object> getAccessToken(@RequestParam("public_token") String publicToken,
+                                                             @RequestParam("userId") String userId,
+                                                             @RequestParam("userName") String userName) throws Exception {
+//    Response<ItemPublicTokenExchangeResponse> itemResponse = plaidClient.service()
+//            .itemPublicTokenExchange(new ItemPublicTokenExchangeRequest(publicToken))
+//            .execute();
+    Optional<UserDto> userToUpdate = userService.findByIdAndName(userId, userName);
+//    if (itemResponse.isSuccessful()) {
+    if (true && userToUpdate.isPresent()) {
+//      String accountId = itemResponse.body().getAccessToken();
+      String accountId = UUID.randomUUID().toString().toUpperCase();
+      AccountDto newAccount = accountService.save(new AccountDto()
+                                                  .withAccountId(accountId));
+      userService.update(userToUpdate.get().addAccount(accountId)) ;
+      return new ResponseEntity<>(newAccount, HttpStatus.OK);
     } else {
-      return new ResponseEntity<>(itemResponse.errorBody().string(), HttpStatus.INTERNAL_SERVER_ERROR);
+      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+      //return new ResponseEntity<>(itemResponse.errorBody().string(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
