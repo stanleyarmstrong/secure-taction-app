@@ -41,6 +41,13 @@ public class AccountController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
 	}
 	
+    /*
+    *
+    *   THIS METHOD IS DEPRECATED. Still useful for simple debugging of
+    *   Based AccountDto creation, but will not be used for actual
+    *   Database transaction
+    *
+    */
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Object> create(@RequestBody AccountDto account) {
 		return new ResponseEntity<>(

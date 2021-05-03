@@ -17,7 +17,7 @@ public class UserDto {
 	private String phoneNumber;
 	private String firstName;
 	private String lastName;
-	private List<String> creditCards = new LinkedList<>();
+	private List<String> accounts = new LinkedList<>();
 	private List<String> budgets = new LinkedList<>();
 
 	public UserDto() {}
@@ -119,15 +119,23 @@ public class UserDto {
 	}
 
 	public List<String> getAccounts() {
-		return creditCards;
+		return accounts;
 	}
 
-	public void setAccounts(List<String> creditCards) {
-		this.creditCards = creditCards; 
+	public void setAccounts(List<String> accountIds) {
+		this.accounts = accountIds; 
 	}
 
-	public UserDto withAccounts(List<String> creditCards) {
-		setAccounts(creditCards);
+	public UserDto addAccount(String accountId) {
+		if (this.accounts == null) {
+			this.accounts = new LinkedList<>();
+		}
+		this.accounts.add(accountId);
+		return this;
+	}
+
+	public UserDto withAccounts(List<String> accountIds) {
+		setAccounts(accountIds);
 		return this;
 	}
 
@@ -137,6 +145,14 @@ public class UserDto {
 
 	public void setBudgets(List<String> budgets) {
 		this.budgets = budgets;
+	}
+
+	public UserDto addBudget(String budgetId) {
+		if (this.budgets == null) {
+			this.budgets = new LinkedList<>();
+		}
+		this.budgets.add(budgetId);
+		return this;
 	}
 
 	public UserDto withBudgets(List<String> budgets) {

@@ -11,7 +11,11 @@ public class AccountDto {
   private BigDecimal balance;
   private String accountName;
 
-  public AccountDto() {}
+  public AccountDto() {
+    this.accountType = "null";
+    this.balance = new BigDecimal("0.00");
+    this.accountName = "New Account";
+  }
 
   public String getAccountId() {
     return accountId;
