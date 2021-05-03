@@ -83,7 +83,7 @@ public class PlaidController {
   @RequestMapping(value="/get_access_token", 
                   method=RequestMethod.POST, 
                   consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE) 
-  public @ResponseBody ResponseEntity<Object> getAccessToken(@RequestParam("public_token") String publicToken,
+  public ResponseEntity<Object> getAccessToken(@RequestParam("public_token") String publicToken,
                                                              @RequestParam("userId") String userId,
                                                              @RequestParam("userName") String userName) throws Exception {
 //    Response<ItemPublicTokenExchangeResponse> itemResponse = plaidClient.service()
@@ -95,7 +95,8 @@ public class PlaidController {
 //      String accountId = itemResponse.body().getAccessToken();
       String accountId = UUID.randomUUID().toString().toUpperCase();
       AccountDto newAccount = accountService.save(new AccountDto()
-                                                  .withAccountId(accountId));
+                                                  .withAccountId(accountId)
+                                                  .withUserId(userToUpdate.get().getUserId()));
       userService.update(userToUpdate.get().addAccount(accountId)) ;
       return new ResponseEntity<>(newAccount, HttpStatus.OK);
     } else {
