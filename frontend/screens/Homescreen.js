@@ -2,10 +2,23 @@ import React from 'react';
 import {View, StyleSheet, useColorScheme} from 'react-native';
 import {Card, Button, Divider} from 'react-native-paper';
 import {useNavigation} from '@react-navigation/native';
+import {PlaidLink} from 'react-native-plaid-link-sdk';
 import CardRow from '../components/cardrow';
+import axios from 'axios';
 
 const HomeScreen = (props) => {
-  const navigation = useNavigation();
+  const getLinkToken = async () => {
+    const resp = await axios.get(
+      'http://localhost:10180/create_link_token/81718C54-4B2C-4131-AD0F-D8726B0A9F4B/demoUser',
+      {
+        headers: {
+          Authorization: 'Basic asdfjkl:asdfjkl',
+        },
+      },
+    );
+    console.log(resp.data);
+    return 'hello';
+  };
   return (
     <View style={styles.shell}>
       <Card style={styles.inner}>
@@ -46,14 +59,20 @@ const HomeScreen = (props) => {
             balance={3000}
           />
           <Divider />
-          <Button
-            style={styles.newCard}
-            onPress={() => {
-              navigation.push('addcard');
+          <PlaidLink
+            tokenConfig={{
+              token: getLinkToken(),
             }}
-            color="#00A7E1">
-            Add New Card
-          </Button>
+            onSuccess={(success) => {
+              console.log(success);
+            }}
+            onExit={(exit) => {
+              console.log(exit);
+            }}>
+            <Button style={styles.newCard} color="#00A7E1">
+              Add New Card
+            </Button>
+          </PlaidLink>
         </Card.Content>
       </Card>
     </View>
