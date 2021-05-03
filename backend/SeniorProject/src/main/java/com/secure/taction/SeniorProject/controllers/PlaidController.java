@@ -1,41 +1,37 @@
 package com.secure.taction.SeniorProject.controllers;
 
-import java.net.*;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Optional;
-import java.util.UUID;
-import java.io.*;
+import java.math.BigDecimal;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import retrofit2.Response;
 
 import com.plaid.client.PlaidClient;
+import com.plaid.client.request.AccountsGetRequest;
 import com.plaid.client.request.ItemPublicTokenExchangeRequest;
 import com.plaid.client.request.LinkTokenCreateRequest;
+import com.plaid.client.response.AccountsGetResponse;
 import com.plaid.client.response.ItemPublicTokenExchangeResponse;
 import com.plaid.client.response.LinkTokenCreateResponse;
-import com.plaid.client.response.LinkTokenGetResponse;
+import com.secure.taction.SeniorProject.dtos.PlaidPublicTokenDto;
 import com.secure.taction.SeniorProject.dtos.accounts.AccountDto;
 import com.secure.taction.SeniorProject.dtos.user.UserDto;
 import com.secure.taction.SeniorProject.services.AccountService;
 import com.secure.taction.SeniorProject.services.UserService;
 import com.secure.taction.SeniorProject.utils.PlaidClientUtil;
 
-@RestController("/plaid")
-@RequestMapping
+@RestController
+@RequestMapping("/plaid")
 public class PlaidController {
 
   private final UserService userService;
@@ -81,29 +77,60 @@ public class PlaidController {
   }
 
   @RequestMapping(value="/get_access_token", 
-                  method=RequestMethod.POST, 
-                  consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE) 
-  public ResponseEntity<Object> getAccessToken(@RequestParam("public_token") String publicToken,
-                                                             @RequestParam("userId") String userId,
-                                                             @RequestParam("userName") String userName) throws Exception {
-//    Response<ItemPublicTokenExchangeResponse> itemResponse = plaidClient.service()
-//            .itemPublicTokenExchange(new ItemPublicTokenExchangeRequest(publicToken))
-//            .execute();
-    Optional<UserDto> userToUpdate = userService.findByIdAndName(userId, userName);
-//    if (itemResponse.isSuccessful()) {
-    if (true && userToUpdate.isPresent()) {
-//      String accountId = itemResponse.body().getAccessToken();
-      String accountId = UUID.randomUUID().toString().toUpperCase();
-      AccountDto newAccount = accountService.save(new AccountDto()
-                                                  .withAccountId(accountId)
-                                                  .withUserId(userToUpdate.get().getUserId()));
-      userService.update(userToUpdate.get().addAccount(accountId)) ;
-      return new ResponseEntity<>(newAccount, HttpStatus.OK);
+                  method=RequestMethod.POST)
+  public ResponseEntity<Object> getAccessToken(@RequestBody PlaidPublicTokenDto publicToken) throws Exception {
+    Response<ItemPublicTokenExchangeResponse> itemResponse = plaidClient.service()
+            .itemPublicTokenExchange(new ItemPublicTokenExchangeRequest(publicToken.getPublicToken()))
+            .execute();
+    Optional<UserDto> userToUpdate = userService.findByIdAndName(publicToken.getUserId(), 
+                                                                publicToken.getUserName());
+    if (itemResponse.isSuccessful()) {
+      String accountId = itemResponse.body().getAccessToken();
+      if (userToUpdate.isPresent()) {
+        AccountDto newAccount = accountService.save(new AccountDto()
+                                                    .withAccountId(accountId)
+                                                    .withUserId(publicToken.getUserId()));
+        userService.update(userToUpdate.get().addAccount(accountId));
+        return new ResponseEntity<>(newAccount, HttpStatus.OK);
+      } else {
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+      }
     } else {
-      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-      //return new ResponseEntity<>(itemResponse.errorBody().string(), HttpStatus.INTERNAL_SERVER_ERROR);
+      return new ResponseEntity<>(itemResponse.errorBody().string(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
+  @RequestMapping(value="/accounts", method = RequestMethod.PUT)
+  public ResponseEntity<Object> updateAccountValues(@RequestBody AccountDto account) throws Exception {
+    if (account.getAccountId() == null) {
+      return new ResponseEntity<>("\"message:\" Not authorized with access token",HttpStatus.NOT_ACCEPTABLE);
+    }
+
+    Response<AccountsGetResponse> response = plaidClient.service()
+        .accountsGet(new AccountsGetRequest(account.getAccountId()))
+        .execute();
+    
+    Optional<AccountDto> accountToUpdate = accountService
+          .findByIdAndName(account.getAccountId(), account.getUserId());
+    if (response.isSuccessful()) {
+      if (accountToUpdate.isPresent()) {
+        AccountDto updateAccount = accountToUpdate.get()
+                                      .withAccountType(response.body()
+                                                      .getAccounts().get(0).getType())
+                                      .withBalance(BigDecimal.valueOf(response.body()
+                                                  .getAccounts().get(0).getBalances().getCurrent()))
+                                      .withAccountName(response.body()
+                                                      .getAccounts().get(0).getName());
+        updateAccount = accountService.update(updateAccount);
+        return new ResponseEntity<>(updateAccount, HttpStatus.OK);
+      } else {
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+      }
+    } else {
+      return new ResponseEntity<>("\"message\": unable to pull accounts from Plaid API", HttpStatus.BAD_REQUEST);
+    }
+
+  }
   
+
 }
