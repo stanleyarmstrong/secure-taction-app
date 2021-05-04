@@ -4,16 +4,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.math.BigDecimal;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 import com.amazonaws.services.dynamodbv2.document.Item;
 import com.secure.taction.SeniorProject.models.Transaction;
 import com.secure.taction.SeniorProject.tablesetup.constants.TransactionTableConstants;
 
-import org.apache.commons.collections4.MapUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
