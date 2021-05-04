@@ -13,7 +13,6 @@ public class TransactionTableConstants {
     public static String TRANSACTION_TABLE_NAME = "ST_TRANSACTION";
     public static String TRANSACTION_ID = "TRANSACTION_ID";
     public static String ACCOUNT_ID = "ACCOUNT_ID";
-    public static String USER_ID = "USER_ID";
     public static String AMOUNT = "AMOUNT";
     public static String LOCATION = "LOCATION";
     public static String VENDOR = "VENDOR";
