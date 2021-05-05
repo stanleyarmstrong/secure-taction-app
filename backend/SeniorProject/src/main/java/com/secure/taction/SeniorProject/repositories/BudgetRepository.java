@@ -56,7 +56,7 @@ public class BudgetRepository {
             else
                 return null;
         } catch (Exception e) {
-            LOGGER.error("Exception occured while adding record to the db: ", e);
+            LOGGER.error("Exception occured while adding record to the Budget Table: ", e);
             return null;
         }
     }
