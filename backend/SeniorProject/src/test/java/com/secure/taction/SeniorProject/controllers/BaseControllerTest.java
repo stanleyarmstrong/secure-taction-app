@@ -94,7 +94,7 @@ public class BaseControllerTest {
     protected TransactionTableService transactionTableService;
 
     @MockBean
-    protected TransactionController transactionController;
+    protected TransactionControllerTest transactionControllerTest;
     
     @MockBean
     protected TransactionService transactionService;
