@@ -27,7 +27,7 @@ public class TransactionItemToDtoTest {
         final String transactionId = UUID.randomUUID().toString().toUpperCase();
         final String accountId = UUID.randomUUID().toString().toUpperCase();
         final BigDecimal amount = new BigDecimal("1234.56");
-        final String location = "123 Localtion Pl.";
+        final String address = "123 Localtion Pl.";
         final String vendor = "Windors Store";
         final List<String> categories = Collections.singletonList("Only String");
 
@@ -37,7 +37,7 @@ public class TransactionItemToDtoTest {
                     .withPrimaryKey(TransactionTableConstants.TRANSACTION_ID, transactionId)
                     .with(TransactionTableConstants.ACCOUNT_ID, accountId)
                     .with(TransactionTableConstants.AMOUNT, amount)
-                    .with(TransactionTableConstants.LOCATION, location)
+                    .with(TransactionTableConstants.ADDRESS, address)
                     .with(TransactionTableConstants.VENDOR, vendor)
                     .with(TransactionTableConstants.CATEGORIES, categories)
             );
@@ -47,7 +47,7 @@ public class TransactionItemToDtoTest {
         assertEquals(transactionId, result.getTransactionId());
         assertEquals(accountId, result.getAccountId());
         assertEquals(amount, result.getAmount());
-        assertEquals(location, result.getLocation());
+        assertEquals(address, result.getAddress());
         assertEquals(vendor, result.getVendor());
         assertEquals(categories, result.getCategories());
     }

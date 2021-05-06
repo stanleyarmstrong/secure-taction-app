@@ -9,7 +9,7 @@ public class TransactionDto {
     private String transactionId;
     private String accountId;
     private BigDecimal amount;
-    private String location;
+    private String address;
     private String vendor;
     private List<String> categories = new LinkedList<>();
 
@@ -55,16 +55,16 @@ public class TransactionDto {
         return this;
     }
 
-    public String getLocation() {
-        return location;
+    public String getAddress() {
+        return address;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public TransactionDto withLocation(String location) {
-        setLocation(location);
+    public TransactionDto withAddress(String address) {
+        setAddress(address);
         return this;
     }
 

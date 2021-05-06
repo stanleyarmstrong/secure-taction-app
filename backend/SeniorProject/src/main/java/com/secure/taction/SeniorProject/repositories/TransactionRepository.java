@@ -24,19 +24,15 @@ import org.springframework.stereotype.Repository;
 public class TransactionRepository {
 
     private static Logger LOGGER = LoggerFactory.getLogger(TransactionRepository.class);
-    private static String transactionId = ":transactionId";
-    private static String accountId = ":accountId";
     private static String amount = ":amount";
-    private static String location = ":location";
+    private static String address = ":address";
     private static String vendor = ":vendor";
     private static String categories = ":categories";
 
     private static String updateExpression =
         "set\n" +
-        TransactionTableConstants.TRANSACTION_ID + " = " + transactionId + ",\n" +
-        TransactionTableConstants.ACCOUNT_ID + " = " + accountId + ",\n" +
         TransactionTableConstants.AMOUNT + " = " + amount + ",\n" +
-        TransactionTableConstants.LOCATION + " = " + location + ",\n" +
+        TransactionTableConstants.ADDRESS + " = " + address + ",\n" +
         TransactionTableConstants.VENDOR + " = " + vendor + ",\n" +
         TransactionTableConstants.CATEGORIES + " = " + categories; 
 
@@ -68,15 +64,13 @@ public class TransactionRepository {
                     TransactionTableConstants.ACCOUNT_ID, transactionDto.getAccountId())
                 .withUpdateExpression(updateExpression)
                 .withValueMap(new ValueMap()
-                    .withString(transactionId, transactionDto.getTransactionId())
-                    .withString(accountId, transactionDto.getAccountId()) 
                     .withNumber(amount, transactionDto.getAmount())
                     .withString(vendor, transactionDto.getVendor())
-                    .withString(location, transactionDto.getLocation())
+                    .withString(address, transactionDto.getAddress())
                     .withList(categories, transactionDto.getCategories()))
                 .withReturnValues(ReturnValue.UPDATED_NEW);
         try {
-            Item outcome = table.updateItem(updateItemSpec).getItem()
+            Item outcome = table.updateItem(updateItemSpec).getItem();
             if (Objects.nonNull(outcome)) {
                 return new Transaction().withItem(outcome);
             } else {

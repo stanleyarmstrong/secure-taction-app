@@ -1,5 +1,7 @@
 package com.secure.taction.SeniorProject.controllers;
 
+import javax.validation.Valid;
+
 import com.secure.taction.SeniorProject.dtos.transaction.TransactionDto;
 import com.secure.taction.SeniorProject.services.TransactionService;
 
@@ -30,5 +32,34 @@ public class TransactionController {
         return transactionService.findByIdAndAccountId(id, accountId)
                     .map(transaction -> new ResponseEntity<>(transaction, HttpStatus.OK))
                     .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    // Debugging endpoint
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity<Object> create(@Valid @RequestBody TransactionDto transactionDto) {
+        return new ResponseEntity<>(
+            transactionService.save(transactionDto),
+            HttpStatus.CREATED
+        );
+    }
+
+    // Debugging endpoint
+    @RequestMapping(method = RequestMethod.PUT)
+    public ResponseEntity<Object> update(@Valid @RequestBody TransactionDto transactionDto) {
+        return transactionService.findByIdAndAccountId(transactionDto.getTransactionId(), 
+                                                       transactionDto.getAccountId()).isPresent()
+                    ? new ResponseEntity<>(transactionService.update(transactionDto), HttpStatus.OK)
+                    : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @RequestMapping(value = "/{id}/{userId}", method = RequestMethod.DELETE)
+    public ResponseEntity<Object> delete(@PathVariable("id") String id,
+                                         @PathVariable("accountId") String accountId) {
+        ResponseEntity<Object> toReturn = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        if (transactionService.findByIdAndAccountId(id, accountId).isPresent()) {
+            transactionService.deleteByIdAndUserId(id, accountId);
+            toReturn = new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return toReturn;
     }
 }

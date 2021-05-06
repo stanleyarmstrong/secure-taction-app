@@ -21,7 +21,7 @@ public class TransactionItemToDto implements Converter<Transaction, TransactionD
             .withTransactionId((String) item.get(TransactionTableConstants.TRANSACTION_ID))
             .withAccountId((String) item.get(TransactionTableConstants.ACCOUNT_ID))
             .withAmount(new BigDecimal(((Number)item.get(TransactionTableConstants.AMOUNT)).toString()))
-            .withLocation((String) item.get(TransactionTableConstants.LOCATION))
+            .withAddress((String) item.get(TransactionTableConstants.ADDRESS))
             .withVendor((String) item.get(TransactionTableConstants.VENDOR))
             .withCategories((List<String>) item.get(TransactionTableConstants.CATEGORIES))
         ;

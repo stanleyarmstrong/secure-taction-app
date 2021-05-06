@@ -27,7 +27,7 @@ public class TransactionDtoToItemTest {
         final String ID = "expected Id";
         final String ACCOUNT_ID = "expected account id";
         final BigDecimal AMOUNT = new BigDecimal("1233.56");
-        final String LOCATION = "122 Location Pl.";
+        final String ADDRESS = "122 Address Pl.";
         final String VENDOR = "Bapple Store";
         final List<String> CATEGORIES = new LinkedList<>();
 
@@ -35,7 +35,7 @@ public class TransactionDtoToItemTest {
             .withTransactionId(ID)
             .withAccountId(ACCOUNT_ID)
             .withAmount(AMOUNT)
-            .withLocation(LOCATION)
+            .withAddress(ADDRESS)
             .withVendor(VENDOR)
             .withCategories(CATEGORIES);
 
@@ -47,7 +47,7 @@ public class TransactionDtoToItemTest {
         assertEquals(ID, resMap.get(TransactionTableConstants.TRANSACTION_ID));
         assertEquals(ACCOUNT_ID, resMap.get(TransactionTableConstants.ACCOUNT_ID));
         assertEquals(AMOUNT, new BigDecimal(((Number) resMap.get(TransactionTableConstants.AMOUNT)).toString()));
-        assertEquals(LOCATION, resMap.get(TransactionTableConstants.LOCATION));
+        assertEquals(ADDRESS, resMap.get(TransactionTableConstants.ADDRESS));
         assertEquals(VENDOR, resMap.get(TransactionTableConstants.VENDOR));
         assertEquals(CATEGORIES, resMap.get(TransactionTableConstants.CATEGORIES));
     }
