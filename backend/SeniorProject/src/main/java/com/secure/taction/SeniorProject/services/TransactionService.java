@@ -39,7 +39,7 @@ public class TransactionService {
                                                             TransactionTableConstants.ACCOUNT_ID, accountId);
         Optional<TransactionDto> toReturn = Optional.empty();
         try {
-            Transaction transaction = transactionRepository.findByIdAndUserId(spec);
+            Transaction transaction = transactionRepository.findByIdAndAccountId(spec);
             if (Objects.nonNull(transaction.getItem()))
                 toReturn = Optional.of(itemToDto.convert(transaction));
         } catch (Exception ex) {

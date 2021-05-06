@@ -39,7 +39,7 @@ public class TransactionRepository {
     DynamoDB dynamoDB = DynamoClientUtil.getClient();
     Table table = dynamoDB.getTable(TransactionTableConstants.TRANSACTION_TABLE_NAME);
 
-    public Transaction findByIdAndUserId(GetItemSpec spec) throws Exception {
+    public Transaction findByIdAndAccountId(GetItemSpec spec) throws Exception {
         Item outcome = table.getItem(spec);
         return new Transaction().withItem(outcome);
     }

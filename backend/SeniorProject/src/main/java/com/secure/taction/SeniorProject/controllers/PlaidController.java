@@ -132,11 +132,13 @@ public class PlaidController {
 
   }
   
+  /*
   @RequestMapping(value = "/transactions", method = RequestMethod.POST)
   public ResponseEntity<Object> getTransactions(@RequestBody PlaidPublicTokenDto publicToken) throws Exception {
     if (publicToken.getPublicToken() == null) {
       return new ResponseEntity<>("Not Authorized Action", HttpStatus.UNAUTHORIZED);
     }
   }
+  */
 
 }
