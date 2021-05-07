@@ -1,24 +1,19 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, StyleSheet, useColorScheme} from 'react-native';
 import {Card, Button, Divider} from 'react-native-paper';
 import {useNavigation} from '@react-navigation/native';
 import {PlaidLink} from 'react-native-plaid-link-sdk';
+import base64 from 'react-native-base64';
 import CardRow from '../components/cardrow';
-import axios from 'axios';
+import {getLinkToken, tokenExchange} from '../services/plaidService';
 
 const HomeScreen = (props) => {
-  const getLinkToken = async () => {
-    const resp = await axios.get(
-      'http://localhost:10180/create_link_token/81718C54-4B2C-4131-AD0F-D8726B0A9F4B/demoUser',
-      {
-        headers: {
-          Authorization: 'Basic asdfjkl:asdfjkl',
-        },
-      },
-    );
-    console.log(resp.data);
-    return 'hello';
-  };
+  const [linkToken, setLinkToken] = useState('');
+  useEffect(() => {
+    getLinkToken().then((token) => {
+      setLinkToken(token);
+    });
+  }, []);
   return (
     <View style={styles.shell}>
       <Card style={styles.inner}>
@@ -61,13 +56,18 @@ const HomeScreen = (props) => {
           <Divider />
           <PlaidLink
             tokenConfig={{
-              token: getLinkToken(),
+              token: linkToken,
             }}
             onSuccess={(success) => {
-              console.log(success);
+              console.log(success.publicToken);
+              tokenExchange(
+                success.publicToken,
+                '81718C54-4B2C-4131-AD0F-D8726B0A9F4B',
+                'demoUser',
+              );
             }}
             onExit={(exit) => {
-              console.log(exit);
+              console.error(exit.errorMessage);
             }}>
             <Button style={styles.newCard} color="#00A7E1">
               Add New Card
