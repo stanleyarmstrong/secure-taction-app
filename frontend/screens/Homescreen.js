@@ -3,7 +3,6 @@ import {View, StyleSheet, useColorScheme} from 'react-native';
 import {Card, Button, Divider} from 'react-native-paper';
 import {useNavigation} from '@react-navigation/native';
 import {PlaidLink} from 'react-native-plaid-link-sdk';
-import base64 from 'react-native-base64';
 import CardRow from '../components/cardrow';
 import {getLinkToken, tokenExchange} from '../services/plaidService';
 
