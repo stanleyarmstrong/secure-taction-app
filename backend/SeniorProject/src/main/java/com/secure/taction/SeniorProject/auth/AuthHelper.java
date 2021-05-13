@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class AuthHelper {
 
-    private DynamoDB dynamoDB = DynamoClientUtil.getClient();
+    private DynamoDB dynamoDB = DynamoClientUtil.getDynamoClient();
     Table table = dynamoDB.getTable(UserCredentialsTableConstants.USER_CREDENTIALS_TABLE_NAME);
 
     private final UserService userService;

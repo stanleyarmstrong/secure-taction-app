@@ -16,7 +16,7 @@ import com.secure.taction.SeniorProject.utils.DynamoClientUtil;
 @Service
 public class TransactionTableService {
 
-    DynamoDB dynamoDB = DynamoClientUtil.getClient();
+    DynamoDB dynamoDB = DynamoClientUtil.getDynamoClient();
     
     public String createTable() {
 

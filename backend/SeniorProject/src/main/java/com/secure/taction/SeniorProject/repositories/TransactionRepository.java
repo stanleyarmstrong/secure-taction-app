@@ -36,7 +36,7 @@ public class TransactionRepository {
         TransactionTableConstants.VENDOR + " = " + vendor + ",\n" +
         TransactionTableConstants.CATEGORIES + " = " + categories; 
 
-    DynamoDB dynamoDB = DynamoClientUtil.getClient();
+    DynamoDB dynamoDB = DynamoClientUtil.getDynamoClient();
     Table table = dynamoDB.getTable(TransactionTableConstants.TRANSACTION_TABLE_NAME);
 
     public Transaction findByIdAndAccountId(GetItemSpec spec) throws Exception {

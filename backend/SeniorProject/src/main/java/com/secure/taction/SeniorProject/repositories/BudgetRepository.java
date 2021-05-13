@@ -40,7 +40,7 @@ public class BudgetRepository {
         BudgetTableConstants.AUTO_CANCEL + " = " + autoCancel + ",\n" +
         BudgetTableConstants.BUDGET_NAME + " = " + budgetName;
 
-    DynamoDB dynamoDB = DynamoClientUtil.getClient();
+    DynamoDB dynamoDB = DynamoClientUtil.getDynamoClient();
     Table table = dynamoDB.getTable(BudgetTableConstants.BUDGET_TABLE_NAME);
 
     public Budget findByIdAndUserId(GetItemSpec spec) throws Exception {
