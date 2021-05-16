@@ -5,14 +5,31 @@ import {useNavigation} from '@react-navigation/native';
 import {PlaidLink} from 'react-native-plaid-link-sdk';
 import CardRow from '../components/cardrow';
 import {getLinkToken, tokenExchange} from '../services/plaidService';
+import {getAccounts} from '../services/accountService';
 
 const HomeScreen = (props) => {
   const [linkToken, setLinkToken] = useState('');
+  const [cardRows, setCardRows] = useState([]);
   useEffect(() => {
     getLinkToken().then((token) => {
       setLinkToken(token);
     });
-  }, []);
+    getAccounts().then((data) => {
+      setCardRows(
+        data.map((account) => {
+          return (
+            <CardRow
+              title={account.accountName}
+              progress={account.currentBudgetBalance / account.maxBudgetBalance}
+              alert={account.alert}
+              cancel={account.cancel}
+              balance={account.balance}
+            />
+          );
+        }),
+      );
+    });
+  }, [cardRows]);
   return (
     <View style={styles.shell}>
       <Card style={styles.inner}>
@@ -22,36 +39,7 @@ const HomeScreen = (props) => {
           titleStyle={styles.titleColor}
         />
         <Card.Content>
-          <CardRow
-            bank={
-              'https://www.pikpng.com/pngl/m/257-2578954_chase-bank-chase-bank-chase-bank-clipart.png'
-            }
-            name={'Chase Ending in ...4415'}
-            progress={0.5}
-            alert={20.5}
-            cancel={300}
-            balance={3000}
-          />
-          <CardRow
-            bank={
-              'https://www.pikpng.com/pngl/m/257-2578954_chase-bank-chase-bank-chase-bank-clipart.png'
-            }
-            name={'Chase Ending in ...4415'}
-            progress={0.5}
-            alert={20.5}
-            cancel={300}
-            balance={3000}
-          />
-          <CardRow
-            bank={
-              'https://www.pikpng.com/pngl/m/257-2578954_chase-bank-chase-bank-chase-bank-clipart.png'
-            }
-            name={'Chase Ending in ...4415'}
-            progress={0.5}
-            alert={20.5}
-            cancel={300}
-            balance={3000}
-          />
+          {cardRows}
           <Divider />
           <PlaidLink
             tokenConfig={{
