@@ -11,7 +11,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import Navbar from './components/navbar';
 import HomeScreen from './screens/Homescreen';
-import NewCard from './screens/NewCard';
+import BudgetScreen from './screens/BudgetScreen';
 import Settings from './screens/Settings';
 
 const Stack = createStackNavigator();
@@ -30,9 +30,9 @@ const App = () => {
           options={{title: 'Good Morning, First Last'}}
         />
         <Stack.Screen
-          name="addcard"
-          component={NewCard}
-          options={{title: 'Add a Card'}}
+          name="budget"
+          component={BudgetScreen}
+          options={{title: "Card's Budget"}}
         />
         <Stack.Screen
           name="settings"

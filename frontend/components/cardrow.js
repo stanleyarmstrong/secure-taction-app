@@ -1,9 +1,11 @@
 import React from 'react';
 import {View, Image, StyleSheet} from 'react-native';
 import {Text, Divider, IconButton} from 'react-native-paper';
+import {useNavigation} from '@react-navigation/native';
 import * as Progress from 'react-native-progress';
 
 const CardRow = (props) => {
+  const navigation = useNavigation();
   const getColor = () => {
     if (props.progress >= 0.1) {
       return '#A8F388';
@@ -48,6 +50,9 @@ const CardRow = (props) => {
             icon={'arrow-right'}
             color={'#C2C2C2'}
             style={styles.icon}
+            onPress={() => {
+              navigation.push('budget');
+            }}
             size={20}
           />
           <Text style={styles.balance}> ${props.balance.toFixed(2)} </Text>
