@@ -2,6 +2,7 @@ package com.secure.taction.SeniorProject.controllers;
 
 import java.util.List;
 
+import com.secure.taction.SeniorProject.dtos.accounts.AccountAndBudgetDto;
 import com.secure.taction.SeniorProject.dtos.accounts.AccountDto;
 import com.secure.taction.SeniorProject.repositories.AccountRepository;
 import com.secure.taction.SeniorProject.services.AccountService;
@@ -31,6 +32,11 @@ public class AccountController {
     public void search() {
         // STUB
         // Return type and functionality TBD
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ResponseEntity<AccountAndBudgetDto> findAccountAndBudget(@PathVariable("id") String accountId) {
+        return new ResponseEntity<>(accountService.findAccountWithBudgets(accountId), HttpStatus.OK);
     }
 
 	@RequestMapping(value = "/{id}/{userId}", method = RequestMethod.GET)

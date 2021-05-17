@@ -35,7 +35,7 @@ public class BudgetItemToDtoTest {
                 new Item()
                     .with(BudgetTableConstants.BUDGET_ID, budgetId)
                     .with(BudgetTableConstants.USER_ID, userId)
-                    .with(BudgetTableConstants.CARD_ID, cardId)
+                    .with(BudgetTableConstants.ACCOUNT_ID, cardId)
                     .with(BudgetTableConstants.MAX_BALANCE, maxBudgetBalance)
                     .with(BudgetTableConstants.CUR_BALANCE, currentBudgetBalance)
                     .with(BudgetTableConstants.MIN_ALERT, minimumAlert)

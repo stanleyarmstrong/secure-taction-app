@@ -49,7 +49,7 @@ public class BudgetDtoToItemTest {
         Map<String, Object> map = result.getAttributes();
         assertTrue(MapUtils.isNotEmpty(map));
         assertEquals(userId, (String) map.get(BudgetTableConstants.USER_ID));
-        assertEquals(cardId, (String) map.get(BudgetTableConstants.CARD_ID));
+        assertEquals(cardId, (String) map.get(BudgetTableConstants.ACCOUNT_ID));
         assertEquals(budgetName, (String) map.get(BudgetTableConstants.BUDGET_NAME));
         assertEquals(maxBudgetBalance, new BigDecimal(((Number) map.get(BudgetTableConstants.MAX_BALANCE)).toString()));
         assertEquals(currentBudgetBalance, new BigDecimal(((Number) map.get(BudgetTableConstants.CUR_BALANCE)).toString()));
