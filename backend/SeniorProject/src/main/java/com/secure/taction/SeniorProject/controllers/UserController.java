@@ -37,7 +37,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<AccountAndBudgetDto> findAccountAndBudget(@PathVariable("id") String userId) {
+    public ResponseEntity<List<AccountAndBudgetDto>> findAccountAndBudget(@PathVariable("id") String userId) {
         return new ResponseEntity<>(userService.findAccountWithBudgets(userId), HttpStatus.OK);
     }
 

@@ -25,6 +25,8 @@ import com.secure.taction.SeniorProject.dtos.budget.BudgetItemToDto;
 import com.secure.taction.SeniorProject.dtos.user.UserDto;
 import com.secure.taction.SeniorProject.dtos.user.UserDtoToUserItem;
 import com.secure.taction.SeniorProject.dtos.user.UserItemToUserDto;
+import com.secure.taction.SeniorProject.models.Account;
+import com.secure.taction.SeniorProject.models.Budget;
 import com.secure.taction.SeniorProject.models.User;
 import com.secure.taction.SeniorProject.repositories.AccountRepository;
 import com.secure.taction.SeniorProject.repositories.BudgetRepository;
@@ -114,23 +116,31 @@ public class UserService {
         }
     }
 
-    public AccountAndBudgetDto findAccountWithBudgets(String userId) {
-        Map<AccountDto, BudgetDto> accountToBudgetMapping;
-        List<BudgetDto> budgets = new LinkedList<>();
-        AccountAndBudgetDto toReturn = new AccountAndBudgetDto(); 
+    public List<AccountAndBudgetDto> findAccountWithBudgets(String userId) {
+        Map<String, AccountDto> accountToAccountIdMapping = new HashMap<>();
         QuerySpec userQuerySpec = QueryUtils.userQuerySpec(userId);
         ItemCollection<QueryOutcome> userItem = userRepository.queryForUser(userQuerySpec);
         Iterator<Item> iterator = userItem.iterator();
         UserDto sourceUser = itemToDto.convert(new User().withItem(iterator.next()));
+        for (String accountId : sourceUser.getAccounts()) {
+            QuerySpec accountQuerySpec = QueryUtils.accountQuerySpec(accountId);
+            ItemCollection<QueryOutcome> accountItem = accountRepository.queryForAccount(accountQuerySpec);
+            iterator = accountItem.iterator();
+            if (iterator.hasNext() == false) continue;
+            AccountDto accountDto = accountItemToDto.convert(new Account().withItem(iterator.next()));
+            accountToAccountIdMapping.put(accountDto.getAccountId(), accountDto);
+        }
+        /*
         for (String budgetId : sourceUser.getBudgets()) {
             QuerySpec budgetQuerySpec = QueryUtils.budgetQuerySpec(budgetId);
             ItemCollection<QueryOutcome> budgetItem = budgetRepository.queryForBudget(budgetQuerySpec);
             iterator = budgetItem.iterator();
-            System.out.println(iterator.next().toJSONPretty());
+            budgets.add(budgetItemToDto.convert(new Budget().withItem(iterator.next())));
         }
+        */
+
 //        accountToBudgetMapping = getMappings(sourceUser.getAccounts(), sourceUser.getBudgets())
-//        QuerySpec accountQuerySpec = accountQuerySpec(userId);
-//        ItemCollection<QueryOutcome> accountItems = accountRepository.queryForAccount(accountQuerySpec);
+
 
     /*
 
@@ -148,7 +158,7 @@ public class UserService {
             System.out.println(iterator.next().toJSONPretty());
         }
     */
-        return toReturn;
+        return new LinkedList<>();
     }
 
 
