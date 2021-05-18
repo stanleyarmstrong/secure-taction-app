@@ -1,8 +1,10 @@
 package com.secure.taction.SeniorProject.services;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -14,6 +16,12 @@ import com.amazonaws.services.dynamodbv2.document.spec.GetItemSpec;
 import com.amazonaws.services.dynamodbv2.document.spec.QuerySpec;
 import com.amazonaws.services.dynamodbv2.document.utils.ValueMap;
 import com.secure.taction.SeniorProject.dtos.accounts.AccountAndBudgetDto;
+import com.secure.taction.SeniorProject.dtos.accounts.AccountDto;
+import com.secure.taction.SeniorProject.dtos.accounts.AccountDtoToAccountItem;
+import com.secure.taction.SeniorProject.dtos.accounts.AccountItemToAccountDto;
+import com.secure.taction.SeniorProject.dtos.budget.BudgetDto;
+import com.secure.taction.SeniorProject.dtos.budget.BudgetDtoToItem;
+import com.secure.taction.SeniorProject.dtos.budget.BudgetItemToDto;
 import com.secure.taction.SeniorProject.dtos.user.UserDto;
 import com.secure.taction.SeniorProject.dtos.user.UserDtoToUserItem;
 import com.secure.taction.SeniorProject.dtos.user.UserItemToUserDto;
@@ -38,18 +46,30 @@ public class UserService {
     private final BudgetRepository budgetRepository;
     private final UserDtoToUserItem dtoToItem;
     private final UserItemToUserDto itemToDto;
+    private final BudgetDtoToItem budgetDtoToItem;
+    private final BudgetItemToDto budgetItemToDto;
+    private final AccountDtoToAccountItem accountDtoToItem;
+    private final AccountItemToAccountDto accountItemToDto;
 
     @Autowired
     public UserService(UserRepository userRepository,
                        AccountRepository accountRepository, 
                        BudgetRepository budgetRepository,
                        UserDtoToUserItem dtoToItem,
-                       UserItemToUserDto itemToDto) {
+                       UserItemToUserDto itemToDto,
+                       BudgetItemToDto budgetItemToDto,
+                       BudgetDtoToItem budgetDtoToItem,
+                       AccountDtoToAccountItem accountDtoToItem,
+                       AccountItemToAccountDto accountItemToDto) {
         this.userRepository = userRepository;
         this.accountRepository = accountRepository;
         this.budgetRepository = budgetRepository;
         this.dtoToItem = dtoToItem;
         this.itemToDto = itemToDto;
+        this.budgetDtoToItem = budgetDtoToItem;
+        this.budgetItemToDto = budgetItemToDto;
+        this.accountDtoToItem = accountDtoToItem;
+        this.accountItemToDto = accountItemToDto;
     }
 
 
@@ -95,24 +115,25 @@ public class UserService {
     }
 
     public AccountAndBudgetDto findAccountWithBudgets(String userId) {
-        List<String> accountIds = new LinkedList<>();
-        List<String> budgetIds = new LinkedList<>();
+        Map<AccountDto, BudgetDto> accountToBudgetMapping;
+        List<BudgetDto> budgets = new LinkedList<>();
         AccountAndBudgetDto toReturn = new AccountAndBudgetDto(); 
         QuerySpec userQuerySpec = QueryUtils.userQuerySpec(userId);
         ItemCollection<QueryOutcome> userItem = userRepository.queryForUser(userQuerySpec);
         Iterator<Item> iterator = userItem.iterator();
         UserDto sourceUser = itemToDto.convert(new User().withItem(iterator.next()));
-        accountIds = sourceUser.getAccounts();
-        budgetIds = sourceUser.getBudgets();
-        while (iterator.hasNext()) {
+        for (String budgetId : sourceUser.getBudgets()) {
+            QuerySpec budgetQuerySpec = QueryUtils.budgetQuerySpec(budgetId);
+            ItemCollection<QueryOutcome> budgetItem = budgetRepository.queryForBudget(budgetQuerySpec);
+            iterator = budgetItem.iterator();
             System.out.println(iterator.next().toJSONPretty());
         }
+//        accountToBudgetMapping = getMappings(sourceUser.getAccounts(), sourceUser.getBudgets())
 //        QuerySpec accountQuerySpec = accountQuerySpec(userId);
 //        ItemCollection<QueryOutcome> accountItems = accountRepository.queryForAccount(accountQuerySpec);
 
     /*
-        QuerySpec budgetQuerySpec = budgetQuerySpec(userId);
-        ItemCollection<QueryOutcome> budgetItems = budgetRepository.queryForBudget(budgetQuerySpec);
+
     */
     /*
         Iterator<Item> iterator = accountItems.iterator();
@@ -129,5 +150,14 @@ public class UserService {
     */
         return toReturn;
     }
+
+
+
+    private Map<String, BudgetDto> initializeMappings(List<String> accounts) {
+        Map<String, BudgetDto> toReturn = new HashMap<>();
+        accounts.forEach(s -> toReturn.put(s, null));
+        return toReturn;
+    }
+
 
 }
