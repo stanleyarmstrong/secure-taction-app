@@ -18,7 +18,7 @@ public class BudgetDtoToItem implements Converter<BudgetDto, Budget> {
             new Item()
                 .with(BudgetTableConstants.BUDGET_ID, UUID.randomUUID().toString().toUpperCase())
                 .with(BudgetTableConstants.USER_ID, dto.getUserId())
-                .with(BudgetTableConstants.CARD_ID, dto.getCardId())
+                .with(BudgetTableConstants.ACCOUNT_ID, dto.getAccountId())
                 .with(BudgetTableConstants.MAX_BALANCE, dto.getMaxBudgetBalance())
                 .with(BudgetTableConstants.CUR_BALANCE, dto.getCurrentBudgetBalance())
                 .with(BudgetTableConstants.MIN_ALERT, dto.getMinimumAlert())

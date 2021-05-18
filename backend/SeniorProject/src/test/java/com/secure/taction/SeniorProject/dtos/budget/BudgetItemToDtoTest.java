@@ -35,7 +35,7 @@ public class BudgetItemToDtoTest {
                 new Item()
                     .with(BudgetTableConstants.BUDGET_ID, budgetId)
                     .with(BudgetTableConstants.USER_ID, userId)
-                    .with(BudgetTableConstants.CARD_ID, cardId)
+                    .with(BudgetTableConstants.ACCOUNT_ID, cardId)
                     .with(BudgetTableConstants.MAX_BALANCE, maxBudgetBalance)
                     .with(BudgetTableConstants.CUR_BALANCE, currentBudgetBalance)
                     .with(BudgetTableConstants.MIN_ALERT, minimumAlert)
@@ -47,7 +47,7 @@ public class BudgetItemToDtoTest {
         assertNotNull(result);
         assertEquals(budgetId, result.getBudgetId());
         assertEquals(userId, result.getUserId());
-        assertEquals(cardId, result.getCardId());
+        assertEquals(cardId, result.getAccountId());
         assertEquals(budgetName, result.getBudgetName());
         assertEquals(currentBudgetBalance, result.getCurrentBudgetBalance());
         assertEquals(maxBudgetBalance, result.getMaxBudgetBalance());

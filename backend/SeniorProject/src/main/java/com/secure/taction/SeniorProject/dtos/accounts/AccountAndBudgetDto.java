@@ -1,66 +1,47 @@
-package com.secure.taction.SeniorProject.dtos.budget;
+package com.secure.taction.SeniorProject.dtos.accounts;
 
 import java.math.BigDecimal;
+import java.util.LinkedList;
+import java.util.List;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
+import com.secure.taction.SeniorProject.dtos.budget.BudgetDto;
 
-public class BudgetDto {
+public class AccountAndBudgetDto {
 
-    private String budgetId;
-    private String userId;
-    private String cardId;
-    @NotNull
+    private String accountName;
+    private BigDecimal accountBalance;
     private BigDecimal maxBudgetBalance;
-    @NotNull
     private BigDecimal currentBudgetBalance;
-    @NotNull
-    @Min(value = 0)
     private BigDecimal minimumAlert;
-    @NotNull
-    @Min(value = 0)
     private BigDecimal autoCancel;
     private String budgetName;
 
-    public BudgetDto() {
+    public AccountAndBudgetDto() {
     }
 
-    public String getBudgetId() {
-        return budgetId;
+    public String getAccountName() {
+        return accountName;
     }
 
-    public void setBudgetId(String budgetId) {
-        this.budgetId = budgetId;
+    public void setAccountName(String accountName) {
+        this.accountName = accountName;
     }
 
-    public BudgetDto withBudgetId(String budgetId) {
-        setBudgetId(budgetId);
+    public AccountAndBudgetDto withAccountName(String accountName) {
+        setAccountName(accountName);
         return this;
     }
 
-    public String getUserId() {
-        return userId;
+    public BigDecimal getAccountBalance() {
+        return accountBalance;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setAccountBalance(BigDecimal accountBalance) {
+        this.accountBalance = accountBalance;
     }
 
-    public BudgetDto withUserId(String userId) {
-        setUserId(userId);
-        return this;
-    }
-
-    public String getAccountId() {
-        return cardId;
-    }
-
-    public void setAccountId(String cardId) {
-        this.cardId = cardId;
-    }
-
-    public BudgetDto withAccountId(String cardId) {
-        setAccountId(cardId);
+    public AccountAndBudgetDto withAccountBalance(BigDecimal accountBalance) {
+        setAccountBalance(accountBalance);
         return this;
     }
 
@@ -72,7 +53,7 @@ public class BudgetDto {
         this.maxBudgetBalance = maxBudgetBalance;
     }
 
-    public BudgetDto withMaxBudgetBalance(BigDecimal maxBudgetBalance) {
+    public AccountAndBudgetDto withMaxBudgetBalance(BigDecimal maxBudgetBalance) {
         setMaxBudgetBalance(maxBudgetBalance);
         return this;
     }
@@ -85,8 +66,8 @@ public class BudgetDto {
         this.currentBudgetBalance = currentBudgetBalance;
     }
 
-    public BudgetDto withCurrentBudgetBalance(BigDecimal currentBudgetBalance) {
-        setCurrentBudgetBalance(currentBudgetBalance);
+    public AccountAndBudgetDto withCurrentBudgetBalance(BigDecimal currentBudgetBalance) {
+        setMaxBudgetBalance(currentBudgetBalance);
         return this;
     }
 
@@ -98,7 +79,7 @@ public class BudgetDto {
         this.minimumAlert = minimumAlert;
     }
 
-    public BudgetDto withMinimumAlert(BigDecimal minimumAlert) {
+    public AccountAndBudgetDto withMinimumAlert(BigDecimal minimumAlert) {
         setMinimumAlert(minimumAlert);
         return this;
     }
@@ -111,7 +92,7 @@ public class BudgetDto {
         this.autoCancel = autoCancel;
     }
 
-    public BudgetDto withAutoCancel(BigDecimal autoCancel) {
+    public AccountAndBudgetDto withAutoCancel(BigDecimal autoCancel) {
         setAutoCancel(autoCancel);
         return this;
     }
@@ -124,10 +105,9 @@ public class BudgetDto {
         this.budgetName = budgetName;
     }
 
-    public BudgetDto withBudgetName(String budgetName) {
+    public AccountAndBudgetDto withBudgetName(String budgetName) {
         setBudgetName(budgetName);
         return this;
     }
-
 
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import com.secure.taction.SeniorProject.dtos.accounts.AccountAndBudgetDto;
 import com.secure.taction.SeniorProject.dtos.user.UserDto;
 import com.secure.taction.SeniorProject.repositories.UserRepository;
 import com.secure.taction.SeniorProject.services.UserService;
@@ -33,6 +34,11 @@ public class UserController {
     public void search() {
         // STUB
         // Return type and functionality TBD
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ResponseEntity<List<AccountAndBudgetDto>> findAccountAndBudget(@PathVariable("id") String userId) {
+        return new ResponseEntity<>(userService.findAccountWithBudgets(userId), HttpStatus.OK);
     }
 
 	@RequestMapping(value = "/{id}/{username}", method = RequestMethod.GET)
