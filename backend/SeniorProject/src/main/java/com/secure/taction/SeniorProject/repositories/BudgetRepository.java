@@ -72,7 +72,7 @@ public class BudgetRepository {
                     BudgetTableConstants.USER_ID, budgetDto.getUserId())
                 .withUpdateExpression(updateExpression)
                 .withValueMap(new ValueMap()
-                    .withString(cardId, budgetDto.getCardId())
+                    .withString(cardId, budgetDto.getAccountId())
                     .withString(budgetName, budgetDto.getBudgetName())
                     .withNumber(maxBudgetBalance, budgetDto.getMaxBudgetBalance())
                     .withNumber(currentBudgetBalance, budgetDto.getCurrentBudgetBalance())

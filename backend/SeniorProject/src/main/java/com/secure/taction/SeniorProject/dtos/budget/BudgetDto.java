@@ -51,16 +51,16 @@ public class BudgetDto {
         return this;
     }
 
-    public String getCardId() {
+    public String getAccountId() {
         return cardId;
     }
 
-    public void setCardId(String cardId) {
+    public void setAccountId(String cardId) {
         this.cardId = cardId;
     }
 
-    public BudgetDto withCardId(String cardId) {
-        setCardId(cardId);
+    public BudgetDto withAccountId(String cardId) {
+        setAccountId(cardId);
         return this;
     }
 

@@ -66,7 +66,7 @@ public class BudgetServiceTest {
         final BudgetDto dto = new BudgetDto()
                     .withBudgetId(budgetId)
                     .withUserId(userId)
-                    .withCardId(cardId)
+                    .withAccountId(cardId)
                     .withMaxBudgetBalance(maxBudgetBalance)
                     .withCurrentBudgetBalance(currentBudgetBalance)
                     .withMinimumAlert(minimumAlert)
@@ -94,7 +94,7 @@ public class BudgetServiceTest {
         assertTrue(result.isPresent());
         assertEquals(budgetId, result.get().getBudgetId());
         assertEquals(userId, result.get().getUserId());
-        assertEquals(cardId, result.get().getCardId());
+        assertEquals(cardId, result.get().getAccountId());
         assertEquals(maxBudgetBalance, result.get().getMaxBudgetBalance());
         assertEquals(currentBudgetBalance, result.get().getCurrentBudgetBalance());
         assertEquals(autoCancel, result.get().getAutoCancel());
@@ -173,7 +173,7 @@ public class BudgetServiceTest {
         final BudgetDto dto = new BudgetDto()
                     .withBudgetId(budgetId)
                     .withUserId(userId)
-                    .withCardId(cardId)
+                    .withAccountId(cardId)
                     .withMaxBudgetBalance(NEW_MAX_BUDGET_BALANCE)
                     .withCurrentBudgetBalance(currentBudgetBalance)
                     .withMinimumAlert(minimumAlert)
@@ -202,7 +202,7 @@ public class BudgetServiceTest {
         assertNotNull(result);
         assertEquals(budgetId, result.getBudgetId());
         assertEquals(userId, result.getUserId());
-        assertEquals(cardId, result.getCardId());
+        assertEquals(cardId, result.getAccountId());
         assertEquals(NEW_MAX_BUDGET_BALANCE, result.getMaxBudgetBalance());
         assertEquals(currentBudgetBalance, result.getCurrentBudgetBalance());
         assertEquals(autoCancel, result.getAutoCancel());

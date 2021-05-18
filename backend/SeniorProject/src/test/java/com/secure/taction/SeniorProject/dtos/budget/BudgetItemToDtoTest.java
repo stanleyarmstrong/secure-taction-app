@@ -47,7 +47,7 @@ public class BudgetItemToDtoTest {
         assertNotNull(result);
         assertEquals(budgetId, result.getBudgetId());
         assertEquals(userId, result.getUserId());
-        assertEquals(cardId, result.getCardId());
+        assertEquals(cardId, result.getAccountId());
         assertEquals(budgetName, result.getBudgetName());
         assertEquals(currentBudgetBalance, result.getCurrentBudgetBalance());
         assertEquals(maxBudgetBalance, result.getMaxBudgetBalance());

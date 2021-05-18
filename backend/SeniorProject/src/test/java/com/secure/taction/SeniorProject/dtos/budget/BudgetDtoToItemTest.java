@@ -37,7 +37,7 @@ public class BudgetDtoToItemTest {
         final BudgetDto dto = new BudgetDto()
                 .withBudgetId(budgetId)
                 .withUserId(userId)
-                .withCardId(cardId)
+                .withAccountId(cardId)
                 .withMaxBudgetBalance(maxBudgetBalance)
                 .withCurrentBudgetBalance(currentBudgetBalance)
                 .withMinimumAlert(minimumAlert)

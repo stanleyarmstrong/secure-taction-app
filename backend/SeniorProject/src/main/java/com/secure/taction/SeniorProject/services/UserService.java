@@ -117,7 +117,9 @@ public class UserService {
     }
 
     public List<AccountAndBudgetDto> findAccountWithBudgets(String userId) {
+        List<AccountAndBudgetDto> toReturn = new LinkedList<>();
         Map<String, AccountDto> accountToAccountIdMapping = new HashMap<>();
+        List<BudgetDto> budgetDtos = new LinkedList<>();
         QuerySpec userQuerySpec = QueryUtils.userQuerySpec(userId);
         ItemCollection<QueryOutcome> userItem = userRepository.queryForUser(userQuerySpec);
         Iterator<Item> iterator = userItem.iterator();
@@ -130,35 +132,28 @@ public class UserService {
             AccountDto accountDto = accountItemToDto.convert(new Account().withItem(iterator.next()));
             accountToAccountIdMapping.put(accountDto.getAccountId(), accountDto);
         }
-        /*
         for (String budgetId : sourceUser.getBudgets()) {
             QuerySpec budgetQuerySpec = QueryUtils.budgetQuerySpec(budgetId);
             ItemCollection<QueryOutcome> budgetItem = budgetRepository.queryForBudget(budgetQuerySpec);
             iterator = budgetItem.iterator();
-            budgets.add(budgetItemToDto.convert(new Budget().withItem(iterator.next())));
+            if (iterator.hasNext() == false) continue;
+            BudgetDto budgetDto = budgetItemToDto.convert(new Budget().withItem(iterator.next()));
+            budgetDtos.add(budgetDto);
         }
-        */
-
-//        accountToBudgetMapping = getMappings(sourceUser.getAccounts(), sourceUser.getBudgets())
-
-
-    /*
-
-    */
-    /*
-        Iterator<Item> iterator = accountItems.iterator();
-        System.out.println("Testing Account Item Print");
-        while (iterator.hasNext()) {
-            System.out.println(iterator.next().toJSONPretty());
+        for (BudgetDto budgetDto : budgetDtos) {
+            AccountDto toMapWith = accountToAccountIdMapping.get(budgetDto.getAccountId());
+            AccountAndBudgetDto toAdd = new AccountAndBudgetDto()
+                    .withAccountName(toMapWith.getAccountName())
+                    .withAccountBalance(toMapWith.getBalance())
+                    .withBudgetName(budgetDto.getBudgetName())
+                    .withCurrentBudgetBalance(budgetDto.getCurrentBudgetBalance())
+                    .withMaxBudgetBalance(budgetDto.getMaxBudgetBalance())
+                    .withAutoCancel(budgetDto.getAutoCancel())
+                    .withMinimumAlert(budgetDto.getMinimumAlert());
+            toReturn.add(toAdd);
         }
-    */
-    /*
-        iterator = budgetItems.iterator();
-        while (iterator.hasNext()) {
-            System.out.println(iterator.next().toJSONPretty());
-        }
-    */
-        return new LinkedList<>();
+
+        return toReturn;
     }
 
 
