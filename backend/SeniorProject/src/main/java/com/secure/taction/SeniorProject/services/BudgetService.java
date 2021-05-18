@@ -10,6 +10,7 @@ import com.secure.taction.SeniorProject.dtos.budget.BudgetDtoToItem;
 import com.secure.taction.SeniorProject.dtos.budget.BudgetItemToDto;
 import com.secure.taction.SeniorProject.models.Budget;
 import com.secure.taction.SeniorProject.repositories.BudgetRepository;
+import com.secure.taction.SeniorProject.repositories.UserRepository;
 import com.secure.taction.SeniorProject.tablesetup.constants.BudgetTableConstants;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,14 +21,17 @@ import org.springframework.stereotype.Service;
 public class BudgetService {
     
     private final BudgetRepository budgetRepository;
+    private final UserRepository userRepository;
     private final BudgetDtoToItem dtoToItem;
     private final BudgetItemToDto itemToDto;
 
     @Autowired
     public BudgetService(BudgetRepository budgetRepository,
+                         UserRepository userRepository,
                          BudgetDtoToItem dtoToItem,
                          BudgetItemToDto itemToDto) {
         this.budgetRepository = budgetRepository;
+        this.userRepository = userRepository;
         this.dtoToItem = dtoToItem;
         this.itemToDto = itemToDto;
     }

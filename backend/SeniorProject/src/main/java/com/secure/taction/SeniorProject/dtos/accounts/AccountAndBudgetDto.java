@@ -1,5 +1,6 @@
 package com.secure.taction.SeniorProject.dtos.accounts;
 
+import java.math.BigDecimal;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -7,43 +8,49 @@ import com.secure.taction.SeniorProject.dtos.budget.BudgetDto;
 
 public class AccountAndBudgetDto {
 
-    private AccountDto accountDto;
-    private List<BudgetDto> budgetDtos = new LinkedList<>();
+    private String accountName;
+    private BigDecimal accountBalance;
+    private BudgetDto budgetDto;
 
     public AccountAndBudgetDto() {
     }
 
-    public AccountDto getAccountDto() {
-        return accountDto;
+    public String getAccountName() {
+        return accountName;
     }
 
-    public void setAccountDto(AccountDto accountDto) {
-        this.accountDto = accountDto;
+    public void setAccountName(String accountName) {
+        this.accountName = accountName;
     }
 
-    public AccountAndBudgetDto withAccountDto(AccountDto accountDto) {
-        setAccountDto(accountDto);
+    public AccountAndBudgetDto withAccountName(String accountName) {
+        setAccountName(accountName);
         return this;
     }
 
-    public List<BudgetDto> getBudgetDtos() {
-        return budgetDtos;
+    public BigDecimal getAccountBalance() {
+        return accountBalance;
     }
 
-    public void setBudgetDtos(List<BudgetDto> budgetDtos) {
-        this.budgetDtos = budgetDtos;
+    public void setAccountBalance(BigDecimal accountBalance) {
+        this.accountBalance = accountBalance;
     }
 
-    public AccountAndBudgetDto withBudgetDtos(List<BudgetDto> budgetDtos) {
-        setBudgetDtos(budgetDtos);
+    public AccountAndBudgetDto withAccountBalance(BigDecimal accountBalance) {
+        setAccountBalance(accountBalance);
         return this;
     }
 
-    public AccountAndBudgetDto addBudgetDto(BudgetDto budgetDto) {
-        if (this.budgetDtos == null) {
-            this.budgetDtos = new LinkedList<>();
-        }
-        this.budgetDtos.add(budgetDto);
+    public BudgetDto getBudgetDto() {
+        return budgetDto;
+    }
+
+    public void setBudgetDto(BudgetDto budgetDto) {
+        this.budgetDto = budgetDto;
+    }
+
+    public AccountAndBudgetDto withBudgetDto(BudgetDto budgetDto) {
+        setBudgetDto(budgetDto);
         return this;
     }
 

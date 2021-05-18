@@ -34,11 +34,6 @@ public class AccountController {
         // Return type and functionality TBD
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<AccountAndBudgetDto> findAccountAndBudget(@PathVariable("id") String accountId) {
-        return new ResponseEntity<>(accountService.findAccountWithBudgets(accountId), HttpStatus.OK);
-    }
-
 	@RequestMapping(value = "/{id}/{userId}", method = RequestMethod.GET)
 	public ResponseEntity<AccountDto> findById(@PathVariable("id") String id,
                                             @PathVariable("userId") String userId) {
