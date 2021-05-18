@@ -1,6 +1,8 @@
 package com.secure.taction.SeniorProject.services;
 
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -93,11 +95,15 @@ public class UserService {
     }
 
     public AccountAndBudgetDto findAccountWithBudgets(String userId) {
+        List<String> accountIds = new LinkedList<>();
+        List<String> budgetIds = new LinkedList<>();
         AccountAndBudgetDto toReturn = new AccountAndBudgetDto(); 
         QuerySpec userQuerySpec = QueryUtils.userQuerySpec(userId);
         ItemCollection<QueryOutcome> userItem = userRepository.queryForUser(userQuerySpec);
         Iterator<Item> iterator = userItem.iterator();
-        System.out.println("Testing Account Item Print");
+        UserDto sourceUser = itemToDto.convert(new User().withItem(iterator.next()));
+        accountIds = sourceUser.getAccounts();
+        budgetIds = sourceUser.getBudgets();
         while (iterator.hasNext()) {
             System.out.println(iterator.next().toJSONPretty());
         }
