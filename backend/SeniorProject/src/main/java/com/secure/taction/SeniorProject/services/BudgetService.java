@@ -1,17 +1,26 @@
 package com.secure.taction.SeniorProject.services;
 
+import java.util.Iterator;
 import java.util.Objects;
 import java.util.Optional;
 
+import com.amazonaws.services.dynamodbv2.document.Item;
+import com.amazonaws.services.dynamodbv2.document.ItemCollection;
+import com.amazonaws.services.dynamodbv2.document.QueryOutcome;
 import com.amazonaws.services.dynamodbv2.document.spec.DeleteItemSpec;
 import com.amazonaws.services.dynamodbv2.document.spec.GetItemSpec;
+import com.amazonaws.services.dynamodbv2.document.spec.QuerySpec;
 import com.secure.taction.SeniorProject.dtos.budget.BudgetDto;
 import com.secure.taction.SeniorProject.dtos.budget.BudgetDtoToItem;
 import com.secure.taction.SeniorProject.dtos.budget.BudgetItemToDto;
+import com.secure.taction.SeniorProject.dtos.user.UserDto;
+import com.secure.taction.SeniorProject.dtos.user.UserItemToUserDto;
 import com.secure.taction.SeniorProject.models.Budget;
+import com.secure.taction.SeniorProject.models.User;
 import com.secure.taction.SeniorProject.repositories.BudgetRepository;
 import com.secure.taction.SeniorProject.repositories.UserRepository;
 import com.secure.taction.SeniorProject.tablesetup.constants.BudgetTableConstants;
+import com.secure.taction.SeniorProject.utils.QueryUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
@@ -24,16 +33,19 @@ public class BudgetService {
     private final UserRepository userRepository;
     private final BudgetDtoToItem dtoToItem;
     private final BudgetItemToDto itemToDto;
+    private final UserItemToUserDto userItemToDto;
 
     @Autowired
     public BudgetService(BudgetRepository budgetRepository,
                          UserRepository userRepository,
                          BudgetDtoToItem dtoToItem,
-                         BudgetItemToDto itemToDto) {
+                         BudgetItemToDto itemToDto,
+                         UserItemToUserDto userItemToDto) {
         this.budgetRepository = budgetRepository;
         this.userRepository = userRepository;
         this.dtoToItem = dtoToItem;
         this.itemToDto = itemToDto;
+        this.userItemToDto = userItemToDto;
     }
 
     public Optional<BudgetDto> findByIdAndUserId(@NonNull String id, 
@@ -54,8 +66,21 @@ public class BudgetService {
 
     public BudgetDto save(BudgetDto budgetDto) {
         Budget budget = dtoToItem.convert(budgetDto);
-        return itemToDto.convert(
+
+        BudgetDto toReturn = itemToDto.convert(
                     budgetRepository.save(budget));
+        updateUser(toReturn.getUserId(), toReturn.getBudgetId());
+        return toReturn;
+
+    }
+
+    private void updateUser(String userId, String budgetId) {
+        QuerySpec userQuerySpec = QueryUtils.userQuerySpec(userId);
+        ItemCollection<QueryOutcome> userItem = userRepository.queryForUser(userQuerySpec);
+        // Expecting it to be one item
+        Iterator<Item> iterator = userItem.iterator();
+        UserDto toUpdate = userItemToDto.convert(new User().withItem(iterator.next()));
+        userRepository.update(toUpdate.addBudget(budgetId));
     }
 
     public BudgetDto update(BudgetDto budgetDto) {

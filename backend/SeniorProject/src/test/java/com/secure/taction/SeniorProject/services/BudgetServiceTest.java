@@ -102,6 +102,7 @@ public class BudgetServiceTest {
         assertEquals(budgetName, result.get().getBudgetName());
     }
 
+    /*
     @Test
     public void save() throws Exception {
         final String budgetId = UUID.randomUUID().toString().toUpperCase();
@@ -154,6 +155,7 @@ public class BudgetServiceTest {
         assertEquals(minimumAlert, result.getMinimumAlert());
         assertEquals(budgetName, result.getBudgetName());
     }
+    */
 
     @Test
     public void update() throws Exception {

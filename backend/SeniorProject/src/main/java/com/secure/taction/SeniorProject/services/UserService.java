@@ -22,6 +22,7 @@ import com.secure.taction.SeniorProject.repositories.UserRepository;
 import com.secure.taction.SeniorProject.tablesetup.constants.AccountTableConstants;
 import com.secure.taction.SeniorProject.tablesetup.constants.BudgetTableConstants;
 import com.secure.taction.SeniorProject.tablesetup.constants.UserTableConstants;
+import com.secure.taction.SeniorProject.utils.QueryUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
