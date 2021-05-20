@@ -11,6 +11,7 @@ public class TransactionDto {
     private BigDecimal amount;
     private String address;
     private String vendor;
+    private String dateOfTransaction;
     private List<String> categories = new LinkedList<>();
 
     public TransactionDto() {
@@ -99,6 +100,19 @@ public class TransactionDto {
             this.categories = new LinkedList<>();
         }
         this.categories.add(category);
+        return this;
+    }
+
+    public String getDate() {
+        return dateOfTransaction;
+    }
+
+    public void setDate(String date) {
+        this.dateOfTransaction = date;
+    }
+
+    public TransactionDto withDate(String date) {
+        setDate(date);
         return this;
     }
 

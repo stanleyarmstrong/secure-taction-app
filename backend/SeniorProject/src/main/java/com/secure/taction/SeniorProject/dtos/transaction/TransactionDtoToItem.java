@@ -20,6 +20,7 @@ public class TransactionDtoToItem implements Converter<TransactionDto, Transacti
                 .with(TransactionTableConstants.ADDRESS, dto.getAddress())
                 .with(TransactionTableConstants.VENDOR, dto.getVendor())
                 .with(TransactionTableConstants.CATEGORIES, dto.getCategories())
+                .with(TransactionTableConstants.DATE, dto.getDate())
         );
     }
     

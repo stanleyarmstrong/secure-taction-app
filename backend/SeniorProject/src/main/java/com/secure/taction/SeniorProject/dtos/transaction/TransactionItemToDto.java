@@ -23,6 +23,7 @@ public class TransactionItemToDto implements Converter<Transaction, TransactionD
             .withAmount(new BigDecimal(((Number)item.get(TransactionTableConstants.AMOUNT)).toString()))
             .withAddress((String) item.get(TransactionTableConstants.ADDRESS))
             .withVendor((String) item.get(TransactionTableConstants.VENDOR))
+            .withDate((String) item.get(TransactionTableConstants.DATE))
             .withCategories((List<String>) item.get(TransactionTableConstants.CATEGORIES))
         ;
     }
