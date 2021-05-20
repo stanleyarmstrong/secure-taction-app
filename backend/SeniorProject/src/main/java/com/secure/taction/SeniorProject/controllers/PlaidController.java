@@ -1,8 +1,15 @@
 package com.secure.taction.SeniorProject.controllers;
 
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.TimeZone;
 import java.math.BigDecimal;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +27,17 @@ import com.plaid.client.PlaidClient;
 import com.plaid.client.request.AccountsGetRequest;
 import com.plaid.client.request.ItemPublicTokenExchangeRequest;
 import com.plaid.client.request.LinkTokenCreateRequest;
+import com.plaid.client.request.TransactionsGetRequest;
 import com.plaid.client.response.AccountsGetResponse;
+import com.plaid.client.response.ErrorResponse;
 import com.plaid.client.response.ItemPublicTokenExchangeResponse;
 import com.plaid.client.response.LinkTokenCreateResponse;
+import com.plaid.client.response.TransactionsGetResponse;
+import com.plaid.client.response.TransactionsGetResponse.Transaction;
+import com.plaid.client.response.TransactionsGetResponse.Transaction.Location;
 import com.secure.taction.SeniorProject.dtos.PlaidPublicTokenDto;
 import com.secure.taction.SeniorProject.dtos.accounts.AccountDto;
+import com.secure.taction.SeniorProject.dtos.transaction.TransactionDto;
 import com.secure.taction.SeniorProject.dtos.user.UserDto;
 import com.secure.taction.SeniorProject.services.AccountService;
 import com.secure.taction.SeniorProject.services.UserService;
@@ -132,13 +145,68 @@ public class PlaidController {
 
   }
   
-  /*
-  @RequestMapping(value = "/transactions", method = RequestMethod.POST)
+  @RequestMapping(value = "/transactions", method = RequestMethod.GET)
   public ResponseEntity<Object> getTransactions(@RequestBody PlaidPublicTokenDto publicToken) throws Exception {
     if (publicToken.getPublicToken() == null) {
       return new ResponseEntity<>("Not Authorized Action", HttpStatus.UNAUTHORIZED);
     }
+    Date firstOfMonth = getFirstOfMonth();
+    Date currentDate = getCurrentDate();
+    System.out.println(firstOfMonth);
+    System.out.println(currentDate);
+
+    Response<TransactionsGetResponse> response = plaidClient.service()
+        .transactionsGet(new TransactionsGetRequest(publicToken.getPublicToken(), currentDate, firstOfMonth)
+          .withCount(50)
+          .withOffset(0))
+        .execute();
+
+    if (response.isSuccessful()) {
+      List<TransactionDto> transactions = parseTransactionToDto(publicToken.getPublicToken(), response.body().getTransactions());
+      return ResponseEntity.ok(transactions);
+    } else {
+
+      ErrorResponse error = this.plaidClient.parseError(response);
+      Map<String, Object> data = new HashMap<>();
+      data.put("error", error);
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(data);
+    }
   }
-  */
+
+  private List<TransactionDto> parseTransactionToDto(String accountId, List<Transaction> transactions) {
+    List<TransactionDto> toReturn = new LinkedList<>();
+    for (Transaction transaction : transactions) {
+      TransactionDto toAdd = new TransactionDto()
+          .withAccountId(accountId)
+          .withAddress("1123 Location Pl, CA 93405")
+          .withAmount(BigDecimal.valueOf(transaction.getAmount()))
+          .withCategories(transaction.getCategory())
+          .withDate(transaction.getDate())
+          .withTransactionId(transaction.getTransactionId())
+          .withVendor(transaction.getMerchantName());
+        toReturn.add(toAdd);
+    }
+    return toReturn;
+  }
+
+  private String buildAddressString(Location location) {
+    String toReturn = location.getAddress() + ", " + location.getCity()
+    + ", " + location.getRegion()
+    + ", " + location.getCountry() 
+    + " " + location.getPostalCode();
+    return toReturn;
+  }
+
+  private Date getCurrentDate() {
+    Calendar cal = Calendar.getInstance();
+    cal.set(Calendar.DAY_OF_MONTH, 1);
+    return cal.getTime();
+  }
+
+  private Date getFirstOfMonth() {
+    Calendar cal = Calendar.getInstance();
+    cal.set(Calendar.HOUR_OF_DAY, 0);
+    return cal.getTime();
+  }
 
 }
