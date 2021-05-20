@@ -59,6 +59,7 @@ public class TransactionServiceTest {
         final BigDecimal amount = new BigDecimal("1234.56");
         final String address = "1234 Location Pl.";
         final String vendor = "Congazon";
+        final String date = "1/2/34";
         final List<String> categories = Collections.singletonList("Singular Category");
 
         final TransactionDto dto = new TransactionDto()
@@ -67,6 +68,7 @@ public class TransactionServiceTest {
                 .withAmount(amount)
                 .withAddress(address)
                 .withVendor(vendor)
+                .withDate(date)
                 .withCategories(categories);
         final Transaction transaction = new Transaction()
             .withItem(
@@ -76,6 +78,7 @@ public class TransactionServiceTest {
                     .with(TransactionTableConstants.AMOUNT, amount)
                     .with(TransactionTableConstants.ADDRESS, address)
                     .with(TransactionTableConstants.VENDOR, vendor)
+                    .with(TransactionTableConstants.DATE, date)
                     .with(TransactionTableConstants.CATEGORIES, categories)
             );
         when(transactionRepository.findByIdAndAccountId(any(GetItemSpec.class)))
@@ -90,6 +93,7 @@ public class TransactionServiceTest {
         assertEquals(amount, result.get().getAmount());
         assertEquals(address, result.get().getAddress());
         assertEquals(vendor, result.get().getVendor());
+        assertEquals(date, result.get().getDate());
         assertEquals(categories, result.get().getCategories());
     }
 
@@ -100,6 +104,7 @@ public class TransactionServiceTest {
         final BigDecimal amount = new BigDecimal("1234.56");
         final String address = "1234 Location Pl.";
         final String vendor = "Congazon";
+        final String date = "1/2/34";
         final List<String> categories = Collections.singletonList("Singular Category");
 
         final TransactionDto dto = new TransactionDto()
@@ -108,6 +113,7 @@ public class TransactionServiceTest {
                 .withAmount(amount)
                 .withAddress(address)
                 .withVendor(vendor)
+                .withDate(date)
                 .withCategories(categories);
         final Transaction transaction = new Transaction()
             .withItem(
@@ -117,6 +123,7 @@ public class TransactionServiceTest {
                     .with(TransactionTableConstants.AMOUNT, amount)
                     .with(TransactionTableConstants.ADDRESS, address)
                     .with(TransactionTableConstants.VENDOR, vendor)
+                    .with(TransactionTableConstants.DATE, date)
                     .with(TransactionTableConstants.CATEGORIES, categories)
             );
         when(itemToDto.convert(transaction))
@@ -133,6 +140,7 @@ public class TransactionServiceTest {
         assertEquals(amount, result.getAmount());
         assertEquals(address, result.getAddress());
         assertEquals(vendor, result.getVendor());
+        assertEquals(date, result.getDate());
         assertEquals(categories, result.getCategories());
     }
 
@@ -143,6 +151,7 @@ public class TransactionServiceTest {
         final BigDecimal amount = new BigDecimal("1234.56");
         final String address = "1234 Location Pl.";
         final String vendor = "Congazon";
+        final String date = "1/2/34";
         final List<String> categories = Collections.singletonList("Singular Category");
 
         final String NEW_VENDOR = "Windoors";
@@ -153,6 +162,7 @@ public class TransactionServiceTest {
                 .withAmount(amount)
                 .withAddress(address)
                 .withVendor(NEW_VENDOR)
+                .withDate(date)
                 .withCategories(categories);
         final Transaction transaction = new Transaction()
             .withItem(
@@ -162,6 +172,7 @@ public class TransactionServiceTest {
                     .with(TransactionTableConstants.AMOUNT, amount)
                     .with(TransactionTableConstants.ADDRESS, address)
                     .with(TransactionTableConstants.VENDOR, vendor)
+                    .with(TransactionTableConstants.DATE, date)
                     .with(TransactionTableConstants.CATEGORIES, categories)
             );
         when(itemToDto.convert(transaction))
@@ -178,6 +189,7 @@ public class TransactionServiceTest {
         assertEquals(amount, result.getAmount());
         assertEquals(address, result.getAddress());
         assertEquals(NEW_VENDOR, result.getVendor());
+        assertEquals(date, result.getDate());
         assertEquals(categories, result.getCategories());
     }
 

@@ -27,6 +27,7 @@ public class TransactionControllerTest extends BaseControllerTest {
     final private BigDecimal amount = new BigDecimal("1234.56");
     final private String address = "1234 Location Pl.";
     final private String vendor = "Congazon";
+    final private String date = "1/2/34";
     final private List<String> categories = Collections.singletonList("Singular Category");
 
     @Test
@@ -58,6 +59,7 @@ public class TransactionControllerTest extends BaseControllerTest {
                     .withAmount(amount)
                     .withAddress(address)
                     .withVendor(vendor)
+                    .withDate(date)
                     .withCategories(categories);
         when(transactionService.save(any(TransactionDto.class)))
             .thenReturn(dto);
@@ -76,6 +78,7 @@ public class TransactionControllerTest extends BaseControllerTest {
                     .withAmount(amount)
                     .withAddress(address)
                     .withVendor(vendor)
+                    .withDate(date)
                     .withCategories(categories);
         when(transactionService.findByIdAndAccountId(anyString(), anyString()))
             .thenReturn(Optional.empty());
@@ -95,6 +98,7 @@ public class TransactionControllerTest extends BaseControllerTest {
                     .withAmount(amount)
                     .withAddress(address)
                     .withVendor(vendor)
+                    .withDate(date)
                     .withCategories(categories);
         when(transactionService.findByIdAndAccountId(anyString(), anyString()))
             .thenReturn(Optional.of(dto));
