@@ -4,8 +4,10 @@ import {Card, Button, Divider, Text} from 'react-native-paper';
 import {useNavigation} from '@react-navigation/native';
 import BankInfo from '../components/bankinfo';
 import {AddBudget, Budget} from '../components/budget';
+import {RecentActivity} from '../components/recentactivity';
 
 const BudgetScreen = ({route}) => {
+  // replace with state once serivces are complete
   const {accountName, bank, progress} = route.params;
   const middle = progress === 1 ? <AddBudget /> : <Budget />;
   return (
@@ -21,6 +23,7 @@ const BudgetScreen = ({route}) => {
           <Divider />
           {middle}
           <Divider />
+          <RecentActivity />
         </Card.Content>
       </Card>
     </View>
