@@ -51,7 +51,7 @@ public class TransactionDtoToItemTest {
         assertEquals(AMOUNT, new BigDecimal(((Number) resMap.get(TransactionTableConstants.AMOUNT)).toString()));
         assertEquals(ADDRESS, resMap.get(TransactionTableConstants.ADDRESS));
         assertEquals(VENDOR, resMap.get(TransactionTableConstants.VENDOR));
-        assertEquals(DATE, resMap.get(TransactionTableConstants.DATE))
+        assertEquals(DATE, resMap.get(TransactionTableConstants.DATE));
         assertEquals(CATEGORIES, resMap.get(TransactionTableConstants.CATEGORIES));
     }
 }

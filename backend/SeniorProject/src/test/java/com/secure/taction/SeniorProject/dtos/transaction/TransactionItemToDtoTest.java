@@ -29,6 +29,7 @@ public class TransactionItemToDtoTest {
         final BigDecimal amount = new BigDecimal("1234.56");
         final String address = "123 Localtion Pl.";
         final String vendor = "Windors Store";
+        final String date = "2/3/45";
         final List<String> categories = Collections.singletonList("Only String");
 
         final Transaction argItem = new Transaction()
@@ -39,6 +40,7 @@ public class TransactionItemToDtoTest {
                     .with(TransactionTableConstants.AMOUNT, amount)
                     .with(TransactionTableConstants.ADDRESS, address)
                     .with(TransactionTableConstants.VENDOR, vendor)
+                    .with(TransactionTableConstants.DATE, date)
                     .with(TransactionTableConstants.CATEGORIES, categories)
             );
 
@@ -49,6 +51,7 @@ public class TransactionItemToDtoTest {
         assertEquals(amount, result.getAmount());
         assertEquals(address, result.getAddress());
         assertEquals(vendor, result.getVendor());
+        assertEquals(date, result.getDate());
         assertEquals(categories, result.getCategories());
     }
 
