@@ -2,9 +2,12 @@ import React from 'react';
 import {View, StyleSheet, useColorScheme} from 'react-native';
 import {Card, Button, Divider, Text} from 'react-native-paper';
 import {useNavigation} from '@react-navigation/native';
+import BankInfo from '../components/bankinfo';
+import {AddBudget, Budget} from '../components/budget';
 
 const BudgetScreen = ({route}) => {
-  const {accountName, bank} = route.params;
+  const {accountName, bank, progress} = route.params;
+  const middle = progress === 1 ? <AddBudget /> : <Budget />;
   return (
     <View style={styles.shell}>
       <Card style={styles.inner}>
@@ -13,7 +16,12 @@ const BudgetScreen = ({route}) => {
           style={styles.title}
           titleStyle={styles.titleColor}
         />
-        <Card.Content></Card.Content>
+        <Card.Content>
+          <BankInfo balance={3000} bank={bank} />
+          <Divider />
+          {middle}
+          <Divider />
+        </Card.Content>
       </Card>
     </View>
   );

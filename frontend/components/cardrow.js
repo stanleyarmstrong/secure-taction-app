@@ -54,6 +54,7 @@ const CardRow = (props) => {
               navigation.push('budget', {
                 accountName: props.name,
                 bank: props.bank,
+                progress: progress,
               });
             }}
             size={20}
