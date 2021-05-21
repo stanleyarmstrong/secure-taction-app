@@ -6,8 +6,8 @@ import java.util.List;
 
 public class TransactionDto {
     
-//    private String transactionId;
-//    private String accountId;
+    private String transactionId;
+    private String accountId;
     private BigDecimal amount;
 //    private String address;
     private String type;
@@ -31,7 +31,6 @@ public class TransactionDto {
         return this;
     }
 
-    /*
     public String getTransactionId() {
         return transactionId;
     }
@@ -58,7 +57,6 @@ public class TransactionDto {
         setAccountId(accountId);
         return this;
     }
-    */
 
     public BigDecimal getAmount() {
         return amount;

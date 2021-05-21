@@ -177,6 +177,8 @@ public class PlaidController {
     List<TransactionDto> toReturn = new LinkedList<>();
     for (Transaction transaction : transactions) {
       TransactionDto toAdd = new TransactionDto()
+          .withTransactionId(transaction.getTransactionId())
+          .withAccountId(accountId)
           .withType(transaction.getTransactionType())
           .withAmount(BigDecimal.valueOf(transaction.getAmount()))
           .withCategories(transaction.getCategory())
