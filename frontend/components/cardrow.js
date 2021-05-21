@@ -6,18 +6,25 @@ import * as Progress from 'react-native-progress';
 
 const CardRow = (props) => {
   const navigation = useNavigation();
+  const progress =
+    props.maxBudget && props.currentBudget
+      ? (props.maxBudget - props.currentBudget) / props.currentBudget
+      : 1;
+  let set = false;
   const getColor = () => {
-    if (props.progress >= 0.1) {
-      return '#A8F388';
-    } else if (props.progress < 0.1) {
-      return '#FF7A72';
-    } else {
+    // need to add code for greying out progress bar when
+    if (progress === 1) {
       return '#C2C2C2';
+    }
+    set = true;
+    if (progress >= 0.1) {
+      return '#A8F388';
+    } else if (progress < 0.1) {
+      return '#FF7A72';
     }
   };
   const alert = props.alert > 0 ? props.alert : 0;
   const cancel = props.cancel > 0 ? props.cancel : 0;
-  const progress = props.progress < 1 ? props.progress : 1;
   return (
     <View>
       <View style={styles.outer}>
@@ -51,10 +58,16 @@ const CardRow = (props) => {
             color={'#C2C2C2'}
             style={styles.icon}
             onPress={() => {
+              console.log(props.maxBudget);
+              console.log(props.currentBudget);
               navigation.push('budget', {
                 accountName: props.name,
                 bank: props.bank,
-                progress: progress,
+                alert: alert,
+                cancel: cancel,
+                maxBudget: props.maxBudget,
+                currentBudget: props.currentBudget,
+                set: set,
               });
             }}
             size={20}

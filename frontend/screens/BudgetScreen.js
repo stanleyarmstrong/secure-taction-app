@@ -7,9 +7,26 @@ import {AddBudget, Budget} from '../components/budget';
 import {RecentActivity} from '../components/recentactivity';
 
 const BudgetScreen = ({route}) => {
-  // replace with state once serivces are complete
-  const {accountName, bank, progress} = route.params;
-  const middle = progress === 1 ? <AddBudget /> : <Budget />;
+  const {
+    accountName,
+    bank,
+    alert,
+    cancel,
+    maxBudget,
+    currentBudget,
+    set,
+  } = route.params;
+  const middle =
+    set === false ? (
+      <AddBudget />
+    ) : (
+      <Budget
+        alert={alert}
+        cancel={cancel}
+        currentBudget={currentBudget}
+        maxBudget={maxBudget}
+      />
+    );
   return (
     <View style={styles.shell}>
       <Card style={styles.inner}>
