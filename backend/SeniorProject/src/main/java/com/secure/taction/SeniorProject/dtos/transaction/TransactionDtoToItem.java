@@ -14,10 +14,10 @@ public class TransactionDtoToItem implements Converter<TransactionDto, Transacti
     public Transaction convert(TransactionDto dto) {
         return new Transaction().withItem(
             new Item()
-                .withPrimaryKey(TransactionTableConstants.TRANSACTION_ID, dto.getTransactionId())
-                .with(TransactionTableConstants.ACCOUNT_ID, dto.getAccountId())
+//                .withPrimaryKey(TransactionTableConstants.TRANSACTION_ID, dto.getTransactionId())
+ //               .with(TransactionTableConstants.ACCOUNT_ID, dto.getAccountId())
                 .with(TransactionTableConstants.AMOUNT, dto.getAmount())
-                .with(TransactionTableConstants.ADDRESS, dto.getAddress())
+                //.with(TransactionTableConstants.ADDRESS, dto.getAddress())
                 .with(TransactionTableConstants.VENDOR, dto.getVendor())
                 .with(TransactionTableConstants.CATEGORIES, dto.getCategories())
                 .with(TransactionTableConstants.DATE, dto.getDate())
