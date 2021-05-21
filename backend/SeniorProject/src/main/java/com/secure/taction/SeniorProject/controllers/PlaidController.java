@@ -177,12 +177,10 @@ public class PlaidController {
     List<TransactionDto> toReturn = new LinkedList<>();
     for (Transaction transaction : transactions) {
       TransactionDto toAdd = new TransactionDto()
-          .withAccountId(accountId)
-          .withAddress("1123 Location Pl, CA 93405")
+          .withType(transaction.getTransactionType())
           .withAmount(BigDecimal.valueOf(transaction.getAmount()))
           .withCategories(transaction.getCategory())
           .withDate(transaction.getDate())
-          .withTransactionId(transaction.getTransactionId())
           .withVendor(transaction.getMerchantName());
         toReturn.add(toAdd);
     }

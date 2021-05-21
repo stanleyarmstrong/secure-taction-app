@@ -54,10 +54,10 @@ public class TransactionControllerTest extends BaseControllerTest {
     @WithMockUser(roles = {})
     public void create() throws Exception {
         final TransactionDto dto = new TransactionDto()
-                    .withTransactionId(transactionId)
-                    .withAccountId(accountId)
+ //                   .withTransactionId(transactionId)
+ //                   .withAccountId(accountId)
                     .withAmount(amount)
-                    .withAddress(address)
+                    //.withAddress(address)
                     .withVendor(vendor)
                     .withDate(date)
                     .withCategories(categories);
@@ -73,10 +73,10 @@ public class TransactionControllerTest extends BaseControllerTest {
     @WithMockUser(roles ={})
     public void update_notFound() throws Exception {
         final TransactionDto dto = new TransactionDto()
-                    .withTransactionId(transactionId)
-                    .withAccountId(accountId)
+//                    .withTransactionId(transactionId)
+//                    .withAccountId(accountId)
                     .withAmount(amount)
-                    .withAddress(address)
+                    //.withAddress(address)
                     .withVendor(vendor)
                     .withDate(date)
                     .withCategories(categories);
@@ -93,17 +93,17 @@ public class TransactionControllerTest extends BaseControllerTest {
     public void update_found() throws Exception {
         final String NEW_ADDRESS = "new address for testing update";
         final TransactionDto dto = new TransactionDto()
-                    .withTransactionId(transactionId)
-                    .withAccountId(accountId)
+//                    .withTransactionId(transactionId)
+//                    .withAccountId(accountId)
                     .withAmount(amount)
-                    .withAddress(address)
+//                    .withAddress(address)
                     .withVendor(vendor)
                     .withDate(date)
                     .withCategories(categories);
         when(transactionService.findByIdAndAccountId(anyString(), anyString()))
             .thenReturn(Optional.of(dto));
-        when(transactionService.update(any(TransactionDto.class)))
-            .thenReturn(dto.withAddress(NEW_ADDRESS));
+//        when(transactionService.update(any(TransactionDto.class)))
+//            .thenReturn(dto.withAddress(NEW_ADDRESS));
         mvc.perform(put("/transaction")
             .contentType("application/json")
             .content(objectMapper.writeValueAsString(dto))

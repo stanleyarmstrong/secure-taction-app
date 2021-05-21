@@ -6,10 +6,11 @@ import java.util.List;
 
 public class TransactionDto {
     
-    private String transactionId;
-    private String accountId;
+//    private String transactionId;
+//    private String accountId;
     private BigDecimal amount;
-    private String address;
+//    private String address;
+    private String type;
     private String vendor;
     private String dateOfTransaction;
     private List<String> categories = new LinkedList<>();
@@ -17,6 +18,20 @@ public class TransactionDto {
     public TransactionDto() {
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public TransactionDto withType(String type) {
+        setType(type);
+        return this;
+    }
+
+    /*
     public String getTransactionId() {
         return transactionId;
     }
@@ -30,6 +45,7 @@ public class TransactionDto {
         return this;
     }
 
+
     public String getAccountId() {
         return accountId;
     }
@@ -42,6 +58,7 @@ public class TransactionDto {
         setAccountId(accountId);
         return this;
     }
+    */
 
     public BigDecimal getAmount() {
         return amount;
@@ -56,6 +73,7 @@ public class TransactionDto {
         return this;
     }
 
+    /*
     public String getAddress() {
         return address;
     }
@@ -68,6 +86,7 @@ public class TransactionDto {
         setAddress(address);
         return this;
     }
+    */
 
     public String getVendor() {
         return vendor;

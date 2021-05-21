@@ -57,9 +57,9 @@ public class TransactionService {
 
     public TransactionDto update(TransactionDto transactionDto) {
         return itemToDto.convert(
-                    transactionRepository.update(transactionDto))
-                    .withTransactionId(transactionDto.getTransactionId())
-                    .withAccountId(transactionDto.getAccountId());
+                    transactionRepository.update(transactionDto));
+//                    .withTransactionId(transactionDto.getTransactionId())
+//                    .withAccountId(transactionDto.getAccountId());
     }
 
     public void deleteByIdAndUserId(@NonNull String id, 

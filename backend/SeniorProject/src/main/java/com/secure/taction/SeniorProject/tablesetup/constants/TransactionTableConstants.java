@@ -17,6 +17,7 @@ public class TransactionTableConstants {
     public static String ADDRESS = "ADDRESS";
     public static String VENDOR = "VENDOR";
     public static String DATE = "DATEOFTRANSACTION";
+    public static String TYPE = "TRANSCATION_TYPE";
     public static String CATEGORIES = "CATEGORIES";
     
     private static List<KeySchemaElement> TRANSACTION_KEY_SCHEMA = 
