@@ -21,7 +21,7 @@ const BankInfo = (props) => {
         </View>
         <View style={styles.col2}>
           <Text> Balance: ${props.balance.toFixed(2)} </Text>
-          <Text> Budget: {budgetBalance} </Text>
+          <Text> Current Spending: {budgetBalance} </Text>
         </View>
       </View>
     </View>

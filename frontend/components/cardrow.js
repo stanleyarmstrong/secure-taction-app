@@ -10,13 +10,12 @@ const CardRow = (props) => {
     props.maxBudget && props.currentBudget
       ? (props.maxBudget - props.currentBudget) / props.currentBudget
       : 1;
-  let set = false;
+  const set = progress === 1 ? false : true;
+  // if you have time change this to a chained ternary statement
   const getColor = () => {
-    // need to add code for greying out progress bar when
     if (progress === 1) {
       return '#C2C2C2';
     }
-    set = true;
     if (progress >= 0.1) {
       return '#A8F388';
     } else if (progress < 0.1) {
@@ -58,8 +57,6 @@ const CardRow = (props) => {
             color={'#C2C2C2'}
             style={styles.icon}
             onPress={() => {
-              console.log(props.maxBudget);
-              console.log(props.currentBudget);
               navigation.push('budget', {
                 accountName: props.name,
                 bank: props.bank,

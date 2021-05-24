@@ -1,12 +1,12 @@
 import React from 'react';
 import {View, StyleSheet, useColorScheme} from 'react-native';
-import {Card, Button, Divider, Text} from 'react-native-paper';
-import {useNavigation} from '@react-navigation/native';
+import {Card, Divider} from 'react-native-paper';
 import BankInfo from '../components/bankinfo';
 import {AddBudget, Budget} from '../components/budget';
 import {RecentActivity} from '../components/recentactivity';
 
 const BudgetScreen = ({route}) => {
+  //replace with state call
   const {
     accountName,
     bank,
@@ -36,7 +36,7 @@ const BudgetScreen = ({route}) => {
           titleStyle={styles.titleColor}
         />
         <Card.Content>
-          <BankInfo balance={3000} bank={bank} />
+          <BankInfo balance={3000} bank={bank} budget={currentBudget} />
           <Divider />
           {middle}
           <Divider />

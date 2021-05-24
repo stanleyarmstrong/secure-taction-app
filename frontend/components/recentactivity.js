@@ -20,7 +20,7 @@ export const RecentActivity = () => {
     {
       id: 2,
       from: 'Grocery Outlet',
-      amount: 14.29,
+      amount: -14.29,
     },
   ];
   const transactionComponents = transactions.map((transaction) => {
@@ -39,7 +39,7 @@ export const RecentActivity = () => {
         mode="outlined"
         onPress={() => {
           //need to change to list of transactions screen
-          navigation.push('home');
+          navigation.push('transactions');
         }}
         color="#007AE1">
         Show More

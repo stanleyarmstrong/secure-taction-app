@@ -9,8 +9,7 @@ export const AddBudget = () => {
     <View style={styles.addBudget}>
       <TouchableOpacity
         onPress={() => {
-          //will change to actual screen once I make that screen
-          navigation.push('home');
+          navigation.push('addbudget');
         }}>
         <View style={styles.addInner}>
           <IconButton

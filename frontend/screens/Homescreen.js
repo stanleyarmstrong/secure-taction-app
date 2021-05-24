@@ -28,9 +28,6 @@ const HomeScreen = (props) => {
               'https://www.pikpng.com/pngl/m/257-2578954_chase-bank-chase-bank-chase-bank-clipart.png'
             }
             name={'Chase Ending in ...4415'}
-            progress={1}
-            alert={20.5}
-            cancel={300}
             balance={3000}
           />
           <CardRow
@@ -38,9 +35,6 @@ const HomeScreen = (props) => {
               'https://www.pikpng.com/pngl/m/257-2578954_chase-bank-chase-bank-chase-bank-clipart.png'
             }
             name={'Chase Ending in ...4415'}
-            progress={0.5}
-            alert={20.5}
-            cancel={300}
             balance={3000}
           />
           <CardRow
@@ -48,7 +42,8 @@ const HomeScreen = (props) => {
               'https://www.pikpng.com/pngl/m/257-2578954_chase-bank-chase-bank-chase-bank-clipart.png'
             }
             name={'Chase Ending in ...4415'}
-            progress={0.5}
+            currentBudget={2000}
+            maxBudget={3000}
             alert={20.5}
             cancel={300}
             balance={3000}
