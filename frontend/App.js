@@ -12,6 +12,8 @@ import {createStackNavigator} from '@react-navigation/stack';
 import Navbar from './components/navbar';
 import HomeScreen from './screens/Homescreen';
 import BudgetScreen from './screens/BudgetScreen';
+import TransactionsScreen from './screens/TransactionsScreen';
+import AddBudgetScreen from './screens/AddBudgetScreen';
 import Settings from './screens/Settings';
 
 const Stack = createStackNavigator();
@@ -33,6 +35,16 @@ const App = () => {
           name="budget"
           component={BudgetScreen}
           options={{title: "Card's Budget"}}
+        />
+        <Stack.Screen
+          name="addbudget"
+          component={AddBudgetScreen}
+          options={{title: 'Add Budget'}}
+        />
+        <Stack.Screen
+          name="transactions"
+          component={TransactionsScreen}
+          options={{title: 'Recent Activity'}}
         />
         <Stack.Screen
           name="settings"
