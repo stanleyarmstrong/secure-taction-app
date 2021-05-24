@@ -29,14 +29,16 @@ public class TransactionDtoToItemTest {
         final BigDecimal AMOUNT = new BigDecimal("1233.56");
         final String ADDRESS = "122 Address Pl.";
         final String VENDOR = "Bapple Store";
+        final String DATE = "1/2/34";
         final List<String> CATEGORIES = new LinkedList<>();
 
         final TransactionDto argDto = new TransactionDto()
-            .withTransactionId(ID)
-            .withAccountId(ACCOUNT_ID)
+            //.withTransactionId(ID)
+            //.withAccountId(ACCOUNT_ID)
             .withAmount(AMOUNT)
-            .withAddress(ADDRESS)
+//            .withAddress(ADDRESS)
             .withVendor(VENDOR)
+            .withDate(DATE)
             .withCategories(CATEGORIES);
 
         Transaction result = converter.convert(argDto);
@@ -44,11 +46,12 @@ public class TransactionDtoToItemTest {
         assertTrue(result != null);
         Map<String, Object> resMap = result.getAttributes();
         assertTrue(MapUtils.isNotEmpty(resMap));
-        assertEquals(ID, resMap.get(TransactionTableConstants.TRANSACTION_ID));
-        assertEquals(ACCOUNT_ID, resMap.get(TransactionTableConstants.ACCOUNT_ID));
+//        assertEquals(ID, resMap.get(TransactionTableConstants.TRANSACTION_ID));
+//        assertEquals(ACCOUNT_ID, resMap.get(TransactionTableConstants.ACCOUNT_ID));
         assertEquals(AMOUNT, new BigDecimal(((Number) resMap.get(TransactionTableConstants.AMOUNT)).toString()));
-        assertEquals(ADDRESS, resMap.get(TransactionTableConstants.ADDRESS));
+//        assertEquals(ADDRESS, resMap.get(TransactionTableConstants.ADDRESS));
         assertEquals(VENDOR, resMap.get(TransactionTableConstants.VENDOR));
+        assertEquals(DATE, resMap.get(TransactionTableConstants.DATE));
         assertEquals(CATEGORIES, resMap.get(TransactionTableConstants.CATEGORIES));
     }
 }

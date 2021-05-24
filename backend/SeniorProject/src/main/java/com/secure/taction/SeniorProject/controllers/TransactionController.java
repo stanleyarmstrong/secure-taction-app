@@ -46,8 +46,8 @@ public class TransactionController {
     // Debugging endpoint
     @RequestMapping(method = RequestMethod.PUT)
     public ResponseEntity<Object> update(@Valid @RequestBody TransactionDto transactionDto) {
-        return transactionService.findByIdAndAccountId(transactionDto.getTransactionId(), 
-                                                       transactionDto.getAccountId()).isPresent()
+        return transactionService.findByIdAndAccountId("bogus", 
+                                                       "bogus").isPresent()
                     ? new ResponseEntity<>(transactionService.update(transactionDto), HttpStatus.OK)
                     : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }

@@ -27,6 +27,7 @@ public class TransactionControllerTest extends BaseControllerTest {
     final private BigDecimal amount = new BigDecimal("1234.56");
     final private String address = "1234 Location Pl.";
     final private String vendor = "Congazon";
+    final private String date = "1/2/34";
     final private List<String> categories = Collections.singletonList("Singular Category");
 
     @Test
@@ -53,11 +54,12 @@ public class TransactionControllerTest extends BaseControllerTest {
     @WithMockUser(roles = {})
     public void create() throws Exception {
         final TransactionDto dto = new TransactionDto()
-                    .withTransactionId(transactionId)
-                    .withAccountId(accountId)
+ //                   .withTransactionId(transactionId)
+ //                   .withAccountId(accountId)
                     .withAmount(amount)
-                    .withAddress(address)
+                    //.withAddress(address)
                     .withVendor(vendor)
+                    .withDate(date)
                     .withCategories(categories);
         when(transactionService.save(any(TransactionDto.class)))
             .thenReturn(dto);
@@ -71,11 +73,12 @@ public class TransactionControllerTest extends BaseControllerTest {
     @WithMockUser(roles ={})
     public void update_notFound() throws Exception {
         final TransactionDto dto = new TransactionDto()
-                    .withTransactionId(transactionId)
-                    .withAccountId(accountId)
+//                    .withTransactionId(transactionId)
+//                    .withAccountId(accountId)
                     .withAmount(amount)
-                    .withAddress(address)
+                    //.withAddress(address)
                     .withVendor(vendor)
+                    .withDate(date)
                     .withCategories(categories);
         when(transactionService.findByIdAndAccountId(anyString(), anyString()))
             .thenReturn(Optional.empty());
@@ -90,16 +93,17 @@ public class TransactionControllerTest extends BaseControllerTest {
     public void update_found() throws Exception {
         final String NEW_ADDRESS = "new address for testing update";
         final TransactionDto dto = new TransactionDto()
-                    .withTransactionId(transactionId)
-                    .withAccountId(accountId)
+//                    .withTransactionId(transactionId)
+//                    .withAccountId(accountId)
                     .withAmount(amount)
-                    .withAddress(address)
+//                    .withAddress(address)
                     .withVendor(vendor)
+                    .withDate(date)
                     .withCategories(categories);
         when(transactionService.findByIdAndAccountId(anyString(), anyString()))
             .thenReturn(Optional.of(dto));
-        when(transactionService.update(any(TransactionDto.class)))
-            .thenReturn(dto.withAddress(NEW_ADDRESS));
+//        when(transactionService.update(any(TransactionDto.class)))
+//            .thenReturn(dto.withAddress(NEW_ADDRESS));
         mvc.perform(put("/transaction")
             .contentType("application/json")
             .content(objectMapper.writeValueAsString(dto))

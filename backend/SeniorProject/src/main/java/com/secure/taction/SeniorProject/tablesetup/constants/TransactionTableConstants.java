@@ -16,15 +16,17 @@ public class TransactionTableConstants {
     public static String AMOUNT = "AMOUNT";
     public static String ADDRESS = "ADDRESS";
     public static String VENDOR = "VENDOR";
+    public static String DATE = "DATEOFTRANSACTION";
+    public static String TYPE = "TRANSCATION_TYPE";
     public static String CATEGORIES = "CATEGORIES";
     
     private static List<KeySchemaElement> TRANSACTION_KEY_SCHEMA = 
         Arrays.asList(
             new KeySchemaElement()
-                .withAttributeName(TRANSACTION_ID)
+                .withAttributeName(ACCOUNT_ID)
                 .withKeyType(KeyType.HASH),
             new KeySchemaElement()
-                .withAttributeName(ACCOUNT_ID)
+                .withAttributeName(TRANSACTION_ID)
                 .withKeyType(KeyType.RANGE)
     );
 

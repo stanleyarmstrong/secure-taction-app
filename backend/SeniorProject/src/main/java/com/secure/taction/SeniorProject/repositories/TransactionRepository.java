@@ -60,13 +60,13 @@ public class TransactionRepository {
         UpdateItemSpec updateItemSpec =
             new UpdateItemSpec()
                 .withPrimaryKey(
-                    TransactionTableConstants.TRANSACTION_ID, transactionDto.getTransactionId(),
-                    TransactionTableConstants.ACCOUNT_ID, transactionDto.getAccountId())
+                    TransactionTableConstants.TRANSACTION_ID, "bogus",
+                    TransactionTableConstants.ACCOUNT_ID, "bogus")
                 .withUpdateExpression(updateExpression)
                 .withValueMap(new ValueMap()
                     .withNumber(amount, transactionDto.getAmount())
                     .withString(vendor, transactionDto.getVendor())
-                    .withString(address, transactionDto.getAddress())
+                    //.withString(address, transactionDto.getAddress())
                     .withList(categories, transactionDto.getCategories()))
                 .withReturnValues(ReturnValue.UPDATED_NEW);
         try {
@@ -74,7 +74,7 @@ public class TransactionRepository {
             if (Objects.nonNull(outcome)) {
                 return new Transaction().withItem(outcome);
             } else {
-                System.err.println("Unable to update transaction with Id:" + transactionDto.getTransactionId());
+ //               System.err.println("Unable to update transaction with Id:" + transactionDto.getTransactionId());
                 return null;
             }
         } catch (Exception ex) {

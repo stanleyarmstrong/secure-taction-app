@@ -18,11 +18,12 @@ public class TransactionItemToDto implements Converter<Transaction, TransactionD
     public TransactionDto convert(Transaction source) {
         Map<String, Object> item = source.getAttributes();
         return new TransactionDto()
-            .withTransactionId((String) item.get(TransactionTableConstants.TRANSACTION_ID))
-            .withAccountId((String) item.get(TransactionTableConstants.ACCOUNT_ID))
+//            .withTransactionId((String) item.get(TransactionTableConstants.TRANSACTION_ID))
+//            .withAccountId((String) item.get(TransactionTableConstants.ACCOUNT_ID))
             .withAmount(new BigDecimal(((Number)item.get(TransactionTableConstants.AMOUNT)).toString()))
-            .withAddress((String) item.get(TransactionTableConstants.ADDRESS))
+            //.withAddress((String) item.get(TransactionTableConstants.ADDRESS))
             .withVendor((String) item.get(TransactionTableConstants.VENDOR))
+            .withDate((String) item.get(TransactionTableConstants.DATE))
             .withCategories((List<String>) item.get(TransactionTableConstants.CATEGORIES))
         ;
     }
