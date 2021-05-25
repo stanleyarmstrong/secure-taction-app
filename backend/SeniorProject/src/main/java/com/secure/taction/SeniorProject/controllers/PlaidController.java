@@ -39,6 +39,7 @@ import com.secure.taction.SeniorProject.dtos.accounts.AccountDto;
 import com.secure.taction.SeniorProject.dtos.transaction.TransactionDto;
 import com.secure.taction.SeniorProject.dtos.user.UserDto;
 import com.secure.taction.SeniorProject.services.AccountService;
+import com.secure.taction.SeniorProject.services.TransactionService;
 import com.secure.taction.SeniorProject.services.UserService;
 import com.secure.taction.SeniorProject.utils.PlaidClientUtil;
 import com.secure.taction.SeniorProject.utils.SnsClientUtil;
@@ -49,12 +50,15 @@ public class PlaidController {
 
   private final UserService userService;
   private final AccountService accountService;
+  private final TransactionService transactionService;
   private PlaidClient plaidClient;
   @Autowired
   public PlaidController(UserService userService,
-                         AccountService accountService) {
+                         AccountService accountService,
+                         TransactionService transactionService) {
     this.userService = userService;
     this.accountService = accountService;
+    this.transactionService = transactionService;
     plaidClient = PlaidClientUtil.getPlaidClient();
   }
 
@@ -163,7 +167,9 @@ public class PlaidController {
         .execute();
 
     if (response.isSuccessful()) {
-      List<TransactionDto> transactions = parseTransactionToDto(publicToken.getPublicToken(), response.body().getTransactions());
+      List<TransactionDto> transactions = new LinkedList<>();
+      transactions.addAll(transactionService.getTransactionsByAccountId(publicToken.getPublicToken()));
+      transactions.addAll(parseTransactionToDto(publicToken.getPublicToken(), response.body().getTransactions()));
       return ResponseEntity.ok(transactions);
     } else {
 

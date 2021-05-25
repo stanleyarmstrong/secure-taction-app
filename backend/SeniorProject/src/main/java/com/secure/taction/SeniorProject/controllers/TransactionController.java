@@ -1,9 +1,12 @@
 package com.secure.taction.SeniorProject.controllers;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
+import java.util.UUID;
 
 import javax.validation.Valid;
 
@@ -51,15 +54,16 @@ public class TransactionController {
 
     @RequestMapping(value = "/test", method = RequestMethod.POST)
     public ResponseEntity<Object> testSnsCreate() {
-        Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.DAY_OF_MONTH, 1);
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
+        LocalDateTime now = LocalDateTime.now();  
         TransactionDto transactionDto = new TransactionDto()
+            .withTransactionId(UUID.randomUUID().toString().toUpperCase())
             .withAccountId(SnsClientUtil.TEST_ACCOUNT_ID)
-            .withAmount(new BigDecimal(150.44))
-            .withCategories(Collections.singletonList("Luxury"))
-            .withDate(cal.getTime().toString())
+            .withAmount(BigDecimal.valueOf(150.44))
+            .withVendor("Apple Store")
+            .withDate(dtf.format(now))
             .withType("person")
-            .withVendor("Apple Store");
+            .withCategories(Collections.singletonList("Luxury"));
         return new ResponseEntity<>(
             transactionService.save(transactionDto),
             HttpStatus.CREATED

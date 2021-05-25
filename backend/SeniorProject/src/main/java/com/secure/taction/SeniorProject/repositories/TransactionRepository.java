@@ -4,10 +4,13 @@ import java.util.Objects;
 
 import com.amazonaws.services.dynamodbv2.document.DynamoDB;
 import com.amazonaws.services.dynamodbv2.document.Item;
+import com.amazonaws.services.dynamodbv2.document.ItemCollection;
 import com.amazonaws.services.dynamodbv2.document.PutItemOutcome;
+import com.amazonaws.services.dynamodbv2.document.QueryOutcome;
 import com.amazonaws.services.dynamodbv2.document.Table;
 import com.amazonaws.services.dynamodbv2.document.spec.DeleteItemSpec;
 import com.amazonaws.services.dynamodbv2.document.spec.GetItemSpec;
+import com.amazonaws.services.dynamodbv2.document.spec.QuerySpec;
 import com.amazonaws.services.dynamodbv2.document.spec.UpdateItemSpec;
 import com.amazonaws.services.dynamodbv2.document.utils.ValueMap;
 import com.amazonaws.services.dynamodbv2.model.ReturnValue;
@@ -49,7 +52,7 @@ public class TransactionRepository {
         try {
             PutItemOutcome outcome = table.putItem(transaction.getItem());
             if (Objects.nonNull(outcome)) {
-                SnsClientUtil.testCall();
+                SnsClientUtil.transactionCall(transaction);
                 return transaction;
             }
             else return null;
@@ -89,5 +92,9 @@ public class TransactionRepository {
     public void deleteByIdAndAccountId(DeleteItemSpec spec) {
         table.deleteItem(spec);
     }
-    
+
+    public ItemCollection<QueryOutcome> queryForTransaction(QuerySpec transactionQuerySpec) {
+        return table.query(transactionQuerySpec);
+    }
+
 }

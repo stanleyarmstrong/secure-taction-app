@@ -1,9 +1,13 @@
 package com.secure.taction.SeniorProject.utils;
 
+import java.util.Map;
+
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.sns.AmazonSNSClient;
 import com.amazonaws.services.sns.AmazonSNSClientBuilder;
 import com.secure.taction.SeniorProject.constants.IamCredentials;
+import com.secure.taction.SeniorProject.models.Transaction;
+import com.secure.taction.SeniorProject.tablesetup.constants.TransactionTableConstants;
 
 public class SnsClientUtil {
 
@@ -50,7 +54,6 @@ public class SnsClientUtil {
     private static String BUDGET_DELETE_MESSAGE = 
         "A budget was deleted from your account recently.\n\n" + ENDER;
 
-    
     private static AmazonSNSClient snsClient = (AmazonSNSClient) AmazonSNSClientBuilder
             .standard()
             .build();
@@ -61,6 +64,20 @@ public class SnsClientUtil {
 
     public static void testCall() {
         snsClient.publish(HELLO_ARN, TEST_MESSAGE, TEST_TOPIC);
+    }
+
+    public static void transactionCall(Transaction transaction) {
+        snsClient.publish(HELLO_ARN, transactionMessage(transaction), TEST_TOPIC);
+    }
+
+    private static String transactionMessage(Transaction transaction) {
+        Map<String, Object> item = transaction.getAttributes();
+        return "A transaction was made with your account with details:\n" +
+        "Date: " + ((String) item.get(TransactionTableConstants.DATE)) +"\n" +
+        "Type: " + ((String) item.get(TransactionTableConstants.TYPE)) + "\n" +
+        "Amount: " + ((Number)item.get(TransactionTableConstants.AMOUNT)).toString() + "\n" +
+        "Vendor: " + (String) item.get(TransactionTableConstants.VENDOR) +"\n\n" +
+        ENDER;
     }
 
     public static void bankAccountAccess() {
