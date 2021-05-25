@@ -1,9 +1,15 @@
 package com.secure.taction.SeniorProject.controllers;
 
+import java.math.BigDecimal;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
+
 import javax.validation.Valid;
 
 import com.secure.taction.SeniorProject.dtos.transaction.TransactionDto;
 import com.secure.taction.SeniorProject.services.TransactionService;
+import com.secure.taction.SeniorProject.utils.SnsClientUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,6 +43,23 @@ public class TransactionController {
     // Debugging endpoint
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Object> create(@Valid @RequestBody TransactionDto transactionDto) {
+        return new ResponseEntity<>(
+            transactionService.save(transactionDto),
+            HttpStatus.CREATED
+        );
+    }
+
+    @RequestMapping(value = "/test", method = RequestMethod.POST)
+    public ResponseEntity<Object> testSnsCreate() {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.DAY_OF_MONTH, 1);
+        TransactionDto transactionDto = new TransactionDto()
+            .withAccountId(SnsClientUtil.TEST_ACCOUNT_ID)
+            .withAmount(new BigDecimal(150.44))
+            .withCategories(Collections.singletonList("Luxury"))
+            .withDate(cal.getTime().toString())
+            .withType("person")
+            .withVendor("Apple Store");
         return new ResponseEntity<>(
             transactionService.save(transactionDto),
             HttpStatus.CREATED

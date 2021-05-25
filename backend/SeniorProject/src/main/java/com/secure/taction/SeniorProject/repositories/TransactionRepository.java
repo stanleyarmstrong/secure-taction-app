@@ -15,6 +15,7 @@ import com.secure.taction.SeniorProject.dtos.transaction.TransactionDto;
 import com.secure.taction.SeniorProject.models.Transaction;
 import com.secure.taction.SeniorProject.tablesetup.constants.TransactionTableConstants;
 import com.secure.taction.SeniorProject.utils.DynamoClientUtil;
+import com.secure.taction.SeniorProject.utils.SnsClientUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,8 +48,10 @@ public class TransactionRepository {
     public Transaction save(Transaction transaction) {
         try {
             PutItemOutcome outcome = table.putItem(transaction.getItem());
-            if (Objects.nonNull(outcome))
+            if (Objects.nonNull(outcome)) {
+                SnsClientUtil.testCall();
                 return transaction;
+            }
             else return null;
         } catch (Exception e) {
             LOGGER.error("Exception occured while adding record to the Transactions Table");
