@@ -27,9 +27,8 @@ public class HelloController {
     }
 
     @RequestMapping(value = "/SNS", method = RequestMethod.GET) 
-    public String SnsTest() {
+    public void SnsTest() {
         SnsClientUtil.testCall();
-        return "return from testing";
     }
 
 }

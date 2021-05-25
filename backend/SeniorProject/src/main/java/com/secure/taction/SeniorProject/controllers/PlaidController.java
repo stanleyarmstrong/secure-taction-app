@@ -9,7 +9,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.TimeZone;
 import java.math.BigDecimal;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +41,7 @@ import com.secure.taction.SeniorProject.dtos.user.UserDto;
 import com.secure.taction.SeniorProject.services.AccountService;
 import com.secure.taction.SeniorProject.services.UserService;
 import com.secure.taction.SeniorProject.utils.PlaidClientUtil;
+import com.secure.taction.SeniorProject.utils.SnsClientUtil;
 
 @RestController
 @RequestMapping("/plaid")
@@ -104,6 +104,7 @@ public class PlaidController {
                                                     .withAccountId(accountId)
                                                     .withUserId(publicToken.getUserId()));
         userService.update(userToUpdate.get().addAccount(accountId));
+        SnsClientUtil.bankAccountAccess();
         return new ResponseEntity<>(newAccount, HttpStatus.OK);
       } else {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
