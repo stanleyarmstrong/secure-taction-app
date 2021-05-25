@@ -28,21 +28,8 @@ public class HelloController {
 
     @RequestMapping(value = "/SNS", method = RequestMethod.GET) 
     public String SnsTest() {
-        final AmazonSNSClient snsClient = SnsClientUtil.getSnsClient();
-        String message = "Test message for senior project";
-        String phoneNumber = "+16195922665";
-
-        final CreateTopicRequest createTopicRequest = new CreateTopicRequest("TestTextMessageFromSeniorProject");
-        final CreateTopicResult createTopicResult = snsClient.createTopic(createTopicRequest);
-
-        // Debug verifying strings
-        String TOPIC_ARN = createTopicResult.getTopicArn();
-
-        final SubscribeRequest subscribeRequest = new SubscribeRequest(TOPIC_ARN, "sms", phoneNumber);
-        snsClient.subscribe(subscribeRequest);
-        snsClient.publish(TOPIC_ARN, message, "Text Message");
-        DeleteTopicRequest deleteTopicRequest = new DeleteTopicRequest(TOPIC_ARN);
-        return "Result from testing SNS";
+        SnsClientUtil.testCall();
+        return "return from testing";
     }
 
 }
