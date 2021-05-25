@@ -41,7 +41,7 @@ const Navbar = ({navigation, previous, scene}) => {
             title="Transaction Alert"
             onPress={() => {
               setVisible(false);
-              navigation.push('settings');
+              navigation.push('fraudalert');
             }}
           />
         </Menu>

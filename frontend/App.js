@@ -16,6 +16,7 @@ import BudgetScreen from './screens/BudgetScreen';
 import TransactionsScreen from './screens/TransactionsScreen';
 import AddBudgetScreen from './screens/AddBudgetScreen';
 import Settings from './screens/Settings';
+import FraudAlertScreen from './screens/FraudAlertScreen';
 
 const Stack = createStackNavigator();
 const theme = {
@@ -60,6 +61,11 @@ const App = () => {
             name="settings"
             component={Settings}
             options={{title: 'Settings'}}
+          />
+          <Stack.Screen
+            name="fraudalert"
+            component={FraudAlertScreen}
+            options={{title: 'Potential Fraud'}}
           />
         </Stack.Navigator>
       </NavigationContainer>
