@@ -9,6 +9,40 @@ const Navbar = ({navigation, previous, scene}) => {
   const leftIcon = previous ? 'chevron-left' : 'account-circle-outline';
   const rightIcon = previous ? 'home-outline' : 'bell';
   const title = options.title ? options.title : 'Secure Taction';
+  // replace with state after figuring out notifications
+  const notifications = [
+    {
+      id: 0,
+      vendor: 'Something Sketchy',
+      amount: 600,
+      account: 'Chase Checking',
+      visited: false,
+    },
+    {
+      id: 1,
+      vendor: 'Not Sketchy',
+      amount: 5.42,
+      account: 'Chase Checking',
+      visited: false,
+    },
+  ]
+    .filter((notif) => !notif.visited)
+    .map((notif) => {
+      return (
+        <Menu.Item
+          key={notif.id}
+          title={notif.vendor + ' Purchase Alert'}
+          onPress={() => {
+            setVisible(false);
+            navigation.push('fraudalert', {
+              vendor: notif.vendor,
+              amount: notif.amount,
+              account: notif.account,
+            });
+          }}
+        />
+      );
+    });
   return (
     <View>
       <Appbar.Header style={styles.barColor}>
@@ -37,13 +71,7 @@ const Navbar = ({navigation, previous, scene}) => {
               }}
             />
           }>
-          <Menu.Item
-            title="Transaction Alert"
-            onPress={() => {
-              setVisible(false);
-              navigation.push('fraudalert');
-            }}
-          />
+          {notifications}
         </Menu>
       </Appbar.Header>
     </View>
