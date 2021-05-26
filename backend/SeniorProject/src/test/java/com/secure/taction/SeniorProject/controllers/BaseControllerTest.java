@@ -7,14 +7,18 @@ import com.secure.taction.SeniorProject.auth.SecureTactionAuthenticationProvider
 import com.secure.taction.SeniorProject.controllers.UserController;
 import com.secure.taction.SeniorProject.repositories.AccountRepository;
 import com.secure.taction.SeniorProject.repositories.BudgetRepository;
+import com.secure.taction.SeniorProject.repositories.TransactionRepository;
 import com.secure.taction.SeniorProject.repositories.UserRepository;
 import com.secure.taction.SeniorProject.services.AccountService;
 import com.secure.taction.SeniorProject.services.BudgetService;
+import com.secure.taction.SeniorProject.services.TransactionService;
 import com.secure.taction.SeniorProject.services.UserService;
 import com.secure.taction.SeniorProject.tablesetup.controllers.BudgetTableController;
+import com.secure.taction.SeniorProject.tablesetup.controllers.TransactionTableController;
 import com.secure.taction.SeniorProject.tablesetup.controllers.AccountTableController;
 import com.secure.taction.SeniorProject.tablesetup.controllers.UserTableController;
 import com.secure.taction.SeniorProject.tablesetup.services.BudgetTableService;
+import com.secure.taction.SeniorProject.tablesetup.services.TransactionTableService;
 import com.secure.taction.SeniorProject.tablesetup.services.AccountTableService;
 import com.secure.taction.SeniorProject.tablesetup.services.UserTableService;
 
@@ -83,4 +87,18 @@ public class BaseControllerTest {
     @MockBean
     protected AccountRepository accountRepository;
 
+    @MockBean
+    protected TransactionTableController transactionTableController;
+
+    @MockBean
+    protected TransactionTableService transactionTableService;
+
+    @MockBean
+    protected TransactionControllerTest transactionControllerTest;
+    
+    @MockBean
+    protected TransactionService transactionService;
+
+    @MockBean
+    protected TransactionRepository transactionRepository;
 }

@@ -4,10 +4,13 @@ import java.util.Objects;
 
 import com.amazonaws.services.dynamodbv2.document.DynamoDB;
 import com.amazonaws.services.dynamodbv2.document.Item;
+import com.amazonaws.services.dynamodbv2.document.ItemCollection;
 import com.amazonaws.services.dynamodbv2.document.PutItemOutcome;
+import com.amazonaws.services.dynamodbv2.document.QueryOutcome;
 import com.amazonaws.services.dynamodbv2.document.Table;
 import com.amazonaws.services.dynamodbv2.document.spec.DeleteItemSpec;
 import com.amazonaws.services.dynamodbv2.document.spec.GetItemSpec;
+import com.amazonaws.services.dynamodbv2.document.spec.QuerySpec;
 import com.amazonaws.services.dynamodbv2.document.spec.UpdateItemSpec;
 import com.amazonaws.services.dynamodbv2.document.utils.ValueMap;
 import com.amazonaws.services.dynamodbv2.model.ReturnValue;
@@ -33,7 +36,7 @@ public class BudgetRepository {
 
     private static String updateExpression = 
         "set\n" +
-        BudgetTableConstants.CARD_ID + " = " + cardId + ",\n" +
+        BudgetTableConstants.ACCOUNT_ID + " = " + cardId + ",\n" +
         BudgetTableConstants.MAX_BALANCE + " = " + maxBudgetBalance + ",\n" +
         BudgetTableConstants.CUR_BALANCE + " = " + currentBudgetBalance + ",\n" +
         BudgetTableConstants.MIN_ALERT + " = " + minimumAlert + ",\n" +
@@ -56,7 +59,7 @@ public class BudgetRepository {
             else
                 return null;
         } catch (Exception e) {
-            LOGGER.error("Exception occured while adding record to the db: ", e);
+            LOGGER.error("Exception occured while adding record to the Budget Table: ", e);
             return null;
         }
     }
@@ -69,7 +72,7 @@ public class BudgetRepository {
                     BudgetTableConstants.USER_ID, budgetDto.getUserId())
                 .withUpdateExpression(updateExpression)
                 .withValueMap(new ValueMap()
-                    .withString(cardId, budgetDto.getCardId())
+                    .withString(cardId, budgetDto.getAccountId())
                     .withString(budgetName, budgetDto.getBudgetName())
                     .withNumber(maxBudgetBalance, budgetDto.getMaxBudgetBalance())
                     .withNumber(currentBudgetBalance, budgetDto.getCurrentBudgetBalance())
@@ -92,6 +95,10 @@ public class BudgetRepository {
 
     public void deleteByIdAndUserId(DeleteItemSpec spec) throws Exception {
         table.deleteItem(spec);
+    }
+
+    public ItemCollection<QueryOutcome> queryForBudget(QuerySpec budgetQuerySpec) {
+        return table.query(budgetQuerySpec);
     }
     
 }

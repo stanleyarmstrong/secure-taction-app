@@ -3,30 +3,31 @@ package com.secure.taction.SeniorProject.models;
 import java.util.Map;
 
 import com.amazonaws.services.dynamodbv2.document.Item;
+import com.secure.taction.SeniorProject.tablesetup.constants.BudgetTableConstants;
 import com.secure.taction.SeniorProject.tablesetup.constants.UserTableConstants;
 
 public class Budget {
 
-    private Item userItem;
+    private Item budgetItem;
     // debug value
     public Budget() {}
 
-    public Item getItem() { return userItem;}
+    public Item getItem() { return budgetItem;}
 
-    public void setItem(Item userItem) { this.userItem = userItem;}
+    public void setItem(Item budgetItem) { this.budgetItem = budgetItem;}
 
-    public Budget withItem(Item userItem) { 
-        setItem(userItem);
+    public Budget withItem(Item budgetItem) { 
+        setItem(budgetItem);
         return this;
     }
 
     public Map<String, Object> getAttributes() {
-        return userItem.asMap();
+        return budgetItem.asMap();
     }
 
     // Debugging method
-    public Budget withUserId(String userId) {
-        userItem.withPrimaryKey(UserTableConstants.USER_ID, userId);
+    public Budget withBudgetId(String budgetId) {
+        budgetItem.withPrimaryKey(BudgetTableConstants.BUDGET_ID, budgetId);
         return this;
     }
 }

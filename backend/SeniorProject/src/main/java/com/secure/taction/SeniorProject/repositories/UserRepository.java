@@ -8,10 +8,13 @@ import org.springframework.stereotype.Repository;
 
 import com.amazonaws.services.dynamodbv2.document.DynamoDB;
 import com.amazonaws.services.dynamodbv2.document.Item;
+import com.amazonaws.services.dynamodbv2.document.ItemCollection;
 import com.amazonaws.services.dynamodbv2.document.PutItemOutcome;
+import com.amazonaws.services.dynamodbv2.document.QueryOutcome;
 import com.amazonaws.services.dynamodbv2.document.Table;
 import com.amazonaws.services.dynamodbv2.document.spec.DeleteItemSpec;
 import com.amazonaws.services.dynamodbv2.document.spec.GetItemSpec;
+import com.amazonaws.services.dynamodbv2.document.spec.QuerySpec;
 import com.amazonaws.services.dynamodbv2.document.spec.UpdateItemSpec;
 import com.amazonaws.services.dynamodbv2.document.utils.ValueMap;
 import com.amazonaws.services.dynamodbv2.model.ReturnValue;
@@ -96,4 +99,8 @@ public class UserRepository {
 	public void deleteByIdAndName(DeleteItemSpec spec) throws Exception {
 		table.deleteItem(spec);
 	}
+
+    public ItemCollection<QueryOutcome> queryForUser(QuerySpec userQuerySpec) {
+		return table.query(userQuerySpec);
+    }
 }

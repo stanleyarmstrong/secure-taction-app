@@ -1,21 +1,29 @@
 import React from 'react';
 import {View, Image, StyleSheet} from 'react-native';
 import {Text, Divider, IconButton} from 'react-native-paper';
+import {useNavigation} from '@react-navigation/native';
 import * as Progress from 'react-native-progress';
 
 const CardRow = (props) => {
+  const navigation = useNavigation();
+  const progress =
+    props.maxBudget && props.currentBudget
+      ? (props.maxBudget - props.currentBudget) / props.currentBudget
+      : 1;
+  const set = progress === 1 ? false : true;
+  // if you have time change this to a chained ternary statement
   const getColor = () => {
-    if (props.progress >= 0.1) {
-      return '#A8F388';
-    } else if (props.progress < 0.1) {
-      return '#FF7A72';
-    } else {
+    if (progress === 1) {
       return '#C2C2C2';
+    }
+    if (progress >= 0.1) {
+      return '#A8F388';
+    } else if (progress < 0.1) {
+      return '#FF7A72';
     }
   };
   const alert = props.alert > 0 ? props.alert : 0;
   const cancel = props.cancel > 0 ? props.cancel : 0;
-  const progress = props.progress < 1 ? props.progress : 1;
   return (
     <View>
       <View style={styles.outer}>
@@ -48,6 +56,17 @@ const CardRow = (props) => {
             icon={'arrow-right'}
             color={'#C2C2C2'}
             style={styles.icon}
+            onPress={() => {
+              navigation.push('budget', {
+                accountName: props.name,
+                bank: props.bank,
+                alert: alert,
+                cancel: cancel,
+                maxBudget: props.maxBudget,
+                currentBudget: props.currentBudget,
+                set: set,
+              });
+            }}
             size={20}
           />
           <Text style={styles.balance}> ${props.balance.toFixed(2)} </Text>
