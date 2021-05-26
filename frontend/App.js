@@ -15,7 +15,7 @@ import HomeScreen from './screens/Homescreen';
 import BudgetScreen from './screens/BudgetScreen';
 import TransactionsScreen from './screens/TransactionsScreen';
 import AddBudgetScreen from './screens/AddBudgetScreen';
-import Settings from './screens/Settings';
+import SettingsScreen from './screens/SettingsScreen';
 import FraudAlertScreen from './screens/FraudAlertScreen';
 
 const Stack = createStackNavigator();
@@ -59,7 +59,7 @@ const App = () => {
           />
           <Stack.Screen
             name="settings"
-            component={Settings}
+            component={SettingsScreen}
             options={{title: 'Settings'}}
           />
           <Stack.Screen
