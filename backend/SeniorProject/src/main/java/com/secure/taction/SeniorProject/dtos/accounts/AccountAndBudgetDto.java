@@ -9,6 +9,7 @@ import com.secure.taction.SeniorProject.dtos.budget.BudgetDto;
 public class AccountAndBudgetDto {
 
     private String accountName;
+    private String accountId;
     private BigDecimal accountBalance;
     private BigDecimal maxBudgetBalance;
     private BigDecimal currentBudgetBalance;
@@ -109,5 +110,19 @@ public class AccountAndBudgetDto {
         setBudgetName(budgetName);
         return this;
     }
+
+    public String getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(String accountId) {
+        this.accountId = accountId;
+    }
+
+    public AccountAndBudgetDto withAccountId(String accountId) {
+        setAccountId(accountId);
+        return this;
+    }
+
 
 }
