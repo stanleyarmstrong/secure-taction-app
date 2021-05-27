@@ -1,9 +1,18 @@
 package com.secure.taction.SeniorProject.controllers;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
+import java.util.UUID;
+
 import javax.validation.Valid;
 
 import com.secure.taction.SeniorProject.dtos.transaction.TransactionDto;
 import com.secure.taction.SeniorProject.services.TransactionService;
+import com.secure.taction.SeniorProject.utils.SnsClientUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,6 +46,24 @@ public class TransactionController {
     // Debugging endpoint
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Object> create(@Valid @RequestBody TransactionDto transactionDto) {
+        return new ResponseEntity<>(
+            transactionService.save(transactionDto),
+            HttpStatus.CREATED
+        );
+    }
+
+    @RequestMapping(value = "/test", method = RequestMethod.POST)
+    public ResponseEntity<Object> testSnsCreate() {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");  
+        LocalDateTime now = LocalDateTime.now();  
+        TransactionDto transactionDto = new TransactionDto()
+            .withTransactionId(UUID.randomUUID().toString().toUpperCase())
+            .withAccountId(SnsClientUtil.TEST_ACCOUNT_ID)
+            .withAmount(BigDecimal.valueOf(150.44))
+            .withVendor("Apple Store")
+            .withDate(dtf.format(now))
+            .withType("person")
+            .withCategories(Collections.singletonList("Luxury"));
         return new ResponseEntity<>(
             transactionService.save(transactionDto),
             HttpStatus.CREATED

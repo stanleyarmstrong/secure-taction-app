@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class BudgetTableService {
-    DynamoDB dynamoDB = DynamoClientUtil.getClient();   
+    DynamoDB dynamoDB = DynamoClientUtil.getDynamoClient();   
 
     public String createTable() {
 

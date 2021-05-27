@@ -36,7 +36,7 @@ public class AccountRepository {
 		AccountTableConstants.BALANCE + " = " + balance + ",\n" +
 		AccountTableConstants.ACCOUNT_NAME + " = " + accountName; 
 
-  DynamoDB dynamoDB = DynamoClientUtil.getClient();
+  DynamoDB dynamoDB = DynamoClientUtil.getDynamoClient();
 	Table table = dynamoDB.getTable(AccountTableConstants.ACCOUNT_TABLE_NAME);
 
 	public Account findByIdAndName(GetItemSpec spec) throws Exception {

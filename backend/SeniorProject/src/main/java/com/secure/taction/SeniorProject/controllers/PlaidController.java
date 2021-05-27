@@ -9,7 +9,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.TimeZone;
 import java.math.BigDecimal;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,8 +39,10 @@ import com.secure.taction.SeniorProject.dtos.accounts.AccountDto;
 import com.secure.taction.SeniorProject.dtos.transaction.TransactionDto;
 import com.secure.taction.SeniorProject.dtos.user.UserDto;
 import com.secure.taction.SeniorProject.services.AccountService;
+import com.secure.taction.SeniorProject.services.TransactionService;
 import com.secure.taction.SeniorProject.services.UserService;
 import com.secure.taction.SeniorProject.utils.PlaidClientUtil;
+import com.secure.taction.SeniorProject.utils.SnsClientUtil;
 
 @RestController
 @RequestMapping("/plaid")
@@ -49,12 +50,15 @@ public class PlaidController {
 
   private final UserService userService;
   private final AccountService accountService;
+  private final TransactionService transactionService;
   private PlaidClient plaidClient;
   @Autowired
   public PlaidController(UserService userService,
-                         AccountService accountService) {
+                         AccountService accountService,
+                         TransactionService transactionService) {
     this.userService = userService;
     this.accountService = accountService;
+    this.transactionService = transactionService;
     plaidClient = PlaidClientUtil.getPlaidClient();
   }
 
@@ -104,6 +108,7 @@ public class PlaidController {
                                                     .withAccountId(accountId)
                                                     .withUserId(publicToken.getUserId()));
         userService.update(userToUpdate.get().addAccount(accountId));
+        SnsClientUtil.bankAccountAccess();
         return new ResponseEntity<>(newAccount, HttpStatus.OK);
       } else {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -162,7 +167,9 @@ public class PlaidController {
         .execute();
 
     if (response.isSuccessful()) {
-      List<TransactionDto> transactions = parseTransactionToDto(publicToken.getPublicToken(), response.body().getTransactions());
+      List<TransactionDto> transactions = new LinkedList<>();
+      transactions.addAll(transactionService.getTransactionsByAccountId(publicToken.getPublicToken()));
+      transactions.addAll(parseTransactionToDto(publicToken.getPublicToken(), response.body().getTransactions()));
       return ResponseEntity.ok(transactions);
     } else {
 

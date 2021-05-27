@@ -17,7 +17,7 @@ public class DynamoClientUtil {
 
     static DynamoDB dynamoDB = new DynamoDB(client);
 
-    public static DynamoDB getClient() {
+    public static DynamoDB getDynamoClient() {
         return dynamoDB;
     }
 }
