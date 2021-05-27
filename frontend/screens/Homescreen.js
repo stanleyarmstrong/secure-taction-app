@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {View, StyleSheet, useColorScheme} from 'react-native';
 import {Card, Button, Divider} from 'react-native-paper';
-import {useNavigation} from '@react-navigation/native';
 import {PlaidLink} from 'react-native-plaid-link-sdk';
 import CardRow from '../components/cardrow';
 import {getLinkToken, tokenExchange} from '../services/plaidService';
@@ -14,21 +13,28 @@ const HomeScreen = (props) => {
     getLinkToken().then((token) => {
       setLinkToken(token);
     });
-    getAccounts().then((data) => {
-      setCardRows(
-        data.map((account) => {
-          return (
-            <CardRow
-              title={account.accountName}
-              progress={account.currentBudgetBalance / account.maxBudgetBalance}
-              alert={account.alert}
-              cancel={account.cancel}
-              balance={account.balance}
-            />
-          );
-        }),
-      );
-    });
+    getAccounts()
+      .then((data) => {
+        setCardRows(
+          data.map((account) => {
+            return (
+              <CardRow
+                key={account.budgetName}
+                name={account.accountName}
+                progress={
+                  account.currentBudgetBalance / account.maxBudgetBalance
+                }
+                alert={account.minimumAlert}
+                cancel={account.autoCancel}
+                balance={account.accountBalance}
+              />
+            );
+          }),
+        );
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }, [cardRows]);
   return (
     <View style={styles.shell}>
@@ -46,7 +52,6 @@ const HomeScreen = (props) => {
               token: linkToken,
             }}
             onSuccess={(success) => {
-              console.log(success.publicToken);
               tokenExchange(
                 success.publicToken,
                 '81718C54-4B2C-4131-AD0F-D8726B0A9F4B',

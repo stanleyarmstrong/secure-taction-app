@@ -1,16 +1,18 @@
 import axios from 'axios';
-import {authToken} from './authToken';
+import base64 from 'react-native-base64';
 
+const authToken = 'Basic ' + base64.encode('asdfjkl:asdfjkl');
 export const getAccounts = () => {
-  //needs to have backend query made
   return axios
-    .get('http://localhost:10180/account/demoUser', {
-      Authorization: authToken,
+    .get('http://localhost:10180/user/81718C54-4B2C-4131-AD0F-D8726B0A9F4B', {
+      headers: {
+        Authorization: authToken,
+      },
     })
     .then((success) => {
       return success.data;
     })
     .catch((error) => {
-      console.error('Request failed: ' + error);
+      console.error(error);
     });
 };

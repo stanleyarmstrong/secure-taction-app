@@ -36,7 +36,7 @@ export const tokenExchange = (public_token, userId, username) => {
       },
     )
     .then((success) => {
-      console.log('Request went through');
+      return success;
     })
     .catch((error) => {
       console.error('Request failed:' + error);
