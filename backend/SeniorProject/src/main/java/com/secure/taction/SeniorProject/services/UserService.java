@@ -144,6 +144,7 @@ public class UserService {
             AccountDto toMapWith = accountToAccountIdMapping.get(budgetDto.getAccountId());
             AccountAndBudgetDto toAdd = new AccountAndBudgetDto()
                     .withAccountName(toMapWith.getAccountName())
+                    .withAccountId(toMapWith.getAccountId())
                     .withAccountBalance(toMapWith.getBalance())
                     .withBudgetName(budgetDto.getBudgetName())
                     .withCurrentBudgetBalance(budgetDto.getCurrentBudgetBalance())
