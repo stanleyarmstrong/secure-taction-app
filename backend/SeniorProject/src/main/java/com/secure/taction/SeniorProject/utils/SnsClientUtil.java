@@ -21,7 +21,7 @@ public class SnsClientUtil {
     public static String BUDGET_CREATE_ARN = "arn:aws:sns:us-east-1:200257006159:Budget_Create_Topic";
     public static String BUDGET_DELETE_ARN = "arn:aws:sns:us-east-1:200257006159:Budget_Delete_Topic";
     public static String BANK_DELETE_ARN = "arn:aws:sns:us-east-1:200257006159:Budget_Delete_Topic";
-    public static String HELLO_ARN = "arn:aws:sns:us-east-1:200257006159:HelloTopic";
+    public static String TRANSACTION_ARN = "arn:aws:sns:us-east-1:200257006159:HelloTopic";
 
     private static String ENDER = 
             "If this was you, you may ignore this message. If this wasn't you " +
@@ -63,11 +63,11 @@ public class SnsClientUtil {
     }
 
     public static void testCall() {
-        snsClient.publish(HELLO_ARN, TEST_MESSAGE, TEST_TOPIC);
+        snsClient.publish(TRANSACTION_ARN, TEST_MESSAGE, TEST_TOPIC);
     }
 
     public static void transactionCall(Transaction transaction) {
-        snsClient.publish(HELLO_ARN, transactionMessage(transaction), TEST_TOPIC);
+        snsClient.publish(TRANSACTION_ARN, transactionMessage(transaction), TEST_TOPIC);
     }
 
     private static String transactionMessage(Transaction transaction) {
