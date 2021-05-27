@@ -45,7 +45,7 @@ public class UserRepository {
 		UserTableConstants.ACCOUNTS + " = " + accounts + ",\n" +
 		UserTableConstants.BUDGETS + " = " + budgets;
 
-    DynamoDB dynamoDB = DynamoClientUtil.getClient();
+    DynamoDB dynamoDB = DynamoClientUtil.getDynamoClient();
 	Table table = dynamoDB.getTable(UserTableConstants.USER_TABLE_NAME);
 
 	public User findByIdAndName(GetItemSpec spec) throws Exception {

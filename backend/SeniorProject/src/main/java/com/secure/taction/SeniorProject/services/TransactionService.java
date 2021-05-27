@@ -1,9 +1,17 @@
 package com.secure.taction.SeniorProject.services;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import com.amazonaws.services.dynamodbv2.document.Item;
+import com.amazonaws.services.dynamodbv2.document.ItemCollection;
+import com.amazonaws.services.dynamodbv2.document.QueryOutcome;
 import com.amazonaws.services.dynamodbv2.document.spec.DeleteItemSpec;
 import com.amazonaws.services.dynamodbv2.document.spec.GetItemSpec;
+import com.amazonaws.services.dynamodbv2.document.spec.QuerySpec;
 import com.secure.taction.SeniorProject.dtos.transaction.TransactionDto;
 import com.secure.taction.SeniorProject.dtos.transaction.TransactionDtoToItem;
 import com.secure.taction.SeniorProject.dtos.transaction.TransactionItemToDto;
@@ -11,6 +19,7 @@ import com.secure.taction.SeniorProject.models.Transaction;
 import com.secure.taction.SeniorProject.repositories.AccountRepository;
 import com.secure.taction.SeniorProject.repositories.TransactionRepository;
 import com.secure.taction.SeniorProject.tablesetup.constants.TransactionTableConstants;
+import com.secure.taction.SeniorProject.utils.QueryUtils;
 import com.secure.taction.SeniorProject.tablesetup.constants.TransactionTableConstants;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,6 +83,17 @@ public class TransactionService {
         }
     }
 
+    public List<TransactionDto> getTransactionsByAccountId(String accountId) {
+        Iterator<Item> iterator;
+        List<TransactionDto> transactionDtos = new LinkedList<>();
+        QuerySpec transactionQuerySpec = QueryUtils.transactionQuerySpec(accountId);
+        ItemCollection<QueryOutcome> transactions = transactionRepository.queryForTransaction(transactionQuerySpec);
+        iterator = transactions.iterator();
+        while (iterator.hasNext() != false) {
+            transactionDtos.add(itemToDto.convert(new Transaction().withItem(iterator.next())));
+        }
+        return transactionDtos;
 
+    }
 
 }

@@ -18,6 +18,7 @@ import com.secure.taction.SeniorProject.dtos.budget.BudgetDto;
 import com.secure.taction.SeniorProject.models.Budget;
 import com.secure.taction.SeniorProject.tablesetup.constants.BudgetTableConstants;
 import com.secure.taction.SeniorProject.utils.DynamoClientUtil;
+import com.secure.taction.SeniorProject.utils.SnsClientUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,7 +44,7 @@ public class BudgetRepository {
         BudgetTableConstants.AUTO_CANCEL + " = " + autoCancel + ",\n" +
         BudgetTableConstants.BUDGET_NAME + " = " + budgetName;
 
-    DynamoDB dynamoDB = DynamoClientUtil.getClient();
+    DynamoDB dynamoDB = DynamoClientUtil.getDynamoClient();
     Table table = dynamoDB.getTable(BudgetTableConstants.BUDGET_TABLE_NAME);
 
     public Budget findByIdAndUserId(GetItemSpec spec) throws Exception {
@@ -54,8 +55,10 @@ public class BudgetRepository {
     public Budget save(Budget budget) {
         try {
             PutItemOutcome outcome = table.putItem(budget.getItem());
-            if (Objects.nonNull(outcome))
+            if (Objects.nonNull(outcome)) {
+                SnsClientUtil.budgetCreate();
                 return budget;
+            }
             else
                 return null;
         } catch (Exception e) {
@@ -94,6 +97,7 @@ public class BudgetRepository {
     }
 
     public void deleteByIdAndUserId(DeleteItemSpec spec) throws Exception {
+        SnsClientUtil.budgetDelete();
         table.deleteItem(spec);
     }
 

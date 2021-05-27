@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserTableService {
 
-    DynamoDB dynamoDB = DynamoClientUtil.getClient();
+    DynamoDB dynamoDB = DynamoClientUtil.getDynamoClient();
 
     public String createTable() {
 
