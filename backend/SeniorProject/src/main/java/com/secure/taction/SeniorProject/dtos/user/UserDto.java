@@ -165,4 +165,9 @@ public class UserDto {
 		return this;
 	}
 
+	public UserDto removeBudget(String budgetId) {
+		this.budgets.remove(budgetId);
+		return this;
+	}
+
 }
