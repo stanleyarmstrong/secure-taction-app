@@ -1,5 +1,6 @@
 package com.secure.taction.SeniorProject.services;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -133,7 +134,11 @@ public class UserService {
             AccountAndBudgetDto newDto = new AccountAndBudgetDto()
                 .withAccountName(accountDto.getAccountName())
                 .withAccountId(accountId)
-                .withAccountBalance(accountDto.getBalance());
+                .withAccountBalance(accountDto.getBalance())
+                .withCurrentBudgetBalance(new BigDecimal("0.1"))
+                .withMaxBudgetBalance(new BigDecimal("0"))
+                .withAutoCancel(new BigDecimal("0"))
+                .withMinimumAlert(new BigDecimal("0"));
             accountIdToAccountAndBudgetMapping.put(accountDto.getAccountId(), newDto);
         }
         for (String budgetId : sourceUser.getBudgets()) {
