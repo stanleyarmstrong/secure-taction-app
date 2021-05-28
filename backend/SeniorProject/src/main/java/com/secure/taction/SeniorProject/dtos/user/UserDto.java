@@ -139,6 +139,11 @@ public class UserDto {
 		return this;
 	}
 
+	public UserDto removeAccount(String accountId) {
+		this.accounts.remove((String) accountId);
+		return this;
+	}
+
 	public List<String> getBudgets() {
 		return budgets;
 	}
