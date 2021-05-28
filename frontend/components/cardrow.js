@@ -50,13 +50,8 @@ const CardRow = (props) => {
             style={styles.icon}
             onPress={() => {
               navigation.push('budget', {
-                accountName: props.name,
-                bank: props.bank,
-                alert: alert,
-                cancel: cancel,
-                maxBudget: props.maxBudget,
-                currentBudget: props.currentBudget,
-                set: set,
+                accountId: props.id,
+                budgetId: props.budgetId,
               });
             }}
             size={20}

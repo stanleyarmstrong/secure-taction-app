@@ -15,13 +15,13 @@ const HomeScreen = (props) => {
     });
     getAccounts()
       .then((data) => {
-        console.log(data);
         setCardRows(
           data.map((account) => {
             return (
               <CardRow
                 key={account.accountId}
                 id={account.accountId}
+                budgetId={account.budgetId}
                 name={account.accountName}
                 progress={
                   account.currentBudgetBalance / account.maxBudgetBalance

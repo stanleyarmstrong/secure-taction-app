@@ -4,24 +4,34 @@ import {Card, Divider} from 'react-native-paper';
 import BankInfo from '../components/bankinfo';
 import {AddBudget, Budget} from '../components/budget';
 import {RecentActivity} from '../components/recentactivity';
+import {getAccount} from '../services/accountService';
+import {getBudget} from '../services/budgetService';
 
 const BudgetScreen = ({route}) => {
   const [account, setAccount] = useState({});
   const [budget, setBudget] = useState({});
   //replace with state call
-  const {
-    accountName,
-    bank,
-    alert,
-    cancel,
-    maxBudget,
-    currentBudget,
-    set,
-  } = route.params;
-  const middle =
-    set === false ? (
-      <AddBudget />
-    ) : (
+  useEffect(() => {
+    const {accountId, budgetId} = route.params;
+    getAccount(accountId)
+      .then((data) => {
+        setAccount(data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    getBudget(accountId, budgetId)
+      .then((data) => {
+        setBudget(data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [route.params]);
+  /*
+  const middle = budget ? (
+    <AddBudget />
+  ) : (
       <Budget
         alert={alert}
         cancel={cancel}
@@ -29,18 +39,24 @@ const BudgetScreen = ({route}) => {
         maxBudget={maxBudget}
       />
     );
+  */
+  console.log(account);
+  console.log(budget);
   return (
     <View style={styles.shell}>
       <Card style={styles.inner}>
         <Card.Title
-          title={accountName}
+          title={account.accountName}
           style={styles.title}
           titleStyle={styles.titleColor}
         />
         <Card.Content>
-          <BankInfo balance={3000} bank={bank} budget={currentBudget} />
+          <BankInfo
+            balance={account.balance}
+            budget={0}
+          />
           <Divider />
-          {middle}
+          <AddBudget />
           <Divider />
           <RecentActivity />
         </Card.Content>
