@@ -19,7 +19,7 @@ const HomeScreen = (props) => {
           data.map((account) => {
             return (
               <CardRow
-                key={account.budgetName}
+                key={account.accountId}
                 name={account.accountName}
                 progress={
                   account.currentBudgetBalance / account.maxBudgetBalance
