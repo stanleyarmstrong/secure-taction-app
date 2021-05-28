@@ -1,5 +1,6 @@
 package com.secure.taction.SeniorProject.services;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -118,7 +119,7 @@ public class UserService {
 
     public List<AccountAndBudgetDto> findAccountWithBudgets(String userId) {
         List<AccountAndBudgetDto> toReturn = new LinkedList<>();
-        Map<String, AccountDto> accountToAccountIdMapping = new HashMap<>();
+        Map<String, AccountAndBudgetDto> accountIdToAccountAndBudgetMapping = new HashMap<>();
         List<BudgetDto> budgetDtos = new LinkedList<>();
         QuerySpec userQuerySpec = QueryUtils.userQuerySpec(userId);
         ItemCollection<QueryOutcome> userItem = userRepository.queryForUser(userQuerySpec);
@@ -130,7 +131,12 @@ public class UserService {
             iterator = accountItem.iterator();
             if (iterator.hasNext() == false) continue;
             AccountDto accountDto = accountItemToDto.convert(new Account().withItem(iterator.next()));
-            accountToAccountIdMapping.put(accountDto.getAccountId(), accountDto);
+            AccountAndBudgetDto newDto = new AccountAndBudgetDto()
+                .withAccountName(accountDto.getAccountName())
+                .withAccountId(accountId)
+                .withAccountBalance(accountDto.getBalance())
+                .withCurrentBudgetBalance(new BigDecimal("0"));
+            accountIdToAccountAndBudgetMapping.put(accountDto.getAccountId(), newDto);
         }
         for (String budgetId : sourceUser.getBudgets()) {
             QuerySpec budgetQuerySpec = QueryUtils.budgetQuerySpec(budgetId);
@@ -141,19 +147,19 @@ public class UserService {
             budgetDtos.add(budgetDto);
         }
         for (BudgetDto budgetDto : budgetDtos) {
-            AccountDto toMapWith = accountToAccountIdMapping.get(budgetDto.getAccountId());
-            AccountAndBudgetDto toAdd = new AccountAndBudgetDto()
-                    .withAccountName(toMapWith.getAccountName())
-                    .withAccountId(toMapWith.getAccountId())
-                    .withAccountBalance(toMapWith.getBalance())
-                    .withBudgetName(budgetDto.getBudgetName())
-                    .withCurrentBudgetBalance(budgetDto.getCurrentBudgetBalance())
-                    .withMaxBudgetBalance(budgetDto.getMaxBudgetBalance())
-                    .withAutoCancel(budgetDto.getAutoCancel())
-                    .withMinimumAlert(budgetDto.getMinimumAlert());
-            toReturn.add(toAdd);
+            AccountAndBudgetDto toMapWith = accountIdToAccountAndBudgetMapping.get(budgetDto.getAccountId());
+            toMapWith.withBudgetName(budgetDto.getBudgetName())
+                .withBudgetId(budgetDto.getBudgetId())
+                .withCurrentBudgetBalance(budgetDto.getCurrentBudgetBalance())
+                .withMaxBudgetBalance(budgetDto.getMaxBudgetBalance())
+                .withAutoCancel(budgetDto.getAutoCancel())
+                .withMinimumAlert(budgetDto.getMinimumAlert());
+            accountIdToAccountAndBudgetMapping.put(budgetDto.getAccountId(), toMapWith);
         }
 
+        for (AccountAndBudgetDto dto : accountIdToAccountAndBudgetMapping.values()) {
+            toReturn.add(dto);
+        }
         return toReturn;
     }
 

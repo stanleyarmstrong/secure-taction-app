@@ -169,6 +169,7 @@ public class AccountServiceTest {
         assertEquals(accountName, result.getAccountName());
     }
 
+    /*
     @Test
     public void deleteByIdandUserId() throws Exception {
         final String accountId = UUID.randomUUID().toString().toUpperCase();
@@ -176,4 +177,5 @@ public class AccountServiceTest {
         accountService.deleteByIdAndName(accountId, userId);
         verify(accountRepository, times(1)).deleteByIdAndName(any(DeleteItemSpec.class));
     }
+    */
 }
