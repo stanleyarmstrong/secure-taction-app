@@ -135,10 +135,7 @@ public class UserService {
                 .withAccountName(accountDto.getAccountName())
                 .withAccountId(accountId)
                 .withAccountBalance(accountDto.getBalance())
-                .withCurrentBudgetBalance(new BigDecimal("0.1"))
-                .withMaxBudgetBalance(new BigDecimal("0"))
-                .withAutoCancel(new BigDecimal("0"))
-                .withMinimumAlert(new BigDecimal("0"));
+                .withCurrentBudgetBalance(new BigDecimal("0"));
             accountIdToAccountAndBudgetMapping.put(accountDto.getAccountId(), newDto);
         }
         for (String budgetId : sourceUser.getBudgets()) {
