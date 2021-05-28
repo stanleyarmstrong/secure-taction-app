@@ -15,6 +15,7 @@ const HomeScreen = (props) => {
     });
     getAccounts()
       .then((data) => {
+        console.log(data);
         setCardRows(
           data.map((account) => {
             return (

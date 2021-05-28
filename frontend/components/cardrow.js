@@ -10,10 +10,10 @@ const CardRow = (props) => {
   const progress =
     props.maxBudget && props.currentBudget
       ? (props.maxBudget - props.currentBudget) / props.currentBudget
-      : 1;
-  const set = progress === 1 ? false : true;
+      : 2;
+  const set = progress === 2 ? false : true;
   const getColor =
-    progress === 1 ? '#C2C2C2' : progress >= 0.1 ? '#A8F388' : '#FF7A72';
+    progress > 1 ? '#C2C2C2' : progress >= 0.1 ? '#A8F388' : '#FF7A72';
   const alert = props.alert > 0 ? props.alert : 0;
   const cancel = props.cancel > 0 ? props.cancel : 0;
   return (

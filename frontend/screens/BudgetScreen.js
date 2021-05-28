@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, StyleSheet, useColorScheme} from 'react-native';
 import {Card, Divider} from 'react-native-paper';
 import BankInfo from '../components/bankinfo';
@@ -6,6 +6,8 @@ import {AddBudget, Budget} from '../components/budget';
 import {RecentActivity} from '../components/recentactivity';
 
 const BudgetScreen = ({route}) => {
+  const [account, setAccount] = useState({});
+  const [budget, setBudget] = useState({});
   //replace with state call
   const {
     accountName,
