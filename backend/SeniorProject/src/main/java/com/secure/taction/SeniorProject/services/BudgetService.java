@@ -33,6 +33,7 @@ public class BudgetService {
     private final UserRepository userRepository;
     private final BudgetDtoToItem dtoToItem;
     private final BudgetItemToDto itemToDto;
+    private final UserService userService;
     private final UserItemToUserDto userItemToDto;
 
     @Autowired
@@ -40,11 +41,13 @@ public class BudgetService {
                          UserRepository userRepository,
                          BudgetDtoToItem dtoToItem,
                          BudgetItemToDto itemToDto,
+                         UserService userService,
                          UserItemToUserDto userItemToDto) {
         this.budgetRepository = budgetRepository;
         this.userRepository = userRepository;
         this.dtoToItem = dtoToItem;
         this.itemToDto = itemToDto;
+        this.userService = userService;
         this.userItemToDto = userItemToDto;
     }
 
@@ -95,7 +98,12 @@ public class BudgetService {
         DeleteItemSpec spec = new DeleteItemSpec()
                                 .withPrimaryKey(BudgetTableConstants.BUDGET_ID, id,
                                                 BudgetTableConstants.USER_ID, userId);
+
+        ItemCollection<QueryOutcome> userCollection = userRepository.queryForUser(QueryUtils.userQuerySpec(userId));
+        UserDto userDto = userItemToDto.convert(new User().withItem(userCollection.iterator().next()));
+        userDto.removeBudget(id);
         try {
+            userService.update(userDto);
             budgetRepository.deleteByIdAndUserId(spec);
         } catch (Exception ex) {
             System.err.println(ex.getMessage());

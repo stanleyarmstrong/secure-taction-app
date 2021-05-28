@@ -139,6 +139,11 @@ public class UserDto {
 		return this;
 	}
 
+	public UserDto removeAccount(String accountId) {
+		this.accounts.remove((String) accountId);
+		return this;
+	}
+
 	public List<String> getBudgets() {
 		return budgets;
 	}
@@ -157,6 +162,11 @@ public class UserDto {
 
 	public UserDto withBudgets(List<String> budgets) {
 		setBudgets(budgets);
+		return this;
+	}
+
+	public UserDto removeBudget(String budgetId) {
+		this.budgets.remove(budgetId);
 		return this;
 	}
 
