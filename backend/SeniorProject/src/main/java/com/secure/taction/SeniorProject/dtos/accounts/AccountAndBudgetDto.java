@@ -10,6 +10,7 @@ public class AccountAndBudgetDto {
 
     private String accountName;
     private String accountId;
+    private String budgetId;
     private BigDecimal accountBalance;
     private BigDecimal maxBudgetBalance;
     private BigDecimal currentBudgetBalance;
@@ -121,6 +122,19 @@ public class AccountAndBudgetDto {
 
     public AccountAndBudgetDto withAccountId(String accountId) {
         setAccountId(accountId);
+        return this;
+    }
+
+    public String getBudgetId() {
+        return budgetId;
+    }
+
+    public void setBudgetId(String budgetId) {
+        this.budgetId = budgetId;
+    }
+
+    public AccountAndBudgetDto withBudgetId(String budgetId) {
+        setBudgetId(budgetId);
         return this;
     }
 

@@ -149,10 +149,11 @@ public class UserService {
         for (BudgetDto budgetDto : budgetDtos) {
             AccountAndBudgetDto toMapWith = accountIdToAccountAndBudgetMapping.get(budgetDto.getAccountId());
             toMapWith.withBudgetName(budgetDto.getBudgetName())
-                    .withCurrentBudgetBalance(budgetDto.getCurrentBudgetBalance())
-                    .withMaxBudgetBalance(budgetDto.getMaxBudgetBalance())
-                    .withAutoCancel(budgetDto.getAutoCancel())
-                    .withMinimumAlert(budgetDto.getMinimumAlert());
+                .withBudgetId(budgetDto.getBudgetId())
+                .withCurrentBudgetBalance(budgetDto.getCurrentBudgetBalance())
+                .withMaxBudgetBalance(budgetDto.getMaxBudgetBalance())
+                .withAutoCancel(budgetDto.getAutoCancel())
+                .withMinimumAlert(budgetDto.getMinimumAlert());
             accountIdToAccountAndBudgetMapping.put(budgetDto.getAccountId(), toMapWith);
         }
 
