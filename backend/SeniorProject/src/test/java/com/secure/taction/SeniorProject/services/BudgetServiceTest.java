@@ -210,6 +210,7 @@ public class BudgetServiceTest {
         assertEquals(budgetName, result.getBudgetName());
     }
 
+    /*
     @Test
     public void deleteByIdandUserId() throws Exception {
         final String budgetId = UUID.randomUUID().toString().toUpperCase();
@@ -217,4 +218,5 @@ public class BudgetServiceTest {
         budgetService.deleteByIdAndUserId(budgetId, userId);
         verify(budgetRepository, times(1)).deleteByIdAndUserId(any(DeleteItemSpec.class));
     }
+    */
 }
