@@ -150,7 +150,7 @@ public class UserService {
             AccountAndBudgetDto toMapWith = accountIdToAccountAndBudgetMapping.get(budgetDto.getAccountId());
             toMapWith.withBudgetName(budgetDto.getBudgetName())
                 .withBudgetId(budgetDto.getBudgetId())
-                .withCurrentBudgetBalance(budgetDto.getCurrentBudgetBalance())
+                .withCurrentBudgetBalance(budgetDto.getCurrentBudgetBalance() != null ? budgetDto.getCurrentBudgetBalance() : new BigDecimal("0"))
                 .withMaxBudgetBalance(budgetDto.getMaxBudgetBalance())
                 .withAutoCancel(budgetDto.getAutoCancel())
                 .withMinimumAlert(budgetDto.getMinimumAlert());
