@@ -69,7 +69,7 @@ public class AccountAndBudgetDto {
     }
 
     public AccountAndBudgetDto withCurrentBudgetBalance(BigDecimal currentBudgetBalance) {
-        setMaxBudgetBalance(currentBudgetBalance);
+        setCurrentBudgetBalance(currentBudgetBalance);
         return this;
     }
 
