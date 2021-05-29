@@ -16,7 +16,7 @@ public class AccountDtoToAccountItem implements Converter<AccountDto, Account>{
   
     return new Account().withItem(
       new Item()
-        .withPrimaryKey(AccountTableConstants.ACCOUNT_ID, UUID.randomUUID().toString().toUpperCase())
+        .withPrimaryKey(AccountTableConstants.ACCOUNT_ID, dto.getAccountId())
         .with(AccountTableConstants.USER_ID, dto.getUserId())
         .with(AccountTableConstants.ACCOUNT_TYPE, dto.getAccountType())
         .with(AccountTableConstants.BALANCE, dto.getBalance())
