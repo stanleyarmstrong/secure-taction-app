@@ -7,7 +7,7 @@ export const getBudget = (budgetId) => {
     .get(
       'http://localhost:10180/budget/' +
         budgetId +
-        '/81718C54-4B2C-4131-AD0F-D8726B0A9F4B',
+        '/5CC6D297-2415-4A36-8E61-79C011C3C9EF',
       {
         headers: {
           Authorization: authToken,

@@ -4,7 +4,7 @@ import {authToken} from './authToken';
 export const getUser = () => {
   return axios
     .get(
-      'http://localhost:10180/user/81718C54-4B2C-4131-AD0F-D8726B0A9F4B/demoUser',
+      'http://localhost:10180/user/5CC6D297-2415-4A36-8E61-79C011C3C9EF/JohnnyBoy7',
       {
         headers: {
           Authorization: authToken,

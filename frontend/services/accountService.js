@@ -4,7 +4,7 @@ import base64 from 'react-native-base64';
 const authToken = 'Basic ' + base64.encode('asdfjkl:asdfjkl');
 export const getAccounts = () => {
   return axios
-    .get('http://localhost:10180/user/81718C54-4B2C-4131-AD0F-D8726B0A9F4B', {
+    .get('http://localhost:10180/user/5CC6D297-2415-4A36-8E61-79C011C3C9EF', {
       headers: {
         Authorization: authToken,
       },
@@ -22,7 +22,7 @@ export const getAccount = (accountId) => {
     .get(
       'http://localhost:10180/account/' +
         accountId +
-        '/81718C54-4B2C-4131-AD0F-D8726B0A9F4B',
+        '/5CC6D297-2415-4A36-8E61-79C011C3C9EF',
       {
         headers: {
           Authorization: authToken,

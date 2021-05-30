@@ -7,8 +7,8 @@ export const getTransactions = (accountId) => {
     url: 'http://localhost:10180/plaid/transactions',
     data: {
       publicToken: accountId,
-      userId: '81718C54-4B2C-4131-AD0F-D8726B0A9F4B',
-      userName: 'demoUser',
+      userId: '5CC6D297-2415-4A36-8E61-79C011C3C9EF',
+      userName: 'JohnnyBoy7',
     },
   })
     .then((data) => {
