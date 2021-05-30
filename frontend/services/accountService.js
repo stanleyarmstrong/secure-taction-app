@@ -30,6 +30,7 @@ export const getAccount = (accountId) => {
       },
     )
     .then((success) => {
+      console.log(success);
       return success.data;
     })
     .catch((error) => {
