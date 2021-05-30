@@ -2,10 +2,12 @@ import React, {useState} from 'react';
 import {View, StyleSheet, useColorScheme} from 'react-native';
 import {Card, Button, TextInput} from 'react-native-paper';
 import {useNavigation} from '@react-navigation/native';
+import {addBudget} from '../services/budgetService';
 
-const AddBudgetScreen = () => {
+const AddBudgetScreen = ({route}) => {
   const navigation = useNavigation();
   // do with state shit: need to add a useEffect to get the just the user and account ids
+  const {accountId} = route.params;
   const [maxBudgetBalance, setMaxBudgetBalance] = useState('');
   const currentBudgetBalance = 0;
   const [minimumAlert, setMinimumAlert] = useState('');
@@ -66,6 +68,8 @@ const AddBudgetScreen = () => {
             onPress={() => {
               //need to add user id and account id to object
               const obj = {
+                userId: '81718C54-4B2C-4131-AD0F-D8726B0A9F4B',
+                accountId: accountId,
                 maxBudgetBalance: maxBudgetBalance,
                 currentBudgetBalance: currentBudgetBalance,
                 minimumAlert: minimumAlert,
@@ -73,7 +77,7 @@ const AddBudgetScreen = () => {
                 budgetName: budgetName,
               };
               // service call instead of console.log
-              console.log(obj);
+              addBudget(obj);
               navigation.pop();
             }}>
             Done

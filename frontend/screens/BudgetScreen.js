@@ -10,9 +10,9 @@ import {getBudget} from '../services/budgetService';
 const BudgetScreen = ({route}) => {
   const [account, setAccount] = useState({});
   const [budget, setBudget] = useState({});
+  const {accountId, budgetId} = route.params;
   //replace with state call
   useEffect(() => {
-    const {accountId, budgetId} = route.params;
     getAccount(accountId)
       .then((data) => {
         setAccount(data);
@@ -20,28 +20,25 @@ const BudgetScreen = ({route}) => {
       .catch((error) => {
         console.error(error);
       });
-    getBudget(accountId, budgetId)
+    getBudget(budgetId)
       .then((data) => {
         setBudget(data);
       })
       .catch((error) => {
-        console.error(error);
+        setBudget({});
       });
-  }, [route.params]);
-  /*
-  const middle = budget ? (
-    <AddBudget />
-  ) : (
+  }, [accountId, budgetId]);
+  const middle =
+    Object.keys(budget).length === 0 || Object.keys(budget).length === 5 ? (
+      <AddBudget id={accountId} />
+    ) : (
       <Budget
-        alert={alert}
-        cancel={cancel}
-        currentBudget={currentBudget}
-        maxBudget={maxBudget}
+        alert={budget.minimumAlert}
+        cancel={budget.autoCancel}
+        currentBudget={budget.currentBudgetBalance}
+        maxBudget={budget.maxBudgetBalance}
       />
     );
-  */
-  console.log(account);
-  console.log(budget);
   return (
     <View style={styles.shell}>
       <Card style={styles.inner}>
@@ -53,10 +50,10 @@ const BudgetScreen = ({route}) => {
         <Card.Content>
           <BankInfo
             balance={account.balance}
-            budget={0}
+            budget={budget.currentBudgetBalance}
           />
           <Divider />
-          <AddBudget />
+          {middle}
           <Divider />
           <RecentActivity />
         </Card.Content>
