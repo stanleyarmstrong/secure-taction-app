@@ -52,6 +52,7 @@ const CardRow = (props) => {
               navigation.push('budget', {
                 accountId: props.id,
                 budgetId: props.budgetId,
+                accountName: props.name,
               });
             }}
             size={20}

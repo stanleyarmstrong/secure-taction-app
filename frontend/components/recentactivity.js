@@ -9,24 +9,29 @@ export const RecentActivity = (props) => {
   //replace with state once transactions endpoint/service is done
   const [transactions, setTransactions] = useState([]);
   useEffect(() => {
-    getTransactions(props.accountId).then((data) => {
-      setTransactions(
-        data.map((transaction) => {
-          return (
-            <View>
-              <DataTable.Row key={transaction.transactionId}>
-                <DataTable.Cell numeric={false}>
-                  {transaction.vendor}
-                </DataTable.Cell>
-                <DataTable.Cell numeric={true}>
-                  ${transaction.amount.toFixed(2)}
-                </DataTable.Cell>
-              </DataTable.Row>
-            </View>
-          );
-        }),
-      );
-    });
+    getTransactions(props.accountId)
+      .then((data) => {
+        setTransactions(
+          data.map((transaction) => {
+            return (
+              <View>
+                <DataTable.Row key={transaction.transactionId}>
+                  <DataTable.Cell numeric={false}>
+                    {transaction.vendor}
+                  </DataTable.Cell>
+                  <DataTable.Cell numeric={true}>
+                    ${transaction.amount.toFixed(2)}
+                  </DataTable.Cell>
+                </DataTable.Row>
+              </View>
+            );
+          }),
+        );
+      })
+      .catch((error) => {
+        console.error(error);
+        setTransactions([]);
+      });
   }, [props.accountId]);
   /*
   const transactions = [
@@ -55,15 +60,23 @@ export const RecentActivity = (props) => {
     );
   });
   */
+  const noActivity = (
+    <View>
+      <Text> No Recent Activity To Show </Text>
+    </View>
+  );
   return (
     <View style={styles.top}>
       <Text style={styles.text}> Recent Activity: </Text>
-      {transactions}
+      {transactions === [] ? noActivity : transactions}
       <Button
         mode="outlined"
         onPress={() => {
           //need to change to list of transactions screen
-          navigation.push('transactions', {accountId: props.accountId});
+          navigation.push('transactions', {
+            accountId: props.accountId,
+            accountName: props.accountName,
+          });
         }}
         color="#007AE1">
         Show More

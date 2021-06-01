@@ -40,7 +40,7 @@ const App = () => {
       .catch((error) => {
         console.error(error);
       });
-  }, []);
+  }, [user]);
   return (
     <PaperProvider theme={theme}>
       <NavigationContainer>
@@ -59,7 +59,9 @@ const App = () => {
           <Stack.Screen
             name="budget"
             component={BudgetScreen}
-            options={{title: "Card's Budget"}}
+            options={({route}) => ({
+              title: route.params.accountName + "'s Budget",
+            })}
           />
           <Stack.Screen
             name="addbudget"
@@ -69,12 +71,17 @@ const App = () => {
           <Stack.Screen
             name="transactions"
             component={TransactionsScreen}
-            options={{title: 'Recent Activity'}}
+            options={({route}) => ({
+              title: route.params.accountName + "'s Activity",
+            })}
           />
           <Stack.Screen
             name="settings"
             component={SettingsScreen}
             options={{title: 'Settings'}}
+            initialParams={{
+              user: user,
+            }}
           />
           <Stack.Screen
             name="fraudalert"

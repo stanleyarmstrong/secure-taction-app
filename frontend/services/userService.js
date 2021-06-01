@@ -18,3 +18,19 @@ export const getUser = () => {
       console.error(error);
     });
 };
+
+export const updateUser = (obj) => {
+  return axios
+    .put('http://localhost:10180/user', obj, {
+      headers: {
+        Authorization: authToken,
+      },
+    })
+    .then((success) => {
+      return success.data;
+    })
+    .catch((error) => {
+      console.error(error);
+      return error;
+    });
+};

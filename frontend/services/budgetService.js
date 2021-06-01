@@ -32,8 +32,8 @@ export const addBudget = (obj) => {
       },
     })
     .then((success) => {
-      console.log(success.status);
-      return success.status;
+      console.log(success.data);
+      return success.data;
     })
     .catch((error) => {
       console.error(error);

@@ -43,7 +43,7 @@ const BudgetScreen = ({route}) => {
     <View style={styles.shell}>
       <Card style={styles.inner}>
         <Card.Title
-          title={account.accountName}
+          title={budget.budgetName}
           style={styles.title}
           titleStyle={styles.titleColor}
         />

@@ -68,7 +68,7 @@ const AddBudgetScreen = ({route}) => {
             onPress={() => {
               //need to add user id and account id to object
               const obj = {
-                userId: '81718C54-4B2C-4131-AD0F-D8726B0A9F4B',
+                userId: '5CC6D297-2415-4A36-8E61-79C011C3C9EF',
                 accountId: accountId,
                 maxBudgetBalance: maxBudgetBalance,
                 currentBudgetBalance: currentBudgetBalance,

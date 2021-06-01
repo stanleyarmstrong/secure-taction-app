@@ -1,10 +1,37 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, FlatList, StyleSheet, useColorScheme} from 'react-native';
 import {Card, DataTable} from 'react-native-paper';
+import {getTransactions} from '../services/transactionservice';
 
-const TransactionsScreen = () => {
+const TransactionsScreen = ({route}) => {
   // replace with a state call here, and the map will happen in the api call
   // also polish the data table rows
+  const {accountId} = route.params.accountId;
+  const [transactions, setTransactions] = useState([]);
+  useEffect(() => {
+    getTransactions(accountId)
+      .then((data) => {
+        setTransactions(
+          data.map((transaction) => {
+            return (
+              <View>
+                <DataTable.Row key={transaction.transactionId}>
+                  <DataTable.Cell numeric={false}>
+                    {transaction.vendor}
+                  </DataTable.Cell>
+                  <DataTable.Cell>
+                    {transaction.type}
+                  </DataTable.Cell>
+                  <DataTable.Cell numeric={true}>
+                    ${transaction.amount.toFixed(2)}
+                  </DataTable.Cell>
+                </DataTable.Row>
+              </View>
+            );
+          }),
+        );
+  }, []);
+  /*
   const transactions = [
     {
       transactionId: 0,
@@ -39,6 +66,7 @@ const TransactionsScreen = () => {
       </DataTable.Row>
     );
   });
+  */
   return (
     <View style={styles.shell}>
       <Card style={styles.inner}>
