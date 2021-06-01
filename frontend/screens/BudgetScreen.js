@@ -55,7 +55,10 @@ const BudgetScreen = ({route}) => {
           <Divider />
           {middle}
           <Divider />
-          <RecentActivity />
+          <RecentActivity
+            accountId={accountId}
+            accountName={account.accountName}
+          />
         </Card.Content>
       </Card>
     </View>

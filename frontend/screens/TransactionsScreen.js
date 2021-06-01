@@ -4,69 +4,33 @@ import {Card, DataTable} from 'react-native-paper';
 import {getTransactions} from '../services/transactionservice';
 
 const TransactionsScreen = ({route}) => {
-  // replace with a state call here, and the map will happen in the api call
-  // also polish the data table rows
-  const {accountId} = route.params.accountId;
   const [transactions, setTransactions] = useState([]);
+  const [page, setPage] = useState(0);
+  const itemsPerPage = 8;
+  const from = page * itemsPerPage;
+  const to = (page + 1) * itemsPerPage;
   useEffect(() => {
-    getTransactions(accountId)
-      .then((data) => {
-        setTransactions(
-          data.map((transaction) => {
-            return (
-              <View>
-                <DataTable.Row key={transaction.transactionId}>
-                  <DataTable.Cell numeric={false}>
-                    {transaction.vendor}
-                  </DataTable.Cell>
-                  <DataTable.Cell>
-                    {transaction.type}
-                  </DataTable.Cell>
-                  <DataTable.Cell numeric={true}>
-                    ${transaction.amount.toFixed(2)}
-                  </DataTable.Cell>
-                </DataTable.Row>
-              </View>
-            );
-          }),
-        );
-  }, []);
-  /*
-  const transactions = [
-    {
-      transactionId: 0,
-      accountId: 0,
-      amount: -100.59,
-      address: 'In Person',
-      vendor: "Ralph's Grocery",
-      categories: ['Grocery'],
-    },
-    {
-      transactionId: 1,
-      accountId: 1,
-      amount: 1500.67,
-      address: 'Direct Deposit',
-      vendor: 'Cisco Systems',
-      categories: ['Paycheck'],
-    },
-    {
-      transactionId: 2,
-      accountId: 2,
-      amount: -14.29,
-      address: 'In Person',
-      vendor: 'Grocery Outlet',
-      categories: ['Grocery'],
-    },
-  ].map((transaction) => {
-    return (
-      <DataTable.Row key={transaction.transactionId}>
-        <DataTable.Cell> {transaction.vendor} </DataTable.Cell>
-        <DataTable.Cell> {transaction.address}</DataTable.Cell>
-        <DataTable.Cell numeric> {transaction.amount}</DataTable.Cell>
-      </DataTable.Row>
-    );
-  });
-  */
+    getTransactions(route.params.accountId).then((data) => {
+      setTransactions(
+        data.map((transaction) => {
+          return (
+            <View>
+              <DataTable.Row key={transaction.transactionId}>
+                <DataTable.Cell numeric={false}>
+                  {transaction.vendor}
+                </DataTable.Cell>
+                <DataTable.Cell> {transaction.type} </DataTable.Cell>
+                <DataTable.Cell numeric={true}>
+                  ${transaction.amount > 0 ? '-' : ''}
+                  {transaction.amount.toFixed(2)}
+                </DataTable.Cell>
+              </DataTable.Row>
+            </View>
+          );
+        }),
+      );
+    });
+  }, [route.params]);
   return (
     <View style={styles.shell}>
       <Card style={styles.inner}>
@@ -82,7 +46,17 @@ const TransactionsScreen = ({route}) => {
               <DataTable.Title> Type </DataTable.Title>
               <DataTable.Title numeric> Amount </DataTable.Title>
             </DataTable.Header>
-            {transactions}
+            {transactions.slice(from, to)}
+            <DataTable.Pagination
+              page={page}
+              numberofPages={Math.floor(transactions.length / itemsPerPage)}
+              onPageChange={(p) => {
+                setPage(p);
+              }}
+              label={
+                from + '-' + to + ' of ' + transactions.length + ' transactions'
+              }
+            />
           </DataTable>
         </Card.Content>
       </Card>
