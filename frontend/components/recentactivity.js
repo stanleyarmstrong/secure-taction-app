@@ -30,36 +30,8 @@ export const RecentActivity = (props) => {
       })
       .catch((error) => {
         console.error(error);
-        setTransactions([]);
       });
   }, [props.accountId]);
-  /*
-  const transactions = [
-    {
-      id: 0,
-      from: "Ralph's Grocery",
-      amount: -100.29,
-    },
-    {
-      id: 1,
-      from: 'Cisco Systems',
-      amount: 1500.67,
-    },
-    {
-      id: 2,
-      from: 'Grocery Outlet',
-      amount: -14.29,
-    },
-  ];
-  const transactionComponents = transactions.map((transaction) => {
-    return (
-      <DataTable.Row key={transaction.id}>
-        <DataTable.Cell numeric={false}> {transaction.from} </DataTable.Cell>
-        <DataTable.Cell numeric={true}> ${transaction.amount} </DataTable.Cell>
-      </DataTable.Row>
-    );
-  });
-  */
   const noActivity = (
     <View>
       <Text> No Recent Activity To Show </Text>
@@ -68,7 +40,11 @@ export const RecentActivity = (props) => {
   return (
     <View style={styles.top}>
       <Text style={styles.text}> Recent Activity: </Text>
-      {transactions === [] ? noActivity : transactions}
+      {transactions === []
+        ? noActivity
+        : transactions.length > 3
+        ? transactions.slice(0, 3)
+        : transactions}
       <Button
         mode="outlined"
         onPress={() => {

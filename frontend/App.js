@@ -34,7 +34,6 @@ const App = () => {
   useEffect(() => {
     getUser()
       .then((data) => {
-        console.log(data);
         setUser(data);
       })
       .catch((error) => {
