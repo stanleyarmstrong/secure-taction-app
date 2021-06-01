@@ -1,0 +1,61 @@
+import axios from 'axios';
+import base64 from 'react-native-base64';
+
+const authToken = 'Basic ' + base64.encode('asdfjkl:asdfjkl');
+export const getAccounts = () => {
+  return axios
+    .get('http://localhost:10180/user/5CC6D297-2415-4A36-8E61-79C011C3C9EF', {
+      headers: {
+        Authorization: authToken,
+      },
+    })
+    .then((success) => {
+      return success.data;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
+
+export const getAccount = (accountId) => {
+  return axios
+    .get(
+      'http://localhost:10180/account/' +
+        accountId +
+        '/5CC6D297-2415-4A36-8E61-79C011C3C9EF',
+      {
+        headers: {
+          Authorization: authToken,
+        },
+      },
+    )
+    .then((success) => {
+      console.log(success);
+      return success.data;
+    })
+    .catch((error) => {
+      console.error(error);
+      return error;
+    });
+};
+
+export const deleteAccount = (accountId) => {
+  return axios
+    .delete(
+      'http://localhost:10180/account/' +
+        accountId +
+        '/81718C54-4B2C-4131-AD0F-D8726B0A9F4B',
+      {
+        headers: {
+          Authorization: authToken,
+        },
+      },
+    )
+    .then((success) => {
+      return success.status;
+    })
+    .catch((error) => {
+      console.error(error);
+      return error;
+    });
+};

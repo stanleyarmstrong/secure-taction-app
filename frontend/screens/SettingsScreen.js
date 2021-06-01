@@ -2,22 +2,15 @@ import React, {useState} from 'react';
 import {View, StyleSheet} from 'react-native';
 import {Card, Button, TextInput} from 'react-native-paper';
 import {useNavigation} from '@react-navigation/native';
+import {updateUser} from '../services/userService';
 
-const SettingsScreen = () => {
+const SettingsScreen = ({route}) => {
   const navigation = useNavigation();
-  // replace with state
-  const user = {
-    userId: 0,
-    userName: 'stanleycodes',
-    email: 'stanley@sharklasers.com',
-    password: 'somethiing',
-    firstName: 'Stanley',
-    lastName: 'Armstrong',
-  };
+  const {user} = route.params;
   const [clicked, setClicked] = useState(false);
   const [email, setEmail] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
   const [firstName, setFirstName] = useState('');
-  const [userName, setUserName] = useState('');
   const [lastName, setLastName] = useState('');
   const account = (
     <View>
@@ -38,19 +31,19 @@ const SettingsScreen = () => {
     <View>
       <TextInput
         mode="outlined"
-        value={userName}
-        label="Username"
-        placeholder="ex: stanleycodes"
-        onChangeText={(name) => setUserName(name)}
+        value={email}
+        label="Email"
+        placeholder="ex: stanleycodes@twitch.tv"
+        onChangeText={(em) => setEmail(em)}
         theme={theme}
         style={styles.input}
       />
       <TextInput
         mode="outlined"
-        value={email}
-        label="Email"
-        placeholder="ex: stanleycodes@twitch.tv"
-        onChangeText={(em) => setEmail(em)}
+        value={phoneNumber}
+        label="Phone Number"
+        placeholder="ex: 123-456-7890"
+        onChangeText={(pn) => setPhoneNumber(pn)}
         theme={theme}
         style={styles.input}
       />
@@ -79,14 +72,24 @@ const SettingsScreen = () => {
         onPress={() => {
           //need to add user id and account id to object
           const obj = {
-            userName: userName,
-            email: email,
+            userId: user.userId,
+            userName: user.userName,
+            email: email === '' ? user.email : email,
             password: user.password,
-            firstName: firstName,
-            lastName: lastName,
+            phoneNumber: phoneNumber === '' ? user.phoneNumber : phoneNumber,
+            firstName: firstName === '' ? user.firstName : firstName,
+            lastName: lastName === '' ? user.lastName : lastName,
+            accounts: user.accounts,
+            budgets: user.budgets,
           };
+          updateUser(obj)
+            .then((success) => {
+              console.log('Request went through sucessfully');
+            })
+            .catch((error) => {
+              console.error(error);
+            });
           // service call instead of console.log
-          console.log(obj);
           setClicked(false);
         }}>
         Done

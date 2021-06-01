@@ -5,6 +5,8 @@ import {useNavigation} from '@react-navigation/native';
 
 const BankInfo = (props) => {
   const bank = props.bank ? props.bank : '';
+  const accountBalance =
+    props.balance != undefined ? '$' + props.balance.toFixed(2) : 'Not Set';
   const budgetBalance = props.budget
     ? '$' + props.budget.toFixed(2)
     : 'Not Set';
@@ -20,7 +22,7 @@ const BankInfo = (props) => {
           />
         </View>
         <View style={styles.col2}>
-          <Text> Balance: ${props.balance.toFixed(2)} </Text>
+          <Text> Balance: {accountBalance} </Text>
           <Text> Current Spending: {budgetBalance} </Text>
         </View>
       </View>

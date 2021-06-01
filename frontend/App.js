@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 import 'react-native-gesture-handler';
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {DefaultTheme, Provider as PaperProvider} from 'react-native-paper';
@@ -17,6 +17,7 @@ import TransactionsScreen from './screens/TransactionsScreen';
 import AddBudgetScreen from './screens/AddBudgetScreen';
 import SettingsScreen from './screens/SettingsScreen';
 import FraudAlertScreen from './screens/FraudAlertScreen';
+import {getUser} from './services/userService';
 
 const Stack = createStackNavigator();
 const theme = {
@@ -29,6 +30,17 @@ const theme = {
 };
 
 const App = () => {
+  const [user, setUser] = useState({});
+  useEffect(() => {
+    getUser()
+      .then((data) => {
+        console.log(data);
+        setUser(data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [user]);
   return (
     <PaperProvider theme={theme}>
       <NavigationContainer>
@@ -40,12 +52,16 @@ const App = () => {
           <Stack.Screen
             name="home"
             component={HomeScreen}
-            options={{title: 'Good Morning, First Last'}}
+            options={{
+              title: 'Hello, ' + user.firstName + ' ' + user.lastName,
+            }}
           />
           <Stack.Screen
             name="budget"
             component={BudgetScreen}
-            options={{title: "Card's Budget"}}
+            options={({route}) => ({
+              title: route.params.accountName + "'s Budget",
+            })}
           />
           <Stack.Screen
             name="addbudget"
@@ -55,12 +71,17 @@ const App = () => {
           <Stack.Screen
             name="transactions"
             component={TransactionsScreen}
-            options={{title: 'Recent Activity'}}
+            options={({route}) => ({
+              title: route.params.accountName + "'s Activity",
+            })}
           />
           <Stack.Screen
             name="settings"
             component={SettingsScreen}
             options={{title: 'Settings'}}
+            initialParams={{
+              user: user,
+            }}
           />
           <Stack.Screen
             name="fraudalert"

@@ -3,25 +3,17 @@ import {View, Image, StyleSheet} from 'react-native';
 import {Text, Divider, IconButton} from 'react-native-paper';
 import {useNavigation} from '@react-navigation/native';
 import * as Progress from 'react-native-progress';
+import {deleteAccount} from '../services/accountService';
 
 const CardRow = (props) => {
   const navigation = useNavigation();
   const progress =
     props.maxBudget && props.currentBudget
       ? (props.maxBudget - props.currentBudget) / props.currentBudget
-      : 1;
-  const set = progress === 1 ? false : true;
-  // if you have time change this to a chained ternary statement
-  const getColor = () => {
-    if (progress === 1) {
-      return '#C2C2C2';
-    }
-    if (progress >= 0.1) {
-      return '#A8F388';
-    } else if (progress < 0.1) {
-      return '#FF7A72';
-    }
-  };
+      : 2;
+  const set = progress === 2 ? false : true;
+  const getColor =
+    progress > 1 ? '#C2C2C2' : progress >= 0.1 ? '#A8F388' : '#FF7A72';
   const alert = props.alert > 0 ? props.alert : 0;
   const cancel = props.cancel > 0 ? props.cancel : 0;
   return (
@@ -38,7 +30,7 @@ const CardRow = (props) => {
         <View style={styles.col2}>
           <Text style={styles.alerts}> {props.name} </Text>
           <Progress.Bar
-            color={getColor()}
+            color={getColor}
             progress={progress}
             height={20}
             width={150}
@@ -58,13 +50,9 @@ const CardRow = (props) => {
             style={styles.icon}
             onPress={() => {
               navigation.push('budget', {
+                accountId: props.id,
+                budgetId: props.budgetId,
                 accountName: props.name,
-                bank: props.bank,
-                alert: alert,
-                cancel: cancel,
-                maxBudget: props.maxBudget,
-                currentBudget: props.currentBudget,
-                set: set,
               });
             }}
             size={20}
@@ -75,6 +63,16 @@ const CardRow = (props) => {
             color={'#FF7A72'}
             style={styles.icon}
             size={20}
+            onPress={() => {
+              console.log(props.id);
+              deleteAccount(props.id)
+                .then((success) => {
+                  console.log(success);
+                })
+                .catch((error) => {
+                  console.error(error);
+                });
+            }}
           />
         </View>
       </View>

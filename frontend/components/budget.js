@@ -3,13 +3,13 @@ import {View, TouchableOpacity, StyleSheet} from 'react-native';
 import {Text, IconButton, DataTable} from 'react-native-paper';
 import {useNavigation} from '@react-navigation/native';
 
-export const AddBudget = () => {
+export const AddBudget = (props) => {
   const navigation = useNavigation();
   return (
     <View style={styles.addBudget}>
       <TouchableOpacity
         onPress={() => {
-          navigation.push('addbudget');
+          navigation.push('addbudget', {accountId: props.id});
         }}>
         <View style={styles.addInner}>
           <IconButton
@@ -26,6 +26,18 @@ export const AddBudget = () => {
 };
 
 export const Budget = (props) => {
+  const currentSpending =
+    props.currentBudget !== undefined
+      ? '$' + props.currentBudget.toFixed(2)
+      : 'Not Set';
+  const maximumSpending =
+    props.maxBudget !== undefined
+      ? '$' + props.maxBudget.toFixed(2)
+      : 'Not Set';
+  const minAlert =
+    props.alert !== undefined ? '$' + props.alert.toFixed(2) : 'Not Set';
+  const autoCancel =
+    props.cancel !== undefined ? '$' + props.cancel.toFixed(2) : 'Not Set';
   return (
     <DataTable>
       <DataTable.Header>
@@ -34,21 +46,19 @@ export const Budget = (props) => {
       </DataTable.Header>
       <DataTable.Row>
         <DataTable.Cell> Current Spending: </DataTable.Cell>
-        <DataTable.Cell numeric>
-          ${props.currentBudget.toFixed(2)}
-        </DataTable.Cell>
+        <DataTable.Cell numeric> {currentSpending} </DataTable.Cell>
       </DataTable.Row>
       <DataTable.Row>
         <DataTable.Cell> Maximum Spending: </DataTable.Cell>
-        <DataTable.Cell numeric> ${props.maxBudget.toFixed(2)} </DataTable.Cell>
+        <DataTable.Cell numeric> {maximumSpending} </DataTable.Cell>
       </DataTable.Row>
       <DataTable.Row>
         <DataTable.Cell> Minimum Alert: </DataTable.Cell>
-        <DataTable.Cell numeric> ${props.alert.toFixed(2)} </DataTable.Cell>
+        <DataTable.Cell numeric> {minAlert} </DataTable.Cell>
       </DataTable.Row>
       <DataTable.Row>
         <DataTable.Cell> Auto-Cancel: </DataTable.Cell>
-        <DataTable.Cell numeric> ${props.cancel.toFixed(2)} </DataTable.Cell>
+        <DataTable.Cell numeric> {autoCancel} </DataTable.Cell>
       </DataTable.Row>
     </DataTable>
   );

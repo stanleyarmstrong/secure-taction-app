@@ -1,19 +1,43 @@
 import React, {useState, useEffect} from 'react';
 import {View, StyleSheet, useColorScheme} from 'react-native';
 import {Card, Button, Divider} from 'react-native-paper';
-import {useNavigation} from '@react-navigation/native';
 import {PlaidLink} from 'react-native-plaid-link-sdk';
-import base64 from 'react-native-base64';
 import CardRow from '../components/cardrow';
 import {getLinkToken, tokenExchange} from '../services/plaidService';
+import {getAccounts} from '../services/accountService';
 
 const HomeScreen = (props) => {
   const [linkToken, setLinkToken] = useState('');
+  const [cardRows, setCardRows] = useState([]);
   useEffect(() => {
     getLinkToken().then((token) => {
       setLinkToken(token);
     });
-  }, []);
+    getAccounts()
+      .then((data) => {
+        setCardRows(
+          data.map((account) => {
+            return (
+              <CardRow
+                key={account.accountId}
+                id={account.accountId}
+                budgetId={account.budgetId}
+                name={account.accountName}
+                progress={
+                  account.currentBudgetBalance / account.maxBudgetBalance
+                }
+                alert={account.minimumAlert}
+                cancel={account.autoCancel}
+                balance={account.accountBalance}
+              />
+            );
+          }),
+        );
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [cardRows]);
   return (
     <View style={styles.shell}>
       <Card style={styles.inner}>
@@ -23,42 +47,17 @@ const HomeScreen = (props) => {
           titleStyle={styles.titleColor}
         />
         <Card.Content>
-          <CardRow
-            bank={
-              'https://www.pikpng.com/pngl/m/257-2578954_chase-bank-chase-bank-chase-bank-clipart.png'
-            }
-            name={'Chase Ending in ...4415'}
-            balance={3000}
-          />
-          <CardRow
-            bank={
-              'https://www.pikpng.com/pngl/m/257-2578954_chase-bank-chase-bank-chase-bank-clipart.png'
-            }
-            name={'Chase Ending in ...4415'}
-            balance={3000}
-          />
-          <CardRow
-            bank={
-              'https://www.pikpng.com/pngl/m/257-2578954_chase-bank-chase-bank-chase-bank-clipart.png'
-            }
-            name={'Chase Ending in ...4415'}
-            currentBudget={2000}
-            maxBudget={3000}
-            alert={20.5}
-            cancel={300}
-            balance={3000}
-          />
+          {cardRows}
           <Divider />
           <PlaidLink
             tokenConfig={{
               token: linkToken,
             }}
             onSuccess={(success) => {
-              console.log(success.publicToken);
               tokenExchange(
                 success.publicToken,
-                '81718C54-4B2C-4131-AD0F-D8726B0A9F4B',
-                'demoUser',
+                '5CC6D297-2415-4A36-8E61-79C011C3C9EF',
+                'JohnnyBoy7',
               );
             }}
             onExit={(exit) => {
