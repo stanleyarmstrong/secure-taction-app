@@ -161,7 +161,7 @@ public class PlaidController {
     System.out.println(currentDate);
 
     Response<TransactionsGetResponse> response = plaidClient.service()
-        .transactionsGet(new TransactionsGetRequest(publicToken.getPublicToken(), currentDate, firstOfMonth)
+        .transactionsGet(new TransactionsGetRequest(publicToken.getPublicToken(), firstOfMonth, currentDate)
           .withCount(50)
           .withOffset(0))
         .execute();
@@ -213,6 +213,7 @@ public class PlaidController {
   private Date getFirstOfMonth() {
     Calendar cal = Calendar.getInstance();
     cal.set(Calendar.HOUR_OF_DAY, 0);
+    cal.set(Calendar.MONTH, Calendar.MAY);
     return cal.getTime();
   }
 
