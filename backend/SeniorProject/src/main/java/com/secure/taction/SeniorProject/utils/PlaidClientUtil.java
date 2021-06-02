@@ -7,7 +7,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 public class PlaidClientUtil {
 
     public static String CLIENT_ID = "601ccb4f00e80f00113c58f5";
-    public static String SANDBOX_KEY = "e5ac68ca184449a580045975de6533";   
+    public static String SANDBOX_KEY = "26c9b077b7d090cc4d5ae252686ec3";   
 
     public static PlaidClient getPlaidClient() {
         return PlaidClient.newBuilder() 
