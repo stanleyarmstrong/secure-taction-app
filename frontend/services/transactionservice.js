@@ -20,7 +20,6 @@ export const getTransactions = (accountId) => {
       return success.data;
     })
     .catch((error) => {
-      console.error(error);
       return [];
     });
 };

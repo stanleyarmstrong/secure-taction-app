@@ -9,9 +9,8 @@ const CardRow = (props) => {
   const navigation = useNavigation();
   const progress =
     props.maxBudget && props.currentBudget
-      ? (props.maxBudget - props.currentBudget) / props.currentBudget
+      ? (props.maxBudget - props.currentBudget) / props.maxBudget
       : 2;
-  const set = progress === 2 ? false : true;
   const getColor =
     progress > 1 ? '#C2C2C2' : progress >= 0.1 ? '#A8F388' : '#FF7A72';
   const alert = props.alert > 0 ? props.alert : 0;
@@ -19,14 +18,6 @@ const CardRow = (props) => {
   return (
     <View>
       <View style={styles.outer}>
-        <View style={styles.col1}>
-          <Image
-            source={{
-              uri: props.bank,
-            }}
-            style={styles.image}
-          />
-        </View>
         <View style={styles.col2}>
           <Text style={styles.alerts}> {props.name} </Text>
           <Progress.Bar
