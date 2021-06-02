@@ -13,16 +13,16 @@ const Navbar = ({navigation, previous, scene}) => {
   const notifications = [
     {
       id: 0,
-      vendor: 'Something Sketchy',
+      vendor: 'fashionista.com',
       amount: 600,
-      account: 'Chase Checking',
+      account: 'New Account',
       visited: false,
     },
     {
       id: 1,
-      vendor: 'Not Sketchy',
+      vendor: 'Taco Bell',
       amount: 5.42,
-      account: 'Chase Checking',
+      account: 'New Account',
       visited: false,
     },
   ]

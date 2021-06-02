@@ -13,14 +13,6 @@ const BankInfo = (props) => {
   return (
     <View style={styles.row}>
       <View style={styles.cols}>
-        <View style={styles.col1}>
-          <Image
-            source={{
-              uri: bank,
-            }}
-            style={styles.image}
-          />
-        </View>
         <View style={styles.col2}>
           <Text> Balance: {accountBalance} </Text>
           <Text> Current Spending: {budgetBalance} </Text>
